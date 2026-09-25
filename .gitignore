@@ -1,0 +1,43 @@
+# Local OS/editor state
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Python environments and generated files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Large or reproducible experiment artifacts; commit small summaries instead
+data/
+datasets/
+checkpoints/
+artifacts/
+runs/
+traces/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.nsys-rep
+*.ncu-rep
+*.trace.json
+*.trace.json.gz
