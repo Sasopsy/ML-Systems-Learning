@@ -1,0 +1,220 @@
+{
+  "trace": "project_02_performance_laboratory/conv_dgrad.trace.json",
+  "trace_sha256": "e19a1035e41bc9a2efe3b61c29b9863995a143b4be034f7766ccf357dd480fee",
+  "verification": "Three CPU dgrad_only labels, three convolution_backward ops, each linked to one scalePackedTensor and one exact-name dgrad kernel. Model dgrad grid/block/register/shared-memory fields match all three isolated launches. No wgrad kernels or cudaDeviceSynchronize inside labels.",
+  "cudnn_flags": {
+    "benchmark": false,
+    "deterministic": false,
+    "allow_tf32": true
+  },
+  "model_reference": "progress/sessions/2026-09-27-project-02-selected-convolution.json",
+  "matched_fields": {
+    "grid": [
+      72,
+      1,
+      32
+    ],
+    "block": [
+      8,
+      8,
+      1
+    ],
+    "registers per thread": 96,
+    "shared memory": 3328
+  },
+  "kernel_events": [
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 7555464680925.641,
+      "dur": 1.408,
+      "args": {
+        "External id": 6,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 19,
+        "registers per thread": 22,
+        "shared memory": 0,
+        "blocks per SM": 1.939394,
+        "warps per SM": 15.515152,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ],
+        "est. achieved occupancy %": 24
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 7555464680943.753,
+      "dur": 143.711,
+      "args": {
+        "External id": 6,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 23,
+        "registers per thread": 96,
+        "shared memory": 3328,
+        "blocks per SM": 17.454546,
+        "warps per SM": 34.909092,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ],
+        "est. achieved occupancy %": 31
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 7555464681188.04,
+      "dur": 1.344,
+      "args": {
+        "External id": 13,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 48,
+        "registers per thread": 22,
+        "shared memory": 0,
+        "blocks per SM": 1.939394,
+        "warps per SM": 15.515152,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ],
+        "est. achieved occupancy %": 24
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 7555464681195.08,
+      "dur": 142.88,
+      "args": {
+        "External id": 13,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 52,
+        "registers per thread": 96,
+        "shared memory": 3328,
+        "blocks per SM": 17.454546,
+        "warps per SM": 34.909092,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ],
+        "est. achieved occupancy %": 31
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 7555464681339.048,
+      "dur": 1.28,
+      "args": {
+        "External id": 20,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 77,
+        "registers per thread": 22,
+        "shared memory": 0,
+        "blocks per SM": 1.939394,
+        "warps per SM": 15.515152,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ],
+        "est. achieved occupancy %": 24
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 7555464681341.415,
+      "dur": 142.176,
+      "args": {
+        "External id": 20,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 81,
+        "registers per thread": 96,
+        "shared memory": 3328,
+        "blocks per SM": 17.454546,
+        "warps per SM": 34.909092,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ],
+        "est. achieved occupancy %": 31
+      }
+    }
+  ],
+  "limitation": "Kernel-selection diagnostic with shape profiling; not an unprofiled timing baseline or performance improvement."
+}

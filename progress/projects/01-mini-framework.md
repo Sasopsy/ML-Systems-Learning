@@ -1,6 +1,10 @@
 # Project 1: Mini deep-learning framework
 
 Implementation: **paused, incomplete**. Active learning focus moved to Project 2.
+Revision notes: [index](../../project_01_mini_framework/notes/README.md), summarized
+from the existing scalar implementation and learning record on 2026-09-25.
+At the user's request, revision notes now use bullet points, short sections,
+tables, and numbered procedures for quick review; no new learning evidence.
 
 ## Implemented and reviewed
 

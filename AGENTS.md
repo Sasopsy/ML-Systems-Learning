@@ -10,7 +10,21 @@ implements learning-target code; explain, give progressive hints, and review.
 Only implement learning-target code when explicitly requested. Repository support
 work can be delegated separately. Do not treat finished code as proof of mastery.
 
-## Durable progress
+## Quick revision notes
+
+The user has authorized maintaining a `notes/` folder inside each project. Create
+it when a project begins and keep a short `README.md` index. After a lesson, add or
+update a concise topic note: the core idea, a small example when helpful, and key
+pitfalls. Capture covered material, not the entire future syllabus. Use relative
+links and keep notes easy to revise; experiment logs and mastery evidence belong
+in `progress/`. Notes summarize lessons, not proof of independent understanding.
+
+Use short bullet points, descriptive headings, and bold key terms for quick
+scanning. Use numbered steps for procedures, small tables for comparisons or
+formulas, and brief code examples where helpful. Avoid dense paragraphs; keep
+examples and pitfalls easy to find. Apply this style to future lesson notes.
+
+## Durable progress records
 
 The user has authorized maintaining `progress/` so sessions can continue across
 machines. After meaningful work, update `progress/STATUS.md`, the relevant project

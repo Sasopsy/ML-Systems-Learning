@@ -1,0 +1,18 @@
+{
+  "reference": "CPU float64 conv2d_input on original float32 values promoted to float64",
+  "atol": 1e-05,
+  "rtol": 1.3e-06,
+  "inputs_exactly_equal": true,
+  "off": {
+    "max_absolute_error": 0.00011968580707844012,
+    "mean_absolute_error": 1.423485832375312e-05,
+    "mismatched_elements": 4821
+  },
+  "on": {
+    "max_absolute_error": 0.00029977440388506693,
+    "mean_absolute_error": 2.575085995746367e-05,
+    "mismatched_elements": 9384
+  },
+  "total_elements": 65536,
+  "both_pass": false
+}

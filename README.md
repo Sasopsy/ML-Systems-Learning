@@ -8,10 +8,21 @@ A project-first workspace for the [ML systems roadmap](roadmap.md).
 
 - `roadmap.md`: full roadmap and project exit criteria.
 - `project_01_mini_framework/`: scalar autograd, neurons, layers, MLP, and linear training.
+- `project_02_performance_laboratory/`: model and individual-kernel profiling;
+  currently revision notes only.
+- Each project's `notes/` folder: short revision notes, maintained as lessons are covered.
 - `progress/`: durable project status, learning evidence, and session handoffs.
 - `ai_prompts_instructions/`: tutoring workflow and reusable prompts.
 - `deeper_study.md`: topics to revisit.
 - `AGENTS.md`: entry point for coding assistants, including progress maintenance.
+
+## Quick revision
+
+- [Project 1: autograd and training](project_01_mini_framework/notes/README.md)
+- [Project 2: performance and profiling](project_02_performance_laboratory/notes/README.md)
+
+Future projects get the same `notes/` layout when started. These are lesson
+summaries; `progress/` tracks experiments, understanding, and where to resume.
 
 ## Run the existing project
 

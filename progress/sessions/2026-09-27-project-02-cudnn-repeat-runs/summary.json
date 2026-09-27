@@ -1,0 +1,572 @@
+[
+  {
+    "mode": "off",
+    "run_id": 1,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/conv_dgrad.py",
+      "--cudnn-benchmark",
+      "off",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "1"
+    ],
+    "blocks_us_rounded": [
+      148.11,
+      144.83,
+      144.74,
+      144.83,
+      144.94
+    ],
+    "median_us": 144.83,
+    "max_abs_error": 7.6293945e-06,
+    "trace": "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_001.trace.json",
+    "trace_sha256": "e2dd889bec561289bddcb9081e4efe68dfce356f449cccc4bc671614f029ae3d",
+    "kernels": [
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.408,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 142.91,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.312,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 142.111,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.343,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 140.991,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "on",
+    "run_id": 2,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/conv_dgrad.py",
+      "--cudnn-benchmark",
+      "on",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "2"
+    ],
+    "blocks_us_rounded": [
+      119.82,
+      117.28,
+      117.26,
+      117.24,
+      117.24
+    ],
+    "median_us": 117.26,
+    "max_abs_error": 0.0,
+    "trace": "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_002.trace.json",
+    "trace_sha256": "63c8346c6592b22d2a91dcc17ec89228cfa568a436e6df713a29da03af61970f",
+    "kernels": [
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 116.192,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 115.647,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 115.744,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "on",
+    "run_id": 3,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/conv_dgrad.py",
+      "--cudnn-benchmark",
+      "on",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "3"
+    ],
+    "blocks_us_rounded": [
+      120.14,
+      117.2,
+      117.2,
+      117.18,
+      117.18
+    ],
+    "median_us": 117.2,
+    "max_abs_error": 0.0,
+    "trace": "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_003.trace.json",
+    "trace_sha256": "90a27d9e2973c4c02516c81785381b5180eace45e60d57061f35718abf29be83",
+    "kernels": [
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 116.03,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 115.71,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 115.71,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "off",
+    "run_id": 4,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/conv_dgrad.py",
+      "--cudnn-benchmark",
+      "off",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "4"
+    ],
+    "blocks_us_rounded": [
+      147.96,
+      144.85,
+      145.06,
+      146.18,
+      145.47
+    ],
+    "median_us": 145.47,
+    "max_abs_error": 7.6293945e-06,
+    "trace": "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_004.trace.json",
+    "trace_sha256": "9a654bd1b93b43437c32aa03d3d4af0768241eb1d8c067a0546792a7f6d18b7b",
+    "kernels": [
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.408,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 141.79,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.312,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 141.501,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.311,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 141.022,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "off",
+    "run_id": 5,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/conv_dgrad.py",
+      "--cudnn-benchmark",
+      "off",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "5"
+    ],
+    "blocks_us_rounded": [
+      147.12,
+      144.49,
+      144.45,
+      144.42,
+      144.39
+    ],
+    "median_us": 144.45,
+    "max_abs_error": 7.6293945e-06,
+    "trace": "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_005.trace.json",
+    "trace_sha256": "acf7f9019230a593a64c1a85cb9c88ab8a6becde7633b5ec38aa514a4a0e3e00",
+    "kernels": [
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.408,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 142.368,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.345,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 142.08,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+        "duration_us": 1.312,
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "block": [
+          256,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+        "duration_us": 140.992,
+        "grid": [
+          72,
+          1,
+          32
+        ],
+        "block": [
+          8,
+          8,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "on",
+    "run_id": 6,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/conv_dgrad.py",
+      "--cudnn-benchmark",
+      "on",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "6"
+    ],
+    "blocks_us_rounded": [
+      119.91,
+      117.37,
+      117.26,
+      117.28,
+      117.21
+    ],
+    "median_us": 117.28,
+    "max_abs_error": 0.0,
+    "trace": "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_006.trace.json",
+    "trace_sha256": "852d732aa9b180cdd62d96f9328abb32258db735ffae6f8e91c05013c47114db",
+    "kernels": [
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 116.127,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 115.584,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+        "duration_us": 115.839,
+        "grid": [
+          16,
+          4,
+          1
+        ],
+        "block": [
+          64,
+          1,
+          1
+        ]
+      }
+    ]
+  }
+]

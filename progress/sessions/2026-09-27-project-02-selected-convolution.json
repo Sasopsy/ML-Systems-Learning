@@ -1,0 +1,147 @@
+{
+  "trace": "project_02_performance_laboratory/resnet18_shapes.trace.json",
+  "trace_sha256": "3ccaa4736a574ffaaf0ba2b0a60f64f2d94be91a484b6aae0ce757c7cfffa760",
+  "kernel": {
+    "ph": "X",
+    "cat": "kernel",
+    "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+    "pid": 0,
+    "tid": 7,
+    "ts": 7546482446915.616,
+    "dur": 142.302,
+    "args": {
+      "External id": 1208,
+      "queued": 0,
+      "device": 0,
+      "context": 1,
+      "stream": 7,
+      "correlation": 7174,
+      "registers per thread": 96,
+      "shared memory": 3328,
+      "blocks per SM": 17.454546,
+      "warps per SM": 34.909092,
+      "grid": [
+        72,
+        1,
+        32
+      ],
+      "block": [
+        8,
+        8,
+        1
+      ],
+      "est. achieved occupancy %": 31
+    }
+  },
+  "cpu_operator": {
+    "ph": "X",
+    "cat": "cpu_op",
+    "name": "aten::convolution_backward",
+    "pid": 69384,
+    "tid": 69420,
+    "ts": 7546482446869.312,
+    "dur": 81.848,
+    "args": {
+      "External id": 1208,
+      "Record function id": 0,
+      "Concrete Inputs": [
+        "",
+        "",
+        "",
+        "[0]",
+        "[1, 1]",
+        "[1, 1]",
+        "[1, 1]",
+        "False",
+        "[0, 0]",
+        "1",
+        "[True, True, False]"
+      ],
+      "Input type": [
+        "float",
+        "float",
+        "float",
+        "ScalarList",
+        "ScalarList",
+        "ScalarList",
+        "ScalarList",
+        "Scalar",
+        "ScalarList",
+        "Scalar",
+        "ScalarList"
+      ],
+      "Input Strides": [
+        [
+          2048,
+          4,
+          2,
+          1
+        ],
+        [
+          2048,
+          4,
+          2,
+          1
+        ],
+        [
+          4608,
+          9,
+          3,
+          1
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "Input Dims": [
+        [
+          32,
+          512,
+          2,
+          2
+        ],
+        [
+          32,
+          512,
+          2,
+          2
+        ],
+        [
+          512,
+          512,
+          3,
+          3
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "Ev Idx": 695
+    }
+  },
+  "cpu_launch": {
+    "ph": "X",
+    "cat": "cuda_runtime",
+    "name": "cudaLaunchKernel",
+    "pid": 69384,
+    "tid": 69420,
+    "ts": 7546482446908.768,
+    "dur": 4.645,
+    "args": {
+      "External id": 1208,
+      "cbid": 211,
+      "correlation": 7174
+    }
+  },
+  "note": "New shape capture produced by learner; original phase trace hash matches saved aggregation report. Operator argument order verified separately against installed aten schema. Tensor values not captured; exact layer module identity not yet verified."
+}

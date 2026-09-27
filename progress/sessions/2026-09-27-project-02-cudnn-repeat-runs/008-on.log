@@ -1,0 +1,37 @@
+dX shape: (32, 512, 2, 2)
+dtype: torch.float32, device: cuda:0
+Maximum absolute error: 0
+PASS: finite input gradients match the autograd reference.
+CUDNN benchmark: True
+CUDNN deterministic: False
+CUDNN allow_tf32: False
+Run ID: 8
+Time taken per call in block 0: 120.78 microseconds
+Time taken per call in block 1: 117.95 microseconds
+Time taken per call in block 2: 117.94 microseconds
+Time taken per call in block 3: 118.05 microseconds
+Time taken per call in block 4: 117.99 microseconds
+Timed-call maximum absolute error: 0
+Saved tensors: conv_dgrad_on_no_tf32_008.pt
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                             aten::convolution_backward         7.19%     179.164us        76.01%       1.895ms     631.614us     350.076us       100.00%     467.163us     155.721us             3  
+sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchw...         0.00%       0.000us         0.00%       0.000us       0.000us     350.076us       100.00%     350.076us     116.692us             3  
+                                             dgrad_only         0.00%       0.000us         0.00%       0.000us       0.000us     350.076us       100.00%     350.076us     116.692us             3  
+                                Activity Buffer Request        66.15%       1.649ms        66.15%       1.649ms       1.649ms     117.087us        33.45%     117.087us     117.087us             1  
+                                             dgrad_only        14.35%     357.742us        94.59%       2.358ms     786.010us       0.000us         0.00%     467.163us     155.721us             3  
+                                        aten::new_empty         0.69%      17.320us         2.69%      66.993us      22.331us       0.000us         0.00%       0.000us       0.000us             3  
+                                            aten::empty         1.99%      49.673us         1.99%      49.673us      16.558us       0.000us         0.00%       0.000us       0.000us             3  
+                                           aten::expand         1.17%      29.225us         1.54%      38.453us      12.818us       0.000us         0.00%       0.000us       0.000us             3  
+                                       aten::as_strided         0.37%       9.228us         0.37%       9.228us       3.076us       0.000us         0.00%       0.000us       0.000us             3  
+                                               aten::to         0.16%       4.080us         0.16%       4.080us       1.360us       0.000us         0.00%       0.000us       0.000us             3  
+                                    cudaPeekAtLastError         0.15%       3.724us         0.15%       3.724us       0.621us       0.000us         0.00%       0.000us       0.000us             6  
+                                    cudaLaunchKernelExC         2.36%      58.814us         2.36%      58.814us      19.605us       0.000us         0.00%       0.000us       0.000us             3  
+                                  cudaDeviceSynchronize         5.41%     134.929us         5.41%     134.929us      67.464us       0.000us         0.00%       0.000us       0.000us             2  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.493ms
+Self CUDA time total: 350.076us
+
+/home/sasmit/miniconda3/envs/kvforge/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(

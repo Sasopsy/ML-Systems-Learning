@@ -1,0 +1,4476 @@
+{
+  "trace": "project_02_performance_laboratory/resnet18_phases.trace.json",
+  "trace_sha256": "ab1af0aa616908b4a7067a49c02b3e74fa97013a7094c322f2df2d76eaee060b",
+  "method": "Match category=kernel through correlation to runtime OR driver launch, then assign launch to one CPU phase scope. For backward also match External id to a containing cpu_op on launch thread and verify op lies in backward scope. Specific to this synchronous eager single-training-workload capture; excludes GPU annotations, memsets, memcpy and gaps. 0.01 us tolerance for boundary arithmetic. Group by exact full kernel name; shapes not recorded. All 975 kernels assigned once.",
+  "steps": [
+    {
+      "step": 1,
+      "phase_kernel_counts": {
+        "forward_pass": 138,
+        "loss": 2,
+        "loss_backward": 184,
+        "optimizer_step": 1
+      },
+      "phase_kernel_sums_us": {
+        "forward_pass": 617.309,
+        "loss": 3.775,
+        "loss_backward": 1602.804,
+        "optimizer_step": 49.567
+      },
+      "backward_grouped_by_exact_kernel_name": [
+        {
+          "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "calls": 4,
+          "total_us": 452.476,
+          "mean_us": 113.119,
+          "min_us": 25.407,
+          "max_us": 142.975,
+          "backward_kernel_percent": 28.230276
+        },
+        {
+          "name": "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)",
+          "calls": 1,
+          "total_us": 158.686,
+          "mean_us": 158.686,
+          "min_us": 158.686,
+          "max_us": 158.686,
+          "backward_kernel_percent": 9.900524
+        },
+        {
+          "name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "calls": 5,
+          "total_us": 146.592,
+          "mean_us": 29.3184,
+          "min_us": 11.2,
+          "max_us": 37.76,
+          "backward_kernel_percent": 9.145972
+        },
+        {
+          "name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "calls": 19,
+          "total_us": 115.519,
+          "mean_us": 6.079947,
+          "min_us": 3.616,
+          "max_us": 10.912,
+          "backward_kernel_percent": 7.207307
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "calls": 34,
+          "total_us": 95.613,
+          "mean_us": 2.812147,
+          "min_us": 1.855,
+          "max_us": 7.488,
+          "backward_kernel_percent": 5.965358
+        },
+        {
+          "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "calls": 5,
+          "total_us": 55.838,
+          "mean_us": 11.1676,
+          "min_us": 2.976,
+          "max_us": 13.408,
+          "backward_kernel_percent": 3.48377
+        },
+        {
+          "name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "calls": 5,
+          "total_us": 54.977,
+          "mean_us": 10.9954,
+          "min_us": 5.472,
+          "max_us": 13.44,
+          "backward_kernel_percent": 3.430051
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "calls": 3,
+          "total_us": 50.143,
+          "mean_us": 16.714333,
+          "min_us": 16.703,
+          "max_us": 16.736,
+          "backward_kernel_percent": 3.128455
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "calls": 3,
+          "total_us": 43.264,
+          "mean_us": 14.421333,
+          "min_us": 14.368,
+          "max_us": 14.496,
+          "backward_kernel_percent": 2.69927
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "calls": 4,
+          "total_us": 40.96,
+          "mean_us": 10.24,
+          "min_us": 10.144,
+          "max_us": 10.304,
+          "backward_kernel_percent": 2.555521
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "calls": 18,
+          "total_us": 40.576,
+          "mean_us": 2.254222,
+          "min_us": 1.92,
+          "max_us": 3.072,
+          "backward_kernel_percent": 2.531563
+        },
+        {
+          "name": "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)",
+          "calls": 1,
+          "total_us": 34.399,
+          "mean_us": 34.399,
+          "min_us": 34.399,
+          "max_us": 34.399,
+          "backward_kernel_percent": 2.146176
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "calls": 17,
+          "total_us": 31.17,
+          "mean_us": 1.833529,
+          "min_us": 1.248,
+          "max_us": 6.72,
+          "backward_kernel_percent": 1.944717
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)",
+          "calls": 3,
+          "total_us": 28.896,
+          "mean_us": 9.632,
+          "min_us": 9.6,
+          "max_us": 9.664,
+          "backward_kernel_percent": 1.802841
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "calls": 7,
+          "total_us": 25.504,
+          "mean_us": 3.643429,
+          "min_us": 3.2,
+          "max_us": 4.16,
+          "backward_kernel_percent": 1.591211
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)",
+          "calls": 1,
+          "total_us": 24.704,
+          "mean_us": 24.704,
+          "min_us": 24.704,
+          "max_us": 24.704,
+          "backward_kernel_percent": 1.541299
+        },
+        {
+          "name": "sm90_xmma_wgrad_indexed_implicit_gemm_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_execute_segment_k_off_kernel__5x_cudnn",
+          "calls": 2,
+          "total_us": 24.32,
+          "mean_us": 12.16,
+          "min_us": 11.936,
+          "max_us": 12.384,
+          "backward_kernel_percent": 1.517341
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "calls": 2,
+          "total_us": 23.84,
+          "mean_us": 11.92,
+          "min_us": 10.688,
+          "max_us": 13.152,
+          "backward_kernel_percent": 1.487393
+        },
+        {
+          "name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi128ELi16EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi16EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi16EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi16ELi128EEESC_NSE_INSF_ILi128ELi16EEELi128ESH_Li4EEESK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESY_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi64ELi16EEESC_SQ_SC_S11_fNSO_8RowMajorENS15_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S18_SC_NSO_11ColumnMajorEfS18_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1I_Li1EEELi6EbEENS_8epilogue11threadblock8EpilogueIS8_S1H_Li1ENS1M_22PredicatedTileIteratorINS1M_26OutputTileOptimalThreadMapINS1M_15OutputTileShapeILi128ELi8ELi2ELi1ELi1EEENS1Q_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1L_4warp24FragmentIteratorTensorOpIS17_S1B_fNS_5ArrayIfLi4ELb1EEES18_EENS1W_20TileIteratorTensorOpIS17_S1B_fS18_EENS1M_18SharedLoadIteratorINS1T_18CompactedThreadMapEfLi16EEENS1L_6thread17LinearCombinationIfLi4EffLNS26_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS13_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "calls": 1,
+          "total_us": 23.135,
+          "mean_us": 23.135,
+          "min_us": 23.135,
+          "max_us": 23.135,
+          "backward_kernel_percent": 1.443408
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "calls": 7,
+          "total_us": 18.754,
+          "mean_us": 2.679143,
+          "min_us": 2.08,
+          "max_us": 3.456,
+          "backward_kernel_percent": 1.170074
+        },
+        {
+          "name": "void cutlass__5x_cudnn::Kernel<cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4>(cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4::Params)",
+          "calls": 1,
+          "total_us": 17.888,
+          "mean_us": 17.888,
+          "min_us": 17.888,
+          "max_us": 17.888,
+          "backward_kernel_percent": 1.116044
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "calls": 7,
+          "total_us": 17.119,
+          "mean_us": 2.445571,
+          "min_us": 2.015,
+          "max_us": 2.784,
+          "backward_kernel_percent": 1.068066
+        },
+        {
+          "name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "calls": 6,
+          "total_us": 16.288,
+          "mean_us": 2.714667,
+          "min_us": 1.728,
+          "max_us": 6.08,
+          "backward_kernel_percent": 1.016219
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "calls": 8,
+          "total_us": 14.559,
+          "mean_us": 1.819875,
+          "min_us": 1.537,
+          "max_us": 2.56,
+          "backward_kernel_percent": 0.908346
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "calls": 5,
+          "total_us": 10.623,
+          "mean_us": 2.1246,
+          "min_us": 1.727,
+          "max_us": 2.752,
+          "backward_kernel_percent": 0.662776
+        },
+        {
+          "name": "sm90_xmma_dgrad_implicit_gemm_indexed_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_strided_execute_kernel__5x_cudnn",
+          "calls": 1,
+          "total_us": 10.047,
+          "mean_us": 10.047,
+          "min_us": 10.047,
+          "max_us": 10.047,
+          "backward_kernel_percent": 0.626839
+        },
+        {
+          "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "calls": 5,
+          "total_us": 8.161,
+          "mean_us": 1.6322,
+          "min_us": 1.344,
+          "max_us": 2.56,
+          "backward_kernel_percent": 0.50917
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+          "calls": 3,
+          "total_us": 5.088,
+          "mean_us": 1.696,
+          "min_us": 0.992,
+          "max_us": 3.072,
+          "backward_kernel_percent": 0.317444
+        },
+        {
+          "name": "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+          "calls": 1,
+          "total_us": 4.0,
+          "mean_us": 4.0,
+          "min_us": 4.0,
+          "max_us": 4.0,
+          "backward_kernel_percent": 0.249563
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)",
+          "calls": 1,
+          "total_us": 3.105,
+          "mean_us": 3.105,
+          "min_us": 3.105,
+          "max_us": 3.105,
+          "backward_kernel_percent": 0.193723
+        },
+        {
+          "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+          "calls": 1,
+          "total_us": 1.92,
+          "mean_us": 1.92,
+          "min_us": 1.92,
+          "max_us": 1.92,
+          "backward_kernel_percent": 0.11979
+        },
+        {
+          "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+          "calls": 1,
+          "total_us": 1.792,
+          "mean_us": 1.792,
+          "min_us": 1.792,
+          "max_us": 1.792,
+          "backward_kernel_percent": 0.111804
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)",
+          "calls": 1,
+          "total_us": 1.568,
+          "mean_us": 1.568,
+          "min_us": 1.568,
+          "max_us": 1.568,
+          "backward_kernel_percent": 0.097829
+        },
+        {
+          "name": "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)",
+          "calls": 1,
+          "total_us": 1.28,
+          "mean_us": 1.28,
+          "min_us": 1.28,
+          "max_us": 1.28,
+          "backward_kernel_percent": 0.07986
+        }
+      ],
+      "backward_kernel_links": []
+    },
+    {
+      "step": 2,
+      "phase_kernel_counts": {
+        "forward_pass": 138,
+        "loss": 2,
+        "loss_backward": 184,
+        "optimizer_step": 1
+      },
+      "phase_kernel_sums_us": {
+        "forward_pass": 619.327,
+        "loss": 3.648,
+        "loss_backward": 1598.38,
+        "optimizer_step": 49.215
+      },
+      "backward_grouped_by_exact_kernel_name": [
+        {
+          "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "calls": 4,
+          "total_us": 449.821,
+          "mean_us": 112.45525,
+          "min_us": 24.864,
+          "max_us": 142.015,
+          "backward_kernel_percent": 28.142307
+        },
+        {
+          "name": "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)",
+          "calls": 1,
+          "total_us": 158.079,
+          "mean_us": 158.079,
+          "min_us": 158.079,
+          "max_us": 158.079,
+          "backward_kernel_percent": 9.889951
+        },
+        {
+          "name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "calls": 5,
+          "total_us": 145.407,
+          "mean_us": 29.0814,
+          "min_us": 11.808,
+          "max_us": 37.344,
+          "backward_kernel_percent": 9.097148
+        },
+        {
+          "name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "calls": 19,
+          "total_us": 115.1,
+          "mean_us": 6.057895,
+          "min_us": 3.552,
+          "max_us": 10.88,
+          "backward_kernel_percent": 7.201041
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "calls": 34,
+          "total_us": 96.223,
+          "mean_us": 2.830088,
+          "min_us": 1.888,
+          "max_us": 7.328,
+          "backward_kernel_percent": 6.020033
+        },
+        {
+          "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "calls": 5,
+          "total_us": 55.871,
+          "mean_us": 11.1742,
+          "min_us": 2.912,
+          "max_us": 13.472,
+          "backward_kernel_percent": 3.495477
+        },
+        {
+          "name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "calls": 5,
+          "total_us": 54.846,
+          "mean_us": 10.9692,
+          "min_us": 5.44,
+          "max_us": 13.471,
+          "backward_kernel_percent": 3.431349
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "calls": 3,
+          "total_us": 49.887,
+          "mean_us": 16.629,
+          "min_us": 16.576,
+          "max_us": 16.703,
+          "backward_kernel_percent": 3.121098
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "calls": 3,
+          "total_us": 43.296,
+          "mean_us": 14.432,
+          "min_us": 14.368,
+          "max_us": 14.464,
+          "backward_kernel_percent": 2.708743
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "calls": 4,
+          "total_us": 41.215,
+          "mean_us": 10.30375,
+          "min_us": 10.208,
+          "max_us": 10.368,
+          "backward_kernel_percent": 2.578548
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "calls": 18,
+          "total_us": 40.32,
+          "mean_us": 2.24,
+          "min_us": 1.92,
+          "max_us": 3.072,
+          "backward_kernel_percent": 2.522554
+        },
+        {
+          "name": "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)",
+          "calls": 1,
+          "total_us": 33.888,
+          "mean_us": 33.888,
+          "min_us": 33.888,
+          "max_us": 33.888,
+          "backward_kernel_percent": 2.120147
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "calls": 17,
+          "total_us": 30.975,
+          "mean_us": 1.822059,
+          "min_us": 1.248,
+          "max_us": 6.432,
+          "backward_kernel_percent": 1.9379
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)",
+          "calls": 3,
+          "total_us": 28.671,
+          "mean_us": 9.557,
+          "min_us": 9.536,
+          "max_us": 9.568,
+          "backward_kernel_percent": 1.793754
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "calls": 7,
+          "total_us": 25.343,
+          "mean_us": 3.620429,
+          "min_us": 3.104,
+          "max_us": 4.192,
+          "backward_kernel_percent": 1.585543
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)",
+          "calls": 1,
+          "total_us": 24.736,
+          "mean_us": 24.736,
+          "min_us": 24.736,
+          "max_us": 24.736,
+          "backward_kernel_percent": 1.547567
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "calls": 2,
+          "total_us": 24.512,
+          "mean_us": 12.256,
+          "min_us": 10.656,
+          "max_us": 13.856,
+          "backward_kernel_percent": 1.533553
+        },
+        {
+          "name": "sm90_xmma_wgrad_indexed_implicit_gemm_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_execute_segment_k_off_kernel__5x_cudnn",
+          "calls": 2,
+          "total_us": 24.352,
+          "mean_us": 12.176,
+          "min_us": 11.968,
+          "max_us": 12.384,
+          "backward_kernel_percent": 1.523543
+        },
+        {
+          "name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi128ELi16EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi16EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi16EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi16ELi128EEESC_NSE_INSF_ILi128ELi16EEELi128ESH_Li4EEESK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESY_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi64ELi16EEESC_SQ_SC_S11_fNSO_8RowMajorENS15_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S18_SC_NSO_11ColumnMajorEfS18_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1I_Li1EEELi6EbEENS_8epilogue11threadblock8EpilogueIS8_S1H_Li1ENS1M_22PredicatedTileIteratorINS1M_26OutputTileOptimalThreadMapINS1M_15OutputTileShapeILi128ELi8ELi2ELi1ELi1EEENS1Q_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1L_4warp24FragmentIteratorTensorOpIS17_S1B_fNS_5ArrayIfLi4ELb1EEES18_EENS1W_20TileIteratorTensorOpIS17_S1B_fS18_EENS1M_18SharedLoadIteratorINS1T_18CompactedThreadMapEfLi16EEENS1L_6thread17LinearCombinationIfLi4EffLNS26_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS13_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "calls": 1,
+          "total_us": 23.328,
+          "mean_us": 23.328,
+          "min_us": 23.328,
+          "max_us": 23.328,
+          "backward_kernel_percent": 1.459478
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "calls": 7,
+          "total_us": 18.848,
+          "mean_us": 2.692571,
+          "min_us": 2.08,
+          "max_us": 3.552,
+          "backward_kernel_percent": 1.179194
+        },
+        {
+          "name": "void cutlass__5x_cudnn::Kernel<cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4>(cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4::Params)",
+          "calls": 1,
+          "total_us": 17.824,
+          "mean_us": 17.824,
+          "min_us": 17.824,
+          "max_us": 17.824,
+          "backward_kernel_percent": 1.115129
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "calls": 7,
+          "total_us": 17.023,
+          "mean_us": 2.431857,
+          "min_us": 1.984,
+          "max_us": 2.784,
+          "backward_kernel_percent": 1.065016
+        },
+        {
+          "name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "calls": 6,
+          "total_us": 16.193,
+          "mean_us": 2.698833,
+          "min_us": 1.696,
+          "max_us": 5.92,
+          "backward_kernel_percent": 1.013088
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "calls": 8,
+          "total_us": 14.752,
+          "mean_us": 1.844,
+          "min_us": 1.536,
+          "max_us": 2.625,
+          "backward_kernel_percent": 0.922934
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "calls": 5,
+          "total_us": 10.911,
+          "mean_us": 2.1822,
+          "min_us": 1.728,
+          "max_us": 2.624,
+          "backward_kernel_percent": 0.682629
+        },
+        {
+          "name": "sm90_xmma_dgrad_implicit_gemm_indexed_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_strided_execute_kernel__5x_cudnn",
+          "calls": 1,
+          "total_us": 10.112,
+          "mean_us": 10.112,
+          "min_us": 10.112,
+          "max_us": 10.112,
+          "backward_kernel_percent": 0.632641
+        },
+        {
+          "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "calls": 5,
+          "total_us": 8.094,
+          "mean_us": 1.6188,
+          "min_us": 1.311,
+          "max_us": 2.56,
+          "backward_kernel_percent": 0.506388
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+          "calls": 3,
+          "total_us": 5.152,
+          "mean_us": 1.717333,
+          "min_us": 1.024,
+          "max_us": 3.104,
+          "backward_kernel_percent": 0.322326
+        },
+        {
+          "name": "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+          "calls": 1,
+          "total_us": 3.84,
+          "mean_us": 3.84,
+          "min_us": 3.84,
+          "max_us": 3.84,
+          "backward_kernel_percent": 0.240243
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)",
+          "calls": 1,
+          "total_us": 3.104,
+          "mean_us": 3.104,
+          "min_us": 3.104,
+          "max_us": 3.104,
+          "backward_kernel_percent": 0.194197
+        },
+        {
+          "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+          "calls": 1,
+          "total_us": 1.952,
+          "mean_us": 1.952,
+          "min_us": 1.952,
+          "max_us": 1.952,
+          "backward_kernel_percent": 0.122124
+        },
+        {
+          "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+          "calls": 1,
+          "total_us": 1.857,
+          "mean_us": 1.857,
+          "min_us": 1.857,
+          "max_us": 1.857,
+          "backward_kernel_percent": 0.11618
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)",
+          "calls": 1,
+          "total_us": 1.568,
+          "mean_us": 1.568,
+          "min_us": 1.568,
+          "max_us": 1.568,
+          "backward_kernel_percent": 0.098099
+        },
+        {
+          "name": "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)",
+          "calls": 1,
+          "total_us": 1.28,
+          "mean_us": 1.28,
+          "min_us": 1.28,
+          "max_us": 1.28,
+          "backward_kernel_percent": 0.080081
+        }
+      ],
+      "backward_kernel_links": [
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+          "duration_us": 1.024,
+          "external_id": 1769,
+          "correlation": 6955,
+          "cpu_operator": "aten::fill_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55492,
+          "grid": [
+            1,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+          "duration_us": 1.024,
+          "external_id": 1143,
+          "correlation": 6971,
+          "cpu_operator": "aten::fill_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)",
+          "duration_us": 1.568,
+          "external_id": 1141,
+          "correlation": 6979,
+          "cpu_operator": "aten::nll_loss_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            1,
+            1
+          ],
+          "block": [
+            32,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)",
+          "duration_us": 1.28,
+          "external_id": 1146,
+          "correlation": 6996,
+          "cpu_operator": "aten::_log_softmax_backward_data",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            1,
+            1
+          ],
+          "block": [
+            16,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)",
+          "duration_us": 3.104,
+          "external_id": 1152,
+          "correlation": 7018,
+          "cpu_operator": "aten::mm",
+          "launch_api": "cuLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            1,
+            3
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+          "duration_us": 1.857,
+          "external_id": 1152,
+          "correlation": 7020,
+          "cpu_operator": "aten::mm",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            16,
+            2,
+            1
+          ],
+          "block": [
+            32,
+            16,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "duration_us": 2.912,
+          "external_id": 1156,
+          "correlation": 7034,
+          "cpu_operator": "aten::mm",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            16,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+          "duration_us": 3.84,
+          "external_id": 1160,
+          "correlation": 7048,
+          "cpu_operator": "aten::sum",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            1,
+            1
+          ],
+          "block": [
+            4,
+            32,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+          "duration_us": 1.952,
+          "external_id": 1184,
+          "correlation": 7079,
+          "cpu_operator": "aten::div",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.28,
+          "external_id": 1187,
+          "correlation": 7094,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 5.471,
+          "external_id": 1192,
+          "correlation": 7140,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "duration_us": 1.344,
+          "external_id": 1208,
+          "correlation": 7170,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "duration_us": 142.015,
+          "external_id": 1208,
+          "correlation": 7174,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            72,
+            1,
+            32
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "duration_us": 37.247,
+          "external_id": 1208,
+          "correlation": 7194,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            144,
+            16,
+            1
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.28,
+          "external_id": 1217,
+          "correlation": 7216,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 5.696,
+          "external_id": 1220,
+          "correlation": 7258,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "duration_us": 1.311,
+          "external_id": 1236,
+          "correlation": 7288,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "duration_us": 141.311,
+          "external_id": 1236,
+          "correlation": 7292,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            72,
+            1,
+            32
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "duration_us": 36.864,
+          "external_id": 1236,
+          "correlation": 7312,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            144,
+            16,
+            1
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.696,
+          "external_id": 1239,
+          "correlation": 7323,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.248,
+          "external_id": 1246,
+          "correlation": 7344,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 6.144,
+          "external_id": 1251,
+          "correlation": 7390,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.175,
+          "external_id": 1267,
+          "correlation": 7420,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            16,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm90_xmma_dgrad_implicit_gemm_indexed_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_strided_execute_kernel__5x_cudnn",
+          "duration_us": 10.112,
+          "external_id": 1267,
+          "correlation": 7427,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            1,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 1.92,
+          "external_id": 1267,
+          "correlation": 7431,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "duration_us": 11.808,
+          "external_id": 1267,
+          "correlation": 7451,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            16,
+            1
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 6.112,
+          "external_id": 1276,
+          "correlation": 7500,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "duration_us": 1.344,
+          "external_id": 1292,
+          "correlation": 7530,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "duration_us": 141.631,
+          "external_id": 1292,
+          "correlation": 7534,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            72,
+            1,
+            32
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "duration_us": 37.344,
+          "external_id": 1292,
+          "correlation": 7554,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            144,
+            16,
+            1
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.28,
+          "external_id": 1301,
+          "correlation": 7576,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 6.015,
+          "external_id": 1304,
+          "correlation": 7618,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "duration_us": 1.535,
+          "external_id": 1320,
+          "correlation": 7648,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)",
+          "duration_us": 158.079,
+          "external_id": 1320,
+          "correlation": 7652,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            37,
+            32,
+            1
+          ],
+          "block": [
+            16,
+            16,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "duration_us": 22.144,
+          "external_id": 1320,
+          "correlation": 7672,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            72,
+            16,
+            1
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.792,
+          "external_id": 1323,
+          "correlation": 7683,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.376,
+          "external_id": 1330,
+          "correlation": 7704,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 3.616,
+          "external_id": 1335,
+          "correlation": 7750,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 5.12,
+          "external_id": 1351,
+          "correlation": 7780,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            256
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.984,
+          "external_id": 1351,
+          "correlation": 7784,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "duration_us": 16.703,
+          "external_id": 1351,
+          "correlation": 7789,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            8,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 1.952,
+          "external_id": 1351,
+          "correlation": 7793,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 3.2,
+          "external_id": 1351,
+          "correlation": 7811,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 2.047,
+          "external_id": 1351,
+          "correlation": 7813,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)",
+          "duration_us": 9.567,
+          "external_id": 1351,
+          "correlation": 7821,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cuLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            16,
+            1,
+            36
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 3.552,
+          "external_id": 1351,
+          "correlation": 7823,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.44,
+          "external_id": 1360,
+          "correlation": 7845,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 3.744,
+          "external_id": 1363,
+          "correlation": 7887,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 4.704,
+          "external_id": 1379,
+          "correlation": 7917,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            256
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.984,
+          "external_id": 1379,
+          "correlation": 7921,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "duration_us": 16.608,
+          "external_id": 1379,
+          "correlation": 7926,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            8,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 1.952,
+          "external_id": 1379,
+          "correlation": 7930,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 3.104,
+          "external_id": 1379,
+          "correlation": 7948,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 1.984,
+          "external_id": 1379,
+          "correlation": 7950,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)",
+          "duration_us": 9.536,
+          "external_id": 1379,
+          "correlation": 7958,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cuLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            16,
+            1,
+            36
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 3.423,
+          "external_id": 1379,
+          "correlation": 7960,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.568,
+          "external_id": 1382,
+          "correlation": 7971,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.376,
+          "external_id": 1389,
+          "correlation": 7992,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 3.712,
+          "external_id": 1394,
+          "correlation": 8038,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 13.856,
+          "external_id": 1410,
+          "correlation": 8068,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            64,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.624,
+          "external_id": 1410,
+          "correlation": 8086,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.728,
+          "external_id": 1410,
+          "correlation": 8090,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm90_xmma_wgrad_indexed_implicit_gemm_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_execute_segment_k_off_kernel__5x_cudnn",
+          "duration_us": 11.968,
+          "external_id": 1410,
+          "correlation": 8096,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            1,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 3.552,
+          "external_id": 1419,
+          "correlation": 8145,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 4.864,
+          "external_id": 1435,
+          "correlation": 8175,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            256
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.016,
+          "external_id": 1435,
+          "correlation": 8179,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "duration_us": 16.576,
+          "external_id": 1435,
+          "correlation": 8184,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            8,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 1.92,
+          "external_id": 1435,
+          "correlation": 8188,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 3.168,
+          "external_id": 1435,
+          "correlation": 8206,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 1.984,
+          "external_id": 1435,
+          "correlation": 8208,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)",
+          "duration_us": 9.568,
+          "external_id": 1435,
+          "correlation": 8216,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cuLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            16,
+            1,
+            36
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 3.457,
+          "external_id": 1435,
+          "correlation": 8218,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            32,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.408,
+          "external_id": 1444,
+          "correlation": 8240,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 3.872,
+          "external_id": 1447,
+          "correlation": 8282,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 3.263,
+          "external_id": 1463,
+          "correlation": 8312,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            256
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.953,
+          "external_id": 1463,
+          "correlation": 8316,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4>(cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4::Params)",
+          "duration_us": 17.824,
+          "external_id": 1463,
+          "correlation": 8322,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.144,
+          "external_id": 1463,
+          "correlation": 8327,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.624,
+          "external_id": 1463,
+          "correlation": 8345,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.76,
+          "external_id": 1463,
+          "correlation": 8349,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            8,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm90_xmma_wgrad_indexed_implicit_gemm_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_execute_segment_k_off_kernel__5x_cudnn",
+          "duration_us": 12.384,
+          "external_id": 1463,
+          "correlation": 8355,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            36,
+            1,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 3.072,
+          "external_id": 1463,
+          "correlation": 8359,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            256
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.76,
+          "external_id": 1466,
+          "correlation": 8370,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.504,
+          "external_id": 1473,
+          "correlation": 8391,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 4.896,
+          "external_id": 1478,
+          "correlation": 8437,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.688,
+          "external_id": 1494,
+          "correlation": 8467,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.112,
+          "external_id": 1494,
+          "correlation": 8471,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "duration_us": 14.464,
+          "external_id": 1494,
+          "correlation": 8476,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            32,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.24,
+          "external_id": 1494,
+          "correlation": 8480,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.912,
+          "external_id": 1494,
+          "correlation": 8498,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.888,
+          "external_id": 1494,
+          "correlation": 8502,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "duration_us": 13.471,
+          "external_id": 1494,
+          "correlation": 8509,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            5,
+            3
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "duration_us": 1.824,
+          "external_id": 1494,
+          "correlation": 8513,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            9,
+            1
+          ],
+          "block": [
+            32,
+            4,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.24,
+          "external_id": 1494,
+          "correlation": 8518,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.568,
+          "external_id": 1503,
+          "correlation": 8540,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 4.736,
+          "external_id": 1506,
+          "correlation": 8582,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.72,
+          "external_id": 1522,
+          "correlation": 8612,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.016,
+          "external_id": 1522,
+          "correlation": 8616,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "duration_us": 14.368,
+          "external_id": 1522,
+          "correlation": 8621,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            32,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.24,
+          "external_id": 1522,
+          "correlation": 8625,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.848,
+          "external_id": 1522,
+          "correlation": 8643,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.92,
+          "external_id": 1522,
+          "correlation": 8647,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "duration_us": 13.216,
+          "external_id": 1522,
+          "correlation": 8654,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            5,
+            3
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "duration_us": 1.696,
+          "external_id": 1522,
+          "correlation": 8658,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            9,
+            1
+          ],
+          "block": [
+            32,
+            4,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.24,
+          "external_id": 1522,
+          "correlation": 8663,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.536,
+          "external_id": 1525,
+          "correlation": 8674,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.567,
+          "external_id": 1532,
+          "correlation": 8695,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 4.864,
+          "external_id": 2049,
+          "correlation": 8741,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 10.656,
+          "external_id": 2065,
+          "correlation": 8771,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            256,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 3.584,
+          "external_id": 2065,
+          "correlation": 8789,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.016,
+          "external_id": 2065,
+          "correlation": 8793,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "duration_us": 5.44,
+          "external_id": 2065,
+          "correlation": 8800,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            1,
+            26
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "duration_us": 3.008,
+          "external_id": 2065,
+          "correlation": 8804,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            1,
+            1
+          ],
+          "block": [
+            32,
+            4,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 5.056,
+          "external_id": 2074,
+          "correlation": 8854,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.88,
+          "external_id": 2090,
+          "correlation": 8884,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.048,
+          "external_id": 2090,
+          "correlation": 8888,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "duration_us": 14.464,
+          "external_id": 2090,
+          "correlation": 8893,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            32,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.336,
+          "external_id": 2090,
+          "correlation": 8897,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.784,
+          "external_id": 2090,
+          "correlation": 8915,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 1.888,
+          "external_id": 2090,
+          "correlation": 8919,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "duration_us": 13.248,
+          "external_id": 2090,
+          "correlation": 8926,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            5,
+            3
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "duration_us": 1.76,
+          "external_id": 2090,
+          "correlation": 8930,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            9,
+            1
+          ],
+          "block": [
+            32,
+            4,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.208,
+          "external_id": 2090,
+          "correlation": 8935,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            4,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.6,
+          "external_id": 2099,
+          "correlation": 8957,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 4.928,
+          "external_id": 2102,
+          "correlation": 8999,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "duration_us": 2.56,
+          "external_id": 2118,
+          "correlation": 9029,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2048,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "duration_us": 24.864,
+          "external_id": 2118,
+          "correlation": 9033,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            9,
+            2,
+            32
+          ],
+          "block": [
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.432,
+          "external_id": 2118,
+          "correlation": 9051,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.047,
+          "external_id": 2118,
+          "correlation": 9055,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            4,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "duration_us": 9.471,
+          "external_id": 2118,
+          "correlation": 9062,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            3,
+            8
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "duration_us": 1.985,
+          "external_id": 2118,
+          "correlation": 9066,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            5,
+            1
+          ],
+          "block": [
+            32,
+            4,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.048,
+          "external_id": 2118,
+          "correlation": 9071,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            2,
+            128
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 2.625,
+          "external_id": 2121,
+          "correlation": 9082,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.888,
+          "external_id": 2128,
+          "correlation": 9103,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 10.688,
+          "external_id": 2133,
+          "correlation": 9149,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.56,
+          "external_id": 2149,
+          "correlation": 9179,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            2,
+            64
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.272,
+          "external_id": 2149,
+          "correlation": 9183,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "duration_us": 10.368,
+          "external_id": 2149,
+          "correlation": 9188,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            128,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.4,
+          "external_id": 2149,
+          "correlation": 9192,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 4.192,
+          "external_id": 2149,
+          "correlation": 9210,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 2.752,
+          "external_id": 2149,
+          "correlation": 9212,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "duration_us": 13.472,
+          "external_id": 2149,
+          "correlation": 9216,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            2,
+            36
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 2.144,
+          "external_id": 2149,
+          "correlation": 9219,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            8,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.92,
+          "external_id": 2158,
+          "correlation": 9241,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 10.623,
+          "external_id": 2161,
+          "correlation": 9283,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.592,
+          "external_id": 2177,
+          "correlation": 9313,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            2,
+            64
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.272,
+          "external_id": 2177,
+          "correlation": 9317,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "duration_us": 10.208,
+          "external_id": 2177,
+          "correlation": 9322,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            128,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.4,
+          "external_id": 2177,
+          "correlation": 9326,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 3.839,
+          "external_id": 2177,
+          "correlation": 9344,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 2.752,
+          "external_id": 2177,
+          "correlation": 9346,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "duration_us": 13.216,
+          "external_id": 2177,
+          "correlation": 9350,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            2,
+            36
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 2.08,
+          "external_id": 2177,
+          "correlation": 9353,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            8,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.887,
+          "external_id": 2180,
+          "correlation": 9364,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.92,
+          "external_id": 2187,
+          "correlation": 9385,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 10.88,
+          "external_id": 2192,
+          "correlation": 9431,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.56,
+          "external_id": 2208,
+          "correlation": 9461,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            2,
+            64
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.304,
+          "external_id": 2208,
+          "correlation": 9465,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "duration_us": 10.367,
+          "external_id": 2208,
+          "correlation": 9470,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            128,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.464,
+          "external_id": 2208,
+          "correlation": 9474,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 4.0,
+          "external_id": 2208,
+          "correlation": 9492,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 2.784,
+          "external_id": 2208,
+          "correlation": 9494,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "duration_us": 12.96,
+          "external_id": 2208,
+          "correlation": 9498,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            2,
+            36
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 2.112,
+          "external_id": 2208,
+          "correlation": 9501,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            8,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 1.888,
+          "external_id": 2217,
+          "correlation": 9523,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "duration_us": 10.495,
+          "external_id": 2220,
+          "correlation": 9565,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.592,
+          "external_id": 2236,
+          "correlation": 9595,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            2,
+            64
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 2.336,
+          "external_id": 2236,
+          "correlation": 9599,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "duration_us": 10.272,
+          "external_id": 2236,
+          "correlation": 9604,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            1,
+            128,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.496,
+          "external_id": 2236,
+          "correlation": 9608,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            8,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "duration_us": 3.84,
+          "external_id": 2236,
+          "correlation": 9626,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "duration_us": 2.72,
+          "external_id": 2236,
+          "correlation": 9628,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "duration_us": 13.311,
+          "external_id": 2236,
+          "correlation": 9632,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernelExC",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            2,
+            36
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "duration_us": 2.08,
+          "external_id": 2236,
+          "correlation": 9635,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            8,
+            1
+          ],
+          "block": [
+            32,
+            8,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "duration_us": 1.888,
+          "external_id": 2239,
+          "correlation": 9646,
+          "cpu_operator": "aten::add_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+          "duration_us": 3.104,
+          "external_id": 2248,
+          "correlation": 9669,
+          "cpu_operator": "aten::fill_",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2048,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)",
+          "duration_us": 24.736,
+          "external_id": 2246,
+          "correlation": 9681,
+          "cpu_operator": "aten::max_pool2d_with_indices_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            4,
+            32,
+            64
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "duration_us": 6.432,
+          "external_id": 2251,
+          "correlation": 9696,
+          "cpu_operator": "aten::threshold_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2048,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)",
+          "duration_us": 33.888,
+          "external_id": 2254,
+          "correlation": 9736,
+          "cpu_operator": "aten::cudnn_batch_norm_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            512,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 7.328,
+          "external_id": 2270,
+          "correlation": 9769,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            128,
+            1,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "duration_us": 4.736,
+          "external_id": 2270,
+          "correlation": 9773,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            32,
+            2,
+            32
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi128ELi16EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi16EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi16EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi16ELi128EEESC_NSE_INSF_ILi128ELi16EEELi128ESH_Li4EEESK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESY_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi64ELi16EEESC_SQ_SC_S11_fNSO_8RowMajorENS15_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S18_SC_NSO_11ColumnMajorEfS18_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1I_Li1EEELi6EbEENS_8epilogue11threadblock8EpilogueIS8_S1H_Li1ENS1M_22PredicatedTileIteratorINS1M_26OutputTileOptimalThreadMapINS1M_15OutputTileShapeILi128ELi8ELi2ELi1ELi1EEENS1Q_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1L_4warp24FragmentIteratorTensorOpIS17_S1B_fNS_5ArrayIfLi4ELb1EEES18_EENS1W_20TileIteratorTensorOpIS17_S1B_fS18_EENS1M_18SharedLoadIteratorINS1T_18CompactedThreadMapEfLi16EEENS1L_6thread17LinearCombinationIfLi4EffLNS26_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS13_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "duration_us": 23.328,
+          "external_id": 2270,
+          "correlation": 9780,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            1,
+            68
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "duration_us": 5.92,
+          "external_id": 2270,
+          "correlation": 9784,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            16,
+            2,
+            1
+          ],
+          "block": [
+            32,
+            4,
+            1
+          ]
+        },
+        {
+          "kernel_name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "duration_us": 2.048,
+          "external_id": 2270,
+          "correlation": 9789,
+          "cpu_operator": "aten::convolution_backward",
+          "launch_api": "cudaLaunchKernel",
+          "launch_thread": 55549,
+          "grid": [
+            2,
+            1,
+            64
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase_kernel_counts": {
+        "forward_pass": 138,
+        "loss": 2,
+        "loss_backward": 184,
+        "optimizer_step": 1
+      },
+      "phase_kernel_sums_us": {
+        "forward_pass": 618.557,
+        "loss": 3.584,
+        "loss_backward": 1614.509,
+        "optimizer_step": 49.568
+      },
+      "backward_grouped_by_exact_kernel_name": [
+        {
+          "name": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "calls": 4,
+          "total_us": 451.196,
+          "mean_us": 112.799,
+          "min_us": 25.088,
+          "max_us": 142.911,
+          "backward_kernel_percent": 27.946329
+        },
+        {
+          "name": "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)",
+          "calls": 1,
+          "total_us": 172.095,
+          "mean_us": 172.095,
+          "min_us": 172.095,
+          "max_us": 172.095,
+          "backward_kernel_percent": 10.659278
+        },
+        {
+          "name": "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)",
+          "calls": 5,
+          "total_us": 146.143,
+          "mean_us": 29.2286,
+          "min_us": 11.487,
+          "max_us": 37.824,
+          "backward_kernel_percent": 9.051854
+        },
+        {
+          "name": "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)",
+          "calls": 19,
+          "total_us": 115.837,
+          "mean_us": 6.096684,
+          "min_us": 3.488,
+          "max_us": 10.784,
+          "backward_kernel_percent": 7.174751
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)2>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "calls": 34,
+          "total_us": 95.548,
+          "mean_us": 2.810235,
+          "min_us": 1.888,
+          "max_us": 7.328,
+          "backward_kernel_percent": 5.918084
+        },
+        {
+          "name": "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+          "calls": 5,
+          "total_us": 55.871,
+          "mean_us": 11.1742,
+          "min_us": 3.072,
+          "max_us": 13.376,
+          "backward_kernel_percent": 3.460557
+        },
+        {
+          "name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi64ELi32EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi32EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi32EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi32ELi64EEESC_SI_SK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESI_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi32ELi32EEESC_SQ_SC_SZ_fNSO_8RowMajorENS13_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S16_SC_NSO_11ColumnMajorEfS16_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1G_Li1EEELi5EbEENS_8epilogue11threadblock8EpilogueIS8_S1F_Li1ENS1K_22PredicatedTileIteratorINS1K_26OutputTileOptimalThreadMapINS1K_15OutputTileShapeILi64ELi8ELi2ELi1ELi1EEENS1O_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1J_4warp24FragmentIteratorTensorOpIS15_S19_fNS_5ArrayIfLi4ELb1EEES16_EENS1U_20TileIteratorTensorOpIS15_S19_fS16_EENS1K_18SharedLoadIteratorINS1R_18CompactedThreadMapEfLi16EEENS1J_6thread17LinearCombinationIfLi4EffLNS24_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS11_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "calls": 5,
+          "total_us": 54.75,
+          "mean_us": 10.95,
+          "min_us": 5.408,
+          "max_us": 13.44,
+          "backward_kernel_percent": 3.391124
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x32x64_stage5_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "calls": 3,
+          "total_us": 49.791,
+          "mean_us": 16.597,
+          "min_us": 16.48,
+          "max_us": 16.704,
+          "backward_kernel_percent": 3.083972
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_execute_kernel__5x_cudnn",
+          "calls": 3,
+          "total_us": 43.168,
+          "mean_us": 14.389333,
+          "min_us": 14.304,
+          "max_us": 14.464,
+          "backward_kernel_percent": 2.673754
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize64x64x64_stage4_warpsize2x2x1_g1_tensor16x8x8_t1r3s3_execute_kernel__5x_cudnn",
+          "calls": 4,
+          "total_us": 40.991,
+          "mean_us": 10.24775,
+          "min_us": 10.239,
+          "max_us": 10.272,
+          "backward_kernel_percent": 2.538914
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+          "calls": 18,
+          "total_us": 40.544,
+          "mean_us": 2.252444,
+          "min_us": 1.887,
+          "max_us": 3.04,
+          "backward_kernel_percent": 2.511228
+        },
+        {
+          "name": "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)",
+          "calls": 1,
+          "total_us": 33.759,
+          "mean_us": 33.759,
+          "min_us": 33.759,
+          "max_us": 33.759,
+          "backward_kernel_percent": 2.090976
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)",
+          "calls": 17,
+          "total_us": 31.358,
+          "mean_us": 1.844588,
+          "min_us": 1.216,
+          "max_us": 6.784,
+          "backward_kernel_percent": 1.942262
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)",
+          "calls": 3,
+          "total_us": 28.768,
+          "mean_us": 9.589333,
+          "min_us": 9.536,
+          "max_us": 9.664,
+          "backward_kernel_percent": 1.781842
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+          "calls": 7,
+          "total_us": 25.825,
+          "mean_us": 3.689286,
+          "min_us": 3.232,
+          "max_us": 4.192,
+          "backward_kernel_percent": 1.599558
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)",
+          "calls": 1,
+          "total_us": 24.768,
+          "mean_us": 24.768,
+          "min_us": 24.768,
+          "max_us": 24.768,
+          "backward_kernel_percent": 1.534089
+        },
+        {
+          "name": "sm90_xmma_wgrad_indexed_implicit_gemm_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_execute_segment_k_off_kernel__5x_cudnn",
+          "calls": 2,
+          "total_us": 24.416,
+          "mean_us": 12.208,
+          "min_us": 12.032,
+          "max_us": 12.384,
+          "backward_kernel_percent": 1.512286
+        },
+        {
+          "name": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "calls": 2,
+          "total_us": 24.096,
+          "mean_us": 12.048,
+          "min_us": 10.624,
+          "max_us": 13.472,
+          "backward_kernel_percent": 1.492466
+        },
+        {
+          "name": "_ZN17cutlass__5x_cudnn6KernelINS_4conv6kernel23ImplicitGemmConvolutionINS1_11threadblock22ImplicitGemmMultistageINS_4gemm9GemmShapeILi64ELi128ELi16EEENS4_52Conv2dWgradOutputGradientTileAccessIteratorOptimizedINS_11MatrixShapeILi64ELi16EEENS_10tfloat32_tENS_9transform29PitchLinearWarpRakedThreadMapINS_16PitchLinearShapeILi64ELi16EEELi128ENSF_ILi8ELi4EEELi4EEENS_12AlignedArrayISC_Li4ELi16EEEEENSD_11threadblock25RegularTileAccessIteratorISB_SC_NS_6layout40ColumnMajorTensorOpMultiplicandCongruousILi32ELi32EEELi1ESI_Li16EEELNS_4arch14CacheOperation4KindE0ENS4_48Conv2dWgradActivationTileAccessIteratorOptimizedINSA_ILi16ELi128EEESC_NSE_INSF_ILi128ELi16EEELi128ESH_Li4EEESK_EENSN_ISW_SC_NSO_37RowMajorTensorOpMultiplicandCongruousILi32ELi32EEELi0ESY_Li16EEELSU_0ENS6_11threadblock9MmaPolicyINS6_4warp11MmaTensorOpINS7_ILi32ELi64ELi16EEESC_SQ_SC_S11_fNSO_8RowMajorENS15_17MmaTensorOpPolicyINSS_3MmaINS7_ILi16ELi8ELi8EEELi32ESC_S18_SC_NSO_11ColumnMajorEfS18_NSS_13OpMultiplyAddEEENSA_ILi1ELi1EEEEELi1ELb0EbEENSA_ILi0ELi0EEES1I_Li1EEELi6EbEENS_8epilogue11threadblock8EpilogueIS8_S1H_Li1ENS1M_22PredicatedTileIteratorINS1M_26OutputTileOptimalThreadMapINS1M_15OutputTileShapeILi128ELi8ELi2ELi1ELi1EEENS1Q_ILi1ELi4ELi1ELi1ELi4EEELi128ELi4ELi32EEEfLb0ENSO_9NoPermuteELb0EEENS1L_4warp24FragmentIteratorTensorOpIS17_S1B_fNS_5ArrayIfLi4ELb1EEES18_EENS1W_20TileIteratorTensorOpIS17_S1B_fS18_EENS1M_18SharedLoadIteratorINS1T_18CompactedThreadMapEfLi16EEENS1L_6thread17LinearCombinationIfLi4EffLNS26_9ScaleType4KindE0ELNS_15FloatRoundStyleE2EEENSA_ILi0ELi8EEELi2ELi1EEENS13_30GemmIdentityThreadblockSwizzleILi4EEELNS1_8OperatorE2ENS1_17Conv2dProblemSizeELNS1_9GroupModeE0EEEEEvNT_6ParamsE",
+          "calls": 1,
+          "total_us": 23.232,
+          "mean_us": 23.232,
+          "min_us": 23.232,
+          "max_us": 23.232,
+          "backward_kernel_percent": 1.438951
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)",
+          "calls": 7,
+          "total_us": 18.752,
+          "mean_us": 2.678857,
+          "min_us": 2.079,
+          "max_us": 3.616,
+          "backward_kernel_percent": 1.161468
+        },
+        {
+          "name": "void cutlass__5x_cudnn::Kernel<cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4>(cutlass_tensorop_s1688dgrad_optimized_tf32_64x128_32x3_nhwc_align4::Params)",
+          "calls": 1,
+          "total_us": 17.952,
+          "mean_us": 17.952,
+          "min_us": 17.952,
+          "max_us": 17.952,
+          "backward_kernel_percent": 1.111917
+        },
+        {
+          "name": "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)",
+          "calls": 7,
+          "total_us": 16.96,
+          "mean_us": 2.422857,
+          "min_us": 1.984,
+          "max_us": 2.784,
+          "backward_kernel_percent": 1.050474
+        },
+        {
+          "name": "void cutlass__5x_cudnn::Kernel<cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4> >(cutlass__5x_cudnn::reduction::kernel::ReduceSplitK<cutlass__5x_cudnn::MatrixShape<4, 128>, cutlass__5x_cudnn::epilogue::thread::LinearCombination<float, 4, float, float, (cutlass__5x_cudnn::epilogue::thread::ScaleType::Kind)0, (cutlass__5x_cudnn::FloatRoundStyle)2>, cutlass__5x_cudnn::reduction::thread::ReduceAdd<float, float, 4>, 4>::Params)",
+          "calls": 6,
+          "total_us": 16.066,
+          "mean_us": 2.677667,
+          "min_us": 1.697,
+          "max_us": 5.92,
+          "backward_kernel_percent": 0.995101
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "calls": 8,
+          "total_us": 14.56,
+          "mean_us": 1.82,
+          "min_us": 1.567,
+          "max_us": 2.56,
+          "backward_kernel_percent": 0.901822
+        },
+        {
+          "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+          "calls": 5,
+          "total_us": 10.816,
+          "mean_us": 2.1632,
+          "min_us": 1.76,
+          "max_us": 2.848,
+          "backward_kernel_percent": 0.669925
+        },
+        {
+          "name": "sm90_xmma_dgrad_implicit_gemm_indexed_f32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize128x64x32_warpgroupsize1x1x1_g1_strided_execute_kernel__5x_cudnn",
+          "calls": 1,
+          "total_us": 10.207,
+          "mean_us": 10.207,
+          "min_us": 10.207,
+          "max_us": 10.207,
+          "backward_kernel_percent": 0.632205
+        },
+        {
+          "name": "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)",
+          "calls": 5,
+          "total_us": 8.32,
+          "mean_us": 1.664,
+          "min_us": 1.312,
+          "max_us": 2.72,
+          "backward_kernel_percent": 0.515327
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+          "calls": 3,
+          "total_us": 5.088,
+          "mean_us": 1.696,
+          "min_us": 0.992,
+          "max_us": 3.072,
+          "backward_kernel_percent": 0.315142
+        },
+        {
+          "name": "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+          "calls": 1,
+          "total_us": 3.808,
+          "mean_us": 3.808,
+          "min_us": 3.808,
+          "max_us": 3.808,
+          "backward_kernel_percent": 0.235861
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)",
+          "calls": 1,
+          "total_us": 3.169,
+          "mean_us": 3.169,
+          "min_us": 3.169,
+          "max_us": 3.169,
+          "backward_kernel_percent": 0.196283
+        },
+        {
+          "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+          "calls": 1,
+          "total_us": 1.919,
+          "mean_us": 1.919,
+          "min_us": 1.919,
+          "max_us": 1.919,
+          "backward_kernel_percent": 0.11886
+        },
+        {
+          "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+          "calls": 1,
+          "total_us": 1.824,
+          "mean_us": 1.824,
+          "min_us": 1.824,
+          "max_us": 1.824,
+          "backward_kernel_percent": 0.112976
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)",
+          "calls": 1,
+          "total_us": 1.568,
+          "mean_us": 1.568,
+          "min_us": 1.568,
+          "max_us": 1.568,
+          "backward_kernel_percent": 0.097119
+        },
+        {
+          "name": "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)",
+          "calls": 1,
+          "total_us": 1.344,
+          "mean_us": 1.344,
+          "min_us": 1.344,
+          "max_us": 1.344,
+          "backward_kernel_percent": 0.083245
+        }
+      ],
+      "backward_kernel_links": []
+    }
+  ]
+}

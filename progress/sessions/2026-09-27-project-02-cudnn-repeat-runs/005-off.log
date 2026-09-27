@@ -1,0 +1,36 @@
+dX shape: (32, 512, 2, 2)
+dtype: torch.float32, device: cuda:0
+Maximum absolute error: 7.6293945e-06
+PASS: finite input gradients match the autograd reference.
+CUDNN benchmark: False
+CUDNN deterministic: False
+CUDNN allow_tf32: False
+Run ID: 5
+Time taken per call in block 0: 147.12 microseconds
+Time taken per call in block 1: 144.49 microseconds
+Time taken per call in block 2: 144.45 microseconds
+Time taken per call in block 3: 144.42 microseconds
+Time taken per call in block 4: 144.39 microseconds
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                             dgrad_only         0.00%       0.000us         0.00%       0.000us       0.000us     457.633us       106.55%     457.633us     152.544us             3  
+                             aten::convolution_backward         7.77%     194.284us        75.20%       1.881ms     626.856us     429.505us       100.00%     573.281us     191.094us             3  
+void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3...         0.00%       0.000us         0.00%       0.000us       0.000us     425.440us        99.05%     425.440us     141.813us             3  
+                                Activity Buffer Request        64.38%       1.610ms        64.38%       1.610ms       1.610ms     143.776us        33.47%     143.776us     143.776us             1  
+void cudnn::engines_precompiled::scalePackedTensor_k...         0.00%       0.000us         0.00%       0.000us       0.000us       4.065us         0.95%       4.065us       1.355us             3  
+                                             dgrad_only        13.71%     342.904us        93.04%       2.327ms     775.628us       0.000us         0.00%     573.281us     191.094us             3  
+                                        aten::new_empty         0.70%      17.574us         2.68%      67.108us      22.369us       0.000us         0.00%       0.000us       0.000us             3  
+                                            aten::empty         1.98%      49.534us         1.98%      49.534us      16.511us       0.000us         0.00%       0.000us       0.000us             3  
+                                           aten::expand         1.10%      27.473us         1.45%      36.302us      12.101us       0.000us         0.00%       0.000us       0.000us             3  
+                                       aten::as_strided         0.35%       8.829us         0.35%       8.829us       2.943us       0.000us         0.00%       0.000us       0.000us             3  
+                                               aten::to         0.14%       3.510us         0.14%       3.510us       1.170us       0.000us         0.00%       0.000us       0.000us             3  
+                                       cudaLaunchKernel         2.86%      71.581us         2.86%      71.581us      11.930us       0.000us         0.00%       0.000us       0.000us             6  
+                                     cudaGetErrorString         0.05%       1.216us         0.05%       1.216us       0.203us       0.000us         0.00%       0.000us       0.000us             6  
+                                  cudaDeviceSynchronize         6.96%     173.990us         6.96%     173.990us      86.995us       0.000us         0.00%       0.000us       0.000us             2  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.501ms
+Self CUDA time total: 429.505us
+
+/home/sasmit/miniconda3/envs/kvforge/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(

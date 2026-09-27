@@ -1,0 +1,35 @@
+dX shape: (32, 512, 2, 2)
+dtype: torch.float32, device: cuda:0
+Maximum absolute error: 0
+PASS: finite input gradients match the autograd reference.
+CUDNN benchmark: True
+CUDNN deterministic: False
+CUDNN allow_tf32: False
+Run ID: 2
+Time taken per call in block 0: 119.82 microseconds
+Time taken per call in block 1: 117.28 microseconds
+Time taken per call in block 2: 117.26 microseconds
+Time taken per call in block 3: 117.24 microseconds
+Time taken per call in block 4: 117.24 microseconds
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                             aten::convolution_backward         7.02%     170.297us        76.11%       1.847ms     615.637us     347.583us       100.00%     463.775us     154.592us             3  
+sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchw...         0.00%       0.000us         0.00%       0.000us       0.000us     347.583us       100.00%     347.583us     115.861us             3  
+                                             dgrad_only         0.00%       0.000us         0.00%       0.000us       0.000us     347.583us       100.00%     347.583us     115.861us             3  
+                                Activity Buffer Request        66.18%       1.606ms        66.18%       1.606ms       1.606ms     116.192us        33.43%     116.192us     116.192us             1  
+                                             dgrad_only        13.98%     339.234us        94.23%       2.287ms     762.200us       0.000us         0.00%     463.775us     154.592us             3  
+                                        aten::new_empty         0.69%      16.780us         2.65%      64.254us      21.418us       0.000us         0.00%       0.000us       0.000us             3  
+                                            aten::empty         1.96%      47.474us         1.96%      47.474us      15.825us       0.000us         0.00%       0.000us       0.000us             3  
+                                           aten::expand         1.12%      27.293us         1.49%      36.200us      12.067us       0.000us         0.00%       0.000us       0.000us             3  
+                                       aten::as_strided         0.37%       8.907us         0.37%       8.907us       2.969us       0.000us         0.00%       0.000us       0.000us             3  
+                                               aten::to         0.16%       3.835us         0.16%       3.835us       1.278us       0.000us         0.00%       0.000us       0.000us             3  
+                                    cudaPeekAtLastError         0.52%      12.586us         0.52%      12.586us       2.098us       0.000us         0.00%       0.000us       0.000us             6  
+                                    cudaLaunchKernelExC         2.24%      54.307us         2.24%      54.307us      18.102us       0.000us         0.00%       0.000us       0.000us             3  
+                                  cudaDeviceSynchronize         5.77%     140.062us         5.77%     140.062us      70.031us       0.000us         0.00%       0.000us       0.000us             2  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.427ms
+Self CUDA time total: 347.583us
+
+/home/sasmit/miniconda3/envs/kvforge/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(

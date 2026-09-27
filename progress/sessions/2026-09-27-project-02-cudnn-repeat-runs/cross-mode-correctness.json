@@ -1,0 +1,16 @@
+{
+  "weight_exact_equal": true,
+  "grad_output_exact_equal": true,
+  "both_dx_finite": true,
+  "dx_assert_close_pass": false,
+  "mismatched_elements": 12473,
+  "total_elements": 65536,
+  "max_abs_difference": 0.0003509521484375,
+  "max_relative_difference": 0.009784771129488945,
+  "tolerance": {
+    "rtol": 1.3e-06,
+    "atol": 1e-05
+  },
+  "off_tensor": "project_02_performance_laboratory/conv_dgrad_off_no_tf32_007.pt",
+  "on_tensor": "project_02_performance_laboratory/conv_dgrad_on_no_tf32_008.pt"
+}
