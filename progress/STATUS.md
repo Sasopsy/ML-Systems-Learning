@@ -1,6 +1,33 @@
 # Current status
 
-Last updated: 2026-09-27 (UTC; first visual trace interpretation).
+Last updated: 2026-09-30 (roadmap revision; no new experiment).
+
+## Roadmap revision — 2026-09-30
+
+- User accepted the coverage review with practical, comparable first-pass depth
+  in **CUDA C++, Triton, and TileLang**; defer extreme specialization until useful.
+- `roadmap.md` now includes **Project 4C: Quantization Laboratory**, with a broad
+  algorithm survey, bounded core experiments, optional methods, and deferred
+  KV/fine-tuning applications. Existing project IDs are preserved.
+- Added explicit numerical accuracy, training-memory, GPU concurrency, attention,
+  topology, and serving-cost milestones; marked advanced branches optional.
+- Project 2 remains active. **Next learning task:** explain accumulation error
+  and distinguish numerical tolerances from application-level acceptance in the
+  recorded cuDNN/float64 comparison. No result or mastery status changed.
+- See the [revision session](sessions/2026-09-30-roadmap-revision.md).
+
+## Earlier review — 2026-09-29
+
+Roadmap review (2026-09-29): reviewed planned coverage and existing progress at
+the user's request. Recommended a dedicated quantization sequence, earlier
+numerical-accuracy work, explicit training-memory and GPU-concurrency exercises,
+and optional specialization branches to reduce mandatory scope. These are
+recommendations, not an adopted roadmap revision. See the
+[review session](sessions/2026-09-29-roadmap-review.md). Project 2 remains active;
+its latest numerical-acceptance question remains open. No experiments rerun.
+
+The experiment history below was last updated on 2026-09-27; later follow-ups
+within this file supersede its earlier resume instructions.
 
 ## Active focus
 

@@ -1,5 +1,19 @@
 # Project 2: ML Performance Laboratory
 
+Roadmap revision (2026-09-30): user accepted explicit numerical-accuracy and
+performance-model coverage. The roadmap now connects this laboratory to Project
+4C quantization, memory accounting, and Project 3 concurrency work. No experiment
+or learner assessment occurred. Resume the latest accumulation-error/application
+acceptance question from the float64 comparison. See the
+[revision session](../sessions/2026-09-30-roadmap-revision.md).
+
+Roadmap review (2026-09-29): recommended making numerical accuracy and
+application-level quality acceptance explicit in this laboratory, motivated by
+the recorded cross-mode/float64 reference comparisons. Also recommended memory
+accounting, concurrency, and performance-model exercises across Projects 2/3.
+No new benchmark, mastery assessment, or roadmap change. See the
+[review session](../sessions/2026-09-29-roadmap-review.md).
+
 Synchronization follow-up (2026-09-27): explained overlap after learner proposed
 low CPU overhead/caching. Learner then correctly predicted per-call waits prevent
 submission of later calls during earlier GPU work; clarified overlap within a call
