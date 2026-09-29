@@ -142,3 +142,34 @@
   had lower maximum and mean error; neither was established as ground truth.
 - A float64 result is not exact arithmetic. Default tolerances are not a
   universal application accuracy requirement; do not loosen them just to pass.
+
+
+## Tolerance defaults
+
+- **Pass rule:** `abs(error) <= atol + rtol * abs(reference)`.
+- Float32 `assert_close` defaults: **atol=1e-5**, **rtol=1.3e-6**; inherited
+  from PyTorch, not derived for our convolution. Near zero, allowance approaches
+  **0.00001**. Different addition orders can change rounded float32 results.
+- Failing this default does **not** establish unacceptable training accuracy;
+  application tolerances need justification, not adjustment just to pass.
+- [PyTorch tolerance defaults](https://docs.pytorch.org/docs/2.11/testing.html#torch.testing.assert_close).
+
+
+## Overall versus elementwise error
+
+- **Relative L2 error:** `norm(result - reference) / norm(reference)` measures
+  aggregate error relative to the reference, assuming its norm is nonzero.
+- A small overall ratio can coexist with many elementwise tolerance failures;
+  neither metric replaces the other or establishes downstream training quality.
+
+
+## Failure counts versus rates
+
+- **Rate = failures / elements in the bin.** More failures can simply reflect
+  more elements: search-on had 63/120 failures below 0.1 (52.5%), versus
+  5075/54137 at 10+ (9.37%).
+- Small reference values failed more often proportionally; most search-on
+  failures were nevertheless in the 10+ bin. The magnitude-dependent tolerance
+  influences these rates; they do not measure accuracy alone.
+- Isolated result: about 19% lower helper time, small relative L2 error, but both
+  modes fail the original elementwise criterion. Training impact remains unknown.

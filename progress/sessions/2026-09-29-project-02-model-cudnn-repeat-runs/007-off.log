@@ -1,0 +1,42 @@
+Average time (ms) per step for run 0: 3.8363963599840645
+Images per second for run 0: 8341.161078604746
+Average time (ms) per step for run 1: 3.840746180012502
+Images per second for run 1: 8331.714333670401
+Average time (ms) per step for run 2: 3.911617679987103
+Images per second for run 2: 8180.758606271947
+Average time (ms) per step for run 3: 3.8406340800065664
+Images per second for run 3: 8331.957518833788
+Average time (ms) per step for run 4: 3.839256640003441
+Images per second for run 4: 8334.946840118331
+Final loss: 0.006520724389702082
+Mean time (ms) per step (mean of 5 runs): 3.8537301879987353
+Median time (ms) per step (mean of 5 runs): 3.8406340800065664
+Minimum time (ms) per step (mean of 5 runs): 3.8363963599840645
+Maximum time (ms) per step (mean of 5 runs): 3.9116176799871027
+cuDNN benchmark: False
+cuDNN allow TF32: False
+run_id: 7
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           forward_pass         0.00%       0.000us         0.00%       0.000us       0.000us       8.350ms        78.84%       8.350ms       2.783ms             3  
+                             aten::convolution_backward         5.27%       1.860ms         9.18%       3.238ms      53.965us       4.674ms        44.13%       4.674ms      77.894us            60  
+                                aten::cudnn_convolution         2.64%     930.825us         8.59%       3.028ms      50.475us       4.414ms        41.67%       4.449ms      74.154us            60  
+void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3...         0.00%       0.000us         0.00%       0.000us       0.000us       1.858ms        17.55%       1.858ms      77.432us            24  
+sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_...         0.00%       0.000us         0.00%       0.000us       0.000us       1.821ms        17.19%       1.821ms     202.329us             9  
+sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchw...         0.00%       0.000us         0.00%       0.000us       0.000us       1.067ms        10.07%       1.067ms      50.811us            21  
+sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchw...         0.00%       0.000us         0.00%       0.000us       0.000us     889.025us         8.39%     889.025us      29.634us            30  
+sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchw...         0.00%       0.000us         0.00%       0.000us       0.000us     872.035us         8.23%     872.035us      58.136us            15  
+sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchw...         0.00%       0.000us         0.00%       0.000us       0.000us     546.112us         5.16%     546.112us      45.509us            12  
+void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5...         0.00%       0.000us         0.00%       0.000us       0.000us     478.464us         4.52%     478.464us     159.488us             3  
+                        aten::cudnn_batch_norm_backward         2.40%     845.774us         4.94%       1.743ms      29.044us     451.262us         4.26%     451.262us       7.521us            60  
+void cudnn::cnn::wgrad_alg1_engine<float, float, 128...         0.00%       0.000us         0.00%       0.000us       0.000us     440.030us         4.15%     440.030us      29.335us            15  
+void cudnn::bn_bw_1C11_singleread<float, 512, true, ...         0.00%       0.000us         0.00%       0.000us       0.000us     350.878us         3.31%     350.878us       6.156us            57  
+                                 aten::cudnn_batch_norm         3.43%       1.211ms         7.00%       2.468ms      41.125us     324.162us         3.06%     324.162us       5.403us            60  
+void cudnn::bn_fw_tr_1C11_singleread<float, 512, tru...         0.00%       0.000us         0.00%       0.000us       0.000us     277.506us         2.62%     277.506us       4.869us            57  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 35.270ms
+Self CUDA time total: 10.591ms
+
+/home/sasmit/miniconda3/envs/kvforge/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(

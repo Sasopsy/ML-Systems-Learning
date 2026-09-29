@@ -48,9 +48,40 @@ def main():
         "rtol": rtol,
         "comparisons": {},
     }
+
+    # Editable internal boundaries; include both tails automatically.
+    buckets = [0.1, 1, 10]
+    if any(not (0 < boundary < float("inf")) for boundary in buckets):
+        raise ValueError("Bucket boundaries must be positive and finite.")
+    if any(left >= right for left, right in zip(buckets, buckets[1:])):
+        raise ValueError("Bucket boundaries must be strictly increasing.")
+    edges = [0.0, *buckets, float("inf")]
+
     for mode, tensors in saved.items():
+
         error = (tensors["grad_input"].double() - reference).abs()
-        mismatches = int((error > allowed).sum().item())
+        failed = error > allowed
+        mismatches = int(failed.sum().item())
+        relative_l2_error = (
+            torch.linalg.norm(tensors["grad_input"].double() - reference)
+            / torch.linalg.norm(reference)
+        ).item()
+        magnitude = reference.abs()
+        bin_results = {}
+        for lower, upper in zip(edges, edges[1:]):
+            mask = (lower <= magnitude) & (magnitude < upper)
+            total_count = mask.sum().item()
+            failed_count = (failed & mask).sum().item()
+            bin_results[f"[{lower:g}, {upper:g})"] = {
+                "total_count": total_count,
+                "failed_count": failed_count,
+                "failure_rate_percent": (
+                    100 * failed_count / total_count if total_count else None
+                ),
+            }
+        assert sum(group["total_count"] for group in bin_results.values()) == error.numel()
+        assert sum(group["failed_count"] for group in bin_results.values()) == mismatches
+
         report["comparisons"][mode] = {
             "source": filenames[mode],
             "max_absolute_error": error.max().item(),
@@ -58,6 +89,8 @@ def main():
             "mismatched_elements": mismatches,
             "total_elements": error.numel(),
             "passes_original_tolerance": mismatches == 0,
+            "relative_l2_error": relative_l2_error,
+            "bins": bin_results,
         }
     # Report both modes even if numerical acceptance fails for either one.
     print(json.dumps(report, indent=2))

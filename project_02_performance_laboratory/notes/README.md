@@ -16,3 +16,4 @@
 - [Labeling training phases](09-labeling-training-phases.md)
 - [Ranking backward kernels](10-ranking-backward-kernels.md)
 - [Isolating convolution input gradients](11-isolating-convolution-input-gradients.md)
+- [From kernel to model performance](12-from-kernel-to-model-performance.md)

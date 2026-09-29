@@ -1,0 +1,68 @@
+[
+  {
+    "mode": "off",
+    "tf32": false,
+    "run_id": 1,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/benchmark.py",
+      "--cudnn-benchmark",
+      "off",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "1"
+    ],
+    "block_ms": [
+      3.791088039997703,
+      3.991894320006395,
+      3.782978079998429,
+      3.785899580016121,
+      3.78354947999469
+    ],
+    "median_ms": 3.785899580016121,
+    "final_loss": 0.006522412411868572,
+    "trace": "project_02_performance_laboratory/resnet18_benchmark_off_off_001.trace.json",
+    "trace_sha256": "df10acddfa0ccb0f40262e777dcd5b983b655e14bd40db3b3797c32b9c1f51ce",
+    "kernel_events": 690,
+    "cpu_train_step_scopes": 3
+  },
+  {
+    "mode": "on",
+    "tf32": false,
+    "run_id": 2,
+    "command": [
+      "conda",
+      "run",
+      "--no-capture-output",
+      "-n",
+      "kvforge",
+      "python",
+      "project_02_performance_laboratory/benchmark.py",
+      "--cudnn-benchmark",
+      "on",
+      "--cudnn-allow-tf32",
+      "off",
+      "--run-id",
+      "2"
+    ],
+    "block_ms": [
+      3.5689632799949322,
+      3.4343688000080874,
+      3.4591389399975014,
+      3.436698540008365,
+      3.4321873800035974
+    ],
+    "median_ms": 3.436698540008365,
+    "final_loss": 0.006526823155581951,
+    "trace": "project_02_performance_laboratory/resnet18_benchmark_on_off_002.trace.json",
+    "trace_sha256": "8c42ebfa38b1d981de2dc761880cab46300fc796fbbb510fb6b5b1832c035abc",
+    "kernel_events": 693,
+    "cpu_train_step_scopes": 3
+  }
+]
