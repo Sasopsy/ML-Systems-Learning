@@ -1,0 +1,1801 @@
+{
+  "method": "Kernel correlation -> unique runtime/driver launch -> matching External id and enclosing CPU op on launch thread -> enclosing synchronous phase; second step used for comparisons. All kernel events across three steps checked. Sums are GPU execution durations, not elapsed phase time.",
+  "runs": [
+    {
+      "run_id": 3,
+      "mode": "off",
+      "trace": "project_02_performance_laboratory/resnet18_benchmark_off_off_003.trace.json",
+      "trace_sha256": "d6c278afd3906208f0c4b65a8aa840fc8fef273c67f1f12d73cd18cfd631844a",
+      "all_kernels_attributed": 690,
+      "step2": {
+        "zero_grad": {
+          "cpu_duration_us": 74.133,
+          "kernel_duration_us": 0.0,
+          "kernel_count": 0
+        },
+        "forward_pass": {
+          "cpu_duration_us": 2714.433,
+          "kernel_duration_us": 1677.2809999999997,
+          "kernel_count": 90
+        },
+        "loss": {
+          "cpu_duration_us": 76.741,
+          "kernel_duration_us": 3.616,
+          "kernel_count": 2
+        },
+        "loss_backward": {
+          "cpu_duration_us": 3794.244,
+          "kernel_duration_us": 1799.0449999999992,
+          "kernel_count": 137
+        },
+        "optimizer_step": {
+          "cpu_duration_us": 200.171,
+          "kernel_duration_us": 47.488,
+          "kernel_count": 1
+        }
+      },
+      "examples": {
+        "forward_pass": {
+          "kernel": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+          "kernel_duration_us": 35.552,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 4454,
+          "external_id": 382,
+          "cpu_thread": 26519,
+          "launch_duration_us": 9.925,
+          "launch_start_us_from_step2": 167.015625,
+          "cpu_op": "aten::cudnn_convolution",
+          "input_dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "loss_backward": {
+          "kernel": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "kernel_duration_us": 143.808,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 6485,
+          "external_id": 1208,
+          "cpu_thread": 26565,
+          "launch_duration_us": 4.292,
+          "launch_start_us_from_step2": 3438.59765625,
+          "cpu_op": "aten::convolution_backward",
+          "input_dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        }
+      },
+      "step2_kernel_groups": {
+        "zero_grad": {},
+        "forward_pass": {
+          "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)": {
+            "calls": 1,
+            "duration_us": 35.552
+          },
+          "void at::native::vectorized_elementwise_kernel<2, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul>)": {
+            "calls": 20,
+            "duration_us": 27.937000000000005
+          },
+          "void cudnn::bn_fw_tr_1C11_kernel_NCHW<float, float, int, 128, true, 1, true>(cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float const*, float, float, float*, float*, float*, float*, float, float)": {
+            "calls": 1,
+            "duration_us": 15.552
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)": {
+            "calls": 17,
+            "duration_us": 27.456000000000007
+          },
+          "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)": {
+            "calls": 1,
+            "duration_us": 10.432
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 5,
+            "duration_us": 290.528
+          },
+          "void cudnn::bn_fw_tr_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_fw_tr_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 92.482
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 12.735999999999997
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 4,
+            "duration_us": 181.919
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 7,
+            "duration_us": 356.159
+          },
+          "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 3,
+            "duration_us": 607.552
+          },
+          "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 2.976
+          },
+          "void scal_kernel<float, float, 1, true, 6, 5, 5, 3>(cublasTransposeParams<float>, float const*, float*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.024
+          },
+          "void sgemm_largek_lds64<true, false, 5, 5, 4, 4, 4, 34>(float*, float const*, float const*, int, int, int, int, int, int, float const*, float const*, float, float, int, int, int*, int*)": {
+            "calls": 1,
+            "duration_us": 13.184
+          },
+          "void cublasLt::epilogue::impl::globalKernel<8, 32, float, float, float, true, true, 1>(int, int, long, float*, cublasLtEpilogue_t, int, float*, long, void*, long, long, long, float*, long, int*)": {
+            "calls": 1,
+            "duration_us": 1.792
+          }
+        },
+        "loss": {
+          "void (anonymous namespace)::softmax_warp_forward<float, float, float, 4, true, false>(float*, float const*, int, int, int, bool const*, int, bool)": {
+            "calls": 1,
+            "duration_us": 1.44
+          },
+          "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)": {
+            "calls": 1,
+            "duration_us": 2.176
+          }
+        },
+        "loss_backward": {
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)": {
+            "calls": 3,
+            "duration_us": 5.088
+          },
+          "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)": {
+            "calls": 1,
+            "duration_us": 1.664
+          },
+          "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)": {
+            "calls": 1,
+            "duration_us": 1.216
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)": {
+            "calls": 1,
+            "duration_us": 3.04
+          },
+          "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.824
+          },
+          "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas": {
+            "calls": 8,
+            "duration_us": 83.2
+          },
+          "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 3.84
+          },
+          "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+            "calls": 1,
+            "duration_us": 1.952
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)": {
+            "calls": 17,
+            "duration_us": 31.741999999999997
+          },
+          "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 116.737
+          },
+          "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)": {
+            "calls": 9,
+            "duration_us": 14.786
+          },
+          "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)": {
+            "calls": 8,
+            "duration_us": 616.929
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 5,
+            "duration_us": 146.017
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 14.721
+          },
+          "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 10,
+            "duration_us": 294.721
+          },
+          "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)": {
+            "calls": 1,
+            "duration_us": 173.568
+          },
+          "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 35.553999999999995
+          },
+          "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 23.518
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)": {
+            "calls": 3,
+            "duration_us": 28.607999999999997
+          },
+          "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 25.983999999999995
+          },
+          "void wgrad_alg0_engine<float, 128, 5, 5, 3, 3, 3, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 4,
+            "duration_us": 90.33600000000001
+          },
+          "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)": {
+            "calls": 2,
+            "duration_us": 4.032
+          },
+          "sm80_xmma_wgrad_implicit_gemm_indexed_f32f32_f32f32_f32_nhwckrsc_nhwc_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_execute_kernel__5x_cudnn": {
+            "calls": 1,
+            "duration_us": 18.56
+          },
+          "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)": {
+            "calls": 1,
+            "duration_us": 3.232
+          },
+          "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)": {
+            "calls": 1,
+            "duration_us": 24.704
+          },
+          "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)": {
+            "calls": 1,
+            "duration_us": 33.472
+          }
+        },
+        "optimizer_step": {
+          "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float)": {
+            "calls": 1,
+            "duration_us": 47.488
+          }
+        }
+      }
+    },
+    {
+      "run_id": 4,
+      "mode": "on",
+      "trace": "project_02_performance_laboratory/resnet18_benchmark_on_off_004.trace.json",
+      "trace_sha256": "ad2cef045794a52b6df34b2406caaaa4be22fe52e23e9a37bc881b6db4e75933",
+      "all_kernels_attributed": 699,
+      "step2": {
+        "zero_grad": {
+          "cpu_duration_us": 63.028,
+          "kernel_duration_us": 0.0,
+          "kernel_count": 0
+        },
+        "forward_pass": {
+          "cpu_duration_us": 2689.22,
+          "kernel_duration_us": 1310.208,
+          "kernel_count": 90
+        },
+        "loss": {
+          "cpu_duration_us": 97.584,
+          "kernel_duration_us": 3.5200000000000005,
+          "kernel_count": 2
+        },
+        "loss_backward": {
+          "cpu_duration_us": 4068.739,
+          "kernel_duration_us": 1671.1330000000014,
+          "kernel_count": 140
+        },
+        "optimizer_step": {
+          "cpu_duration_us": 188.035,
+          "kernel_duration_us": 48.16,
+          "kernel_count": 1
+        }
+      },
+      "examples": {
+        "forward_pass": {
+          "kernel": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+          "kernel_duration_us": 35.584,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 4464,
+          "external_id": 382,
+          "cpu_thread": 26585,
+          "launch_duration_us": 10.559,
+          "launch_start_us_from_step2": 149.0634765625,
+          "cpu_op": "aten::cudnn_convolution",
+          "input_dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "loss_backward": {
+          "kernel": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "kernel_duration_us": 117.216,
+          "launch_api": "cudaLaunchKernelExC",
+          "correlation": 6491,
+          "external_id": 1208,
+          "cpu_thread": 26609,
+          "launch_duration_us": 6.376,
+          "launch_start_us_from_step2": 3695.1064453125,
+          "cpu_op": "aten::convolution_backward",
+          "input_dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        }
+      },
+      "step2_kernel_groups": {
+        "zero_grad": {},
+        "forward_pass": {
+          "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)": {
+            "calls": 3,
+            "duration_us": 52.992000000000004
+          },
+          "void at::native::vectorized_elementwise_kernel<2, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul>)": {
+            "calls": 20,
+            "duration_us": 27.871000000000002
+          },
+          "void cudnn::bn_fw_tr_1C11_kernel_NCHW<float, float, int, 128, true, 1, true>(cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float const*, float, float, float*, float*, float*, float*, float, float)": {
+            "calls": 1,
+            "duration_us": 15.04
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)": {
+            "calls": 17,
+            "duration_us": 27.806000000000004
+          },
+          "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)": {
+            "calls": 1,
+            "duration_us": 10.463
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 4,
+            "duration_us": 110.08000000000001
+          },
+          "void cudnn::bn_fw_tr_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_fw_tr_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 93.66499999999999
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 12.607999999999997
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 13,
+            "duration_us": 940.835
+          },
+          "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 3.136
+          },
+          "void scal_kernel<float, float, 1, true, 6, 5, 5, 3>(cublasTransposeParams<float>, float const*, float*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.024
+          },
+          "void sgemm_largek_lds64<true, false, 5, 5, 4, 4, 4, 34>(float*, float const*, float const*, int, int, int, int, int, int, float const*, float const*, float, float, int, int, int*, int*)": {
+            "calls": 1,
+            "duration_us": 13.12
+          },
+          "void cublasLt::epilogue::impl::globalKernel<8, 32, float, float, float, true, true, 1>(int, int, long, float*, cublasLtEpilogue_t, int, float*, long, void*, long, long, long, float*, long, int*)": {
+            "calls": 1,
+            "duration_us": 1.568
+          }
+        },
+        "loss": {
+          "void (anonymous namespace)::softmax_warp_forward<float, float, float, 4, true, false>(float*, float const*, int, int, int, bool const*, int, bool)": {
+            "calls": 1,
+            "duration_us": 1.344
+          },
+          "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)": {
+            "calls": 1,
+            "duration_us": 2.176
+          }
+        },
+        "loss_backward": {
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)": {
+            "calls": 3,
+            "duration_us": 5.12
+          },
+          "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)": {
+            "calls": 1,
+            "duration_us": 1.792
+          },
+          "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)": {
+            "calls": 1,
+            "duration_us": 1.248
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)": {
+            "calls": 1,
+            "duration_us": 3.071
+          },
+          "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.985
+          },
+          "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas": {
+            "calls": 8,
+            "duration_us": 82.81599999999999
+          },
+          "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 4.319
+          },
+          "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+            "calls": 1,
+            "duration_us": 1.985
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)": {
+            "calls": 17,
+            "duration_us": 32.38400000000001
+          },
+          "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 116.35199999999999
+          },
+          "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 10,
+            "duration_us": 578.177
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 6, 7, 3, 3, 5, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 3,
+            "duration_us": 124.25599999999999
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 14.593
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 1,
+            "duration_us": 11.904
+          },
+          "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)": {
+            "calls": 9,
+            "duration_us": 16.288
+          },
+          "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)": {
+            "calls": 8,
+            "duration_us": 339.32800000000003
+          },
+          "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)": {
+            "calls": 4,
+            "duration_us": 8.383000000000001
+          },
+          "sm80_xmma_wgrad_implicit_gemm_indexed_f32f32_f32f32_f32_nhwckrsc_nhwc_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_execute_kernel__5x_cudnn": {
+            "calls": 2,
+            "duration_us": 32.032
+          },
+          "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)": {
+            "calls": 2,
+            "duration_us": 10.496
+          },
+          "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 35.134
+          },
+          "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 23.424
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)": {
+            "calls": 3,
+            "duration_us": 28.767
+          },
+          "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 26.110999999999997
+          },
+          "void wgrad_alg0_engine<float, 128, 6, 7, 3, 3, 5, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 1,
+            "duration_us": 11.264
+          },
+          "void wgrad_alg0_engine<float, 128, 5, 5, 3, 3, 3, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 3,
+            "duration_us": 79.424
+          },
+          "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)": {
+            "calls": 1,
+            "duration_us": 21.568
+          },
+          "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)": {
+            "calls": 1,
+            "duration_us": 25.088
+          },
+          "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)": {
+            "calls": 1,
+            "duration_us": 33.824
+          }
+        },
+        "optimizer_step": {
+          "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float)": {
+            "calls": 1,
+            "duration_us": 48.16
+          }
+        }
+      }
+    },
+    {
+      "run_id": 5,
+      "mode": "on",
+      "trace": "project_02_performance_laboratory/resnet18_benchmark_on_off_005.trace.json",
+      "trace_sha256": "fc6d2f519357687dd2bcfe4fcdc19db0bbb91562c1116cce3517732e7b3a3de3",
+      "all_kernels_attributed": 699,
+      "step2": {
+        "zero_grad": {
+          "cpu_duration_us": 93.952,
+          "kernel_duration_us": 0.0,
+          "kernel_count": 0
+        },
+        "forward_pass": {
+          "cpu_duration_us": 2700.272,
+          "kernel_duration_us": 1316.2630000000004,
+          "kernel_count": 90
+        },
+        "loss": {
+          "cpu_duration_us": 73.124,
+          "kernel_duration_us": 3.551,
+          "kernel_count": 2
+        },
+        "loss_backward": {
+          "cpu_duration_us": 3727.392,
+          "kernel_duration_us": 1675.332,
+          "kernel_count": 140
+        },
+        "optimizer_step": {
+          "cpu_duration_us": 187.19,
+          "kernel_duration_us": 47.841,
+          "kernel_count": 1
+        }
+      },
+      "examples": {
+        "forward_pass": {
+          "kernel": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+          "kernel_duration_us": 35.424,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 4464,
+          "external_id": 382,
+          "cpu_thread": 26632,
+          "launch_duration_us": 14.282,
+          "launch_start_us_from_step2": 191.0478515625,
+          "cpu_op": "aten::cudnn_convolution",
+          "input_dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "loss_backward": {
+          "kernel": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "kernel_duration_us": 117.025,
+          "launch_api": "cudaLaunchKernelExC",
+          "correlation": 6491,
+          "external_id": 1208,
+          "cpu_thread": 26661,
+          "launch_duration_us": 5.856,
+          "launch_start_us_from_step2": 3480.2626953125,
+          "cpu_op": "aten::convolution_backward",
+          "input_dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        }
+      },
+      "step2_kernel_groups": {
+        "zero_grad": {},
+        "forward_pass": {
+          "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)": {
+            "calls": 3,
+            "duration_us": 52.96
+          },
+          "void at::native::vectorized_elementwise_kernel<2, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul>)": {
+            "calls": 20,
+            "duration_us": 27.870000000000008
+          },
+          "void cudnn::bn_fw_tr_1C11_kernel_NCHW<float, float, int, 128, true, 1, true>(cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float const*, float, float, float*, float*, float*, float*, float, float)": {
+            "calls": 1,
+            "duration_us": 15.616
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)": {
+            "calls": 17,
+            "duration_us": 27.712000000000003
+          },
+          "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)": {
+            "calls": 1,
+            "duration_us": 10.592
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 4,
+            "duration_us": 110.84899999999999
+          },
+          "void cudnn::bn_fw_tr_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_fw_tr_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 93.69599999999998
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 12.642
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 13,
+            "duration_us": 945.508
+          },
+          "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 3.2
+          },
+          "void scal_kernel<float, float, 1, true, 6, 5, 5, 3>(cublasTransposeParams<float>, float const*, float*, float const*)": {
+            "calls": 1,
+            "duration_us": 0.992
+          },
+          "void sgemm_largek_lds64<true, false, 5, 5, 4, 4, 4, 34>(float*, float const*, float const*, int, int, int, int, int, int, float const*, float const*, float, float, int, int, int*, int*)": {
+            "calls": 1,
+            "duration_us": 13.057
+          },
+          "void cublasLt::epilogue::impl::globalKernel<8, 32, float, float, float, true, true, 1>(int, int, long, float*, cublasLtEpilogue_t, int, float*, long, void*, long, long, long, float*, long, int*)": {
+            "calls": 1,
+            "duration_us": 1.569
+          }
+        },
+        "loss": {
+          "void (anonymous namespace)::softmax_warp_forward<float, float, float, 4, true, false>(float*, float const*, int, int, int, bool const*, int, bool)": {
+            "calls": 1,
+            "duration_us": 1.375
+          },
+          "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)": {
+            "calls": 1,
+            "duration_us": 2.176
+          }
+        },
+        "loss_backward": {
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)": {
+            "calls": 3,
+            "duration_us": 5.12
+          },
+          "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)": {
+            "calls": 1,
+            "duration_us": 1.696
+          },
+          "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)": {
+            "calls": 1,
+            "duration_us": 1.216
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)": {
+            "calls": 1,
+            "duration_us": 3.072
+          },
+          "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.856
+          },
+          "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas": {
+            "calls": 8,
+            "duration_us": 82.687
+          },
+          "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 4.32
+          },
+          "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+            "calls": 1,
+            "duration_us": 1.985
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)": {
+            "calls": 17,
+            "duration_us": 32.289
+          },
+          "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 116.70799999999998
+          },
+          "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 9,
+            "duration_us": 566.497
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 6, 7, 3, 3, 5, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 3,
+            "duration_us": 124.959
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 15.008
+          },
+          "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)": {
+            "calls": 4,
+            "duration_us": 9.153
+          },
+          "sm80_xmma_wgrad_implicit_gemm_indexed_f32f32_f32f32_f32_nhwckrsc_nhwc_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_execute_kernel__5x_cudnn": {
+            "calls": 2,
+            "duration_us": 23.68
+          },
+          "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)": {
+            "calls": 10,
+            "duration_us": 18.814999999999998
+          },
+          "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)": {
+            "calls": 10,
+            "duration_us": 377.214
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 1,
+            "duration_us": 22.624
+          },
+          "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 35.391999999999996
+          },
+          "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 23.616
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)": {
+            "calls": 3,
+            "duration_us": 28.993
+          },
+          "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 25.823999999999998
+          },
+          "void wgrad_alg0_engine<float, 128, 6, 7, 3, 3, 5, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 1,
+            "duration_us": 11.36
+          },
+          "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)": {
+            "calls": 1,
+            "duration_us": 3.232
+          },
+          "void wgrad_alg0_engine<float, 128, 5, 5, 3, 3, 3, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 3,
+            "duration_us": 79.2
+          },
+          "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)": {
+            "calls": 1,
+            "duration_us": 24.96
+          },
+          "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)": {
+            "calls": 1,
+            "duration_us": 33.856
+          }
+        },
+        "optimizer_step": {
+          "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float)": {
+            "calls": 1,
+            "duration_us": 47.841
+          }
+        }
+      }
+    },
+    {
+      "run_id": 6,
+      "mode": "off",
+      "trace": "project_02_performance_laboratory/resnet18_benchmark_off_off_006.trace.json",
+      "trace_sha256": "6782a9ef9a6714450b7a8aae384ae2d0a9fee2173e224bf8fbf149e4d1a1470b",
+      "all_kernels_attributed": 690,
+      "step2": {
+        "zero_grad": {
+          "cpu_duration_us": 77.849,
+          "kernel_duration_us": 0.0,
+          "kernel_count": 0
+        },
+        "forward_pass": {
+          "cpu_duration_us": 2954.68,
+          "kernel_duration_us": 1676.552,
+          "kernel_count": 90
+        },
+        "loss": {
+          "cpu_duration_us": 101.831,
+          "kernel_duration_us": 3.552,
+          "kernel_count": 2
+        },
+        "loss_backward": {
+          "cpu_duration_us": 3921.337,
+          "kernel_duration_us": 1795.3240000000008,
+          "kernel_count": 137
+        },
+        "optimizer_step": {
+          "cpu_duration_us": 202.709,
+          "kernel_duration_us": 47.392,
+          "kernel_count": 1
+        }
+      },
+      "examples": {
+        "forward_pass": {
+          "kernel": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+          "kernel_duration_us": 35.68,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 4454,
+          "external_id": 382,
+          "cpu_thread": 26677,
+          "launch_duration_us": 15.072,
+          "launch_start_us_from_step2": 178.853515625,
+          "cpu_op": "aten::cudnn_convolution",
+          "input_dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "loss_backward": {
+          "kernel": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "kernel_duration_us": 145.216,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 6485,
+          "external_id": 1208,
+          "cpu_thread": 26702,
+          "launch_duration_us": 5.422,
+          "launch_start_us_from_step2": 3749.03515625,
+          "cpu_op": "aten::convolution_backward",
+          "input_dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        }
+      },
+      "step2_kernel_groups": {
+        "zero_grad": {},
+        "forward_pass": {
+          "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)": {
+            "calls": 1,
+            "duration_us": 35.68
+          },
+          "void at::native::vectorized_elementwise_kernel<2, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul>)": {
+            "calls": 20,
+            "duration_us": 27.555
+          },
+          "void cudnn::bn_fw_tr_1C11_kernel_NCHW<float, float, int, 128, true, 1, true>(cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float const*, float, float, float*, float*, float*, float*, float, float)": {
+            "calls": 1,
+            "duration_us": 15.808
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)": {
+            "calls": 17,
+            "duration_us": 27.777000000000005
+          },
+          "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)": {
+            "calls": 1,
+            "duration_us": 10.56
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 5,
+            "duration_us": 290.368
+          },
+          "void cudnn::bn_fw_tr_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_fw_tr_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 92.547
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 12.639999999999997
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 4,
+            "duration_us": 182.24
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 7,
+            "duration_us": 356.418
+          },
+          "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 3,
+            "duration_us": 606.271
+          },
+          "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 2.944
+          },
+          "void scal_kernel<float, float, 1, true, 6, 5, 5, 3>(cublasTransposeParams<float>, float const*, float*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.056
+          },
+          "void sgemm_largek_lds64<true, false, 5, 5, 4, 4, 4, 34>(float*, float const*, float const*, int, int, int, int, int, int, float const*, float const*, float, float, int, int, int*, int*)": {
+            "calls": 1,
+            "duration_us": 13.088
+          },
+          "void cublasLt::epilogue::impl::globalKernel<8, 32, float, float, float, true, true, 1>(int, int, long, float*, cublasLtEpilogue_t, int, float*, long, void*, long, long, long, float*, long, int*)": {
+            "calls": 1,
+            "duration_us": 1.6
+          }
+        },
+        "loss": {
+          "void (anonymous namespace)::softmax_warp_forward<float, float, float, 4, true, false>(float*, float const*, int, int, int, bool const*, int, bool)": {
+            "calls": 1,
+            "duration_us": 1.376
+          },
+          "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)": {
+            "calls": 1,
+            "duration_us": 2.176
+          }
+        },
+        "loss_backward": {
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)": {
+            "calls": 3,
+            "duration_us": 5.087
+          },
+          "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)": {
+            "calls": 1,
+            "duration_us": 1.696
+          },
+          "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)": {
+            "calls": 1,
+            "duration_us": 1.248
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)": {
+            "calls": 1,
+            "duration_us": 3.136
+          },
+          "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.856
+          },
+          "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas": {
+            "calls": 8,
+            "duration_us": 83.32699999999998
+          },
+          "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 3.872
+          },
+          "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+            "calls": 1,
+            "duration_us": 1.92
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)": {
+            "calls": 17,
+            "duration_us": 31.746000000000002
+          },
+          "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 116.575
+          },
+          "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)": {
+            "calls": 9,
+            "duration_us": 15.008
+          },
+          "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)": {
+            "calls": 8,
+            "duration_us": 622.1419999999999
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 5,
+            "duration_us": 147.168
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 14.655000000000001
+          },
+          "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 10,
+            "duration_us": 297.666
+          },
+          "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)": {
+            "calls": 1,
+            "duration_us": 159.552
+          },
+          "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 35.457
+          },
+          "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 23.615
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)": {
+            "calls": 3,
+            "duration_us": 28.896
+          },
+          "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 26.239999999999995
+          },
+          "void wgrad_alg0_engine<float, 128, 5, 5, 3, 3, 3, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 4,
+            "duration_us": 89.887
+          },
+          "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)": {
+            "calls": 2,
+            "duration_us": 4.031000000000001
+          },
+          "sm80_xmma_wgrad_implicit_gemm_indexed_f32f32_f32f32_f32_nhwckrsc_nhwc_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_execute_kernel__5x_cudnn": {
+            "calls": 1,
+            "duration_us": 18.848
+          },
+          "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)": {
+            "calls": 1,
+            "duration_us": 3.264
+          },
+          "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)": {
+            "calls": 1,
+            "duration_us": 24.96
+          },
+          "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)": {
+            "calls": 1,
+            "duration_us": 33.472
+          }
+        },
+        "optimizer_step": {
+          "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float)": {
+            "calls": 1,
+            "duration_us": 47.392
+          }
+        }
+      }
+    },
+    {
+      "run_id": 7,
+      "mode": "off",
+      "trace": "project_02_performance_laboratory/resnet18_benchmark_off_off_007.trace.json",
+      "trace_sha256": "2f4a432c1dca96c0eaa8a49ec999a70f83678cfb50438bb6cce6cbec1c2a7bca",
+      "all_kernels_attributed": 690,
+      "step2": {
+        "zero_grad": {
+          "cpu_duration_us": 74.64,
+          "kernel_duration_us": 0.0,
+          "kernel_count": 0
+        },
+        "forward_pass": {
+          "cpu_duration_us": 2751.081,
+          "kernel_duration_us": 1677.6039999999996,
+          "kernel_count": 90
+        },
+        "loss": {
+          "cpu_duration_us": 72.935,
+          "kernel_duration_us": 3.5200000000000005,
+          "kernel_count": 2
+        },
+        "loss_backward": {
+          "cpu_duration_us": 3724.359,
+          "kernel_duration_us": 1792.2529999999995,
+          "kernel_count": 137
+        },
+        "optimizer_step": {
+          "cpu_duration_us": 199.571,
+          "kernel_duration_us": 47.776,
+          "kernel_count": 1
+        }
+      },
+      "examples": {
+        "forward_pass": {
+          "kernel": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+          "kernel_duration_us": 35.456,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 4454,
+          "external_id": 382,
+          "cpu_thread": 26751,
+          "launch_duration_us": 10.856,
+          "launch_start_us_from_step2": 163.419921875,
+          "cpu_op": "aten::cudnn_convolution",
+          "input_dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "loss_backward": {
+          "kernel": "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)",
+          "kernel_duration_us": 144.128,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 6485,
+          "external_id": 1208,
+          "cpu_thread": 26775,
+          "launch_duration_us": 4.697,
+          "launch_start_us_from_step2": 3585.521484375,
+          "cpu_op": "aten::convolution_backward",
+          "input_dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        }
+      },
+      "step2_kernel_groups": {
+        "zero_grad": {},
+        "forward_pass": {
+          "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)": {
+            "calls": 1,
+            "duration_us": 35.456
+          },
+          "void at::native::vectorized_elementwise_kernel<2, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul>)": {
+            "calls": 20,
+            "duration_us": 27.872000000000003
+          },
+          "void cudnn::bn_fw_tr_1C11_kernel_NCHW<float, float, int, 128, true, 1, true>(cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float const*, float, float, float*, float*, float*, float*, float, float)": {
+            "calls": 1,
+            "duration_us": 15.808
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)": {
+            "calls": 17,
+            "duration_us": 27.587
+          },
+          "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)": {
+            "calls": 1,
+            "duration_us": 10.465
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 5,
+            "duration_us": 290.91200000000003
+          },
+          "void cudnn::bn_fw_tr_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_fw_tr_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 92.863
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 12.544999999999998
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 4,
+            "duration_us": 181.50400000000002
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 7,
+            "duration_us": 356.76800000000003
+          },
+          "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 3,
+            "duration_us": 607.008
+          },
+          "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 2.976
+          },
+          "void scal_kernel<float, float, 1, true, 6, 5, 5, 3>(cublasTransposeParams<float>, float const*, float*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.024
+          },
+          "void sgemm_largek_lds64<true, false, 5, 5, 4, 4, 4, 34>(float*, float const*, float const*, int, int, int, int, int, int, float const*, float const*, float, float, int, int, int*, int*)": {
+            "calls": 1,
+            "duration_us": 13.12
+          },
+          "void cublasLt::epilogue::impl::globalKernel<8, 32, float, float, float, true, true, 1>(int, int, long, float*, cublasLtEpilogue_t, int, float*, long, void*, long, long, long, float*, long, int*)": {
+            "calls": 1,
+            "duration_us": 1.696
+          }
+        },
+        "loss": {
+          "void (anonymous namespace)::softmax_warp_forward<float, float, float, 4, true, false>(float*, float const*, int, int, int, bool const*, int, bool)": {
+            "calls": 1,
+            "duration_us": 1.344
+          },
+          "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)": {
+            "calls": 1,
+            "duration_us": 2.176
+          }
+        },
+        "loss_backward": {
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)": {
+            "calls": 3,
+            "duration_us": 5.152
+          },
+          "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)": {
+            "calls": 1,
+            "duration_us": 1.664
+          },
+          "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)": {
+            "calls": 1,
+            "duration_us": 1.248
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)": {
+            "calls": 1,
+            "duration_us": 3.04
+          },
+          "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.856
+          },
+          "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas": {
+            "calls": 8,
+            "duration_us": 83.45400000000001
+          },
+          "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 3.969
+          },
+          "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+            "calls": 1,
+            "duration_us": 1.952
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)": {
+            "calls": 17,
+            "duration_us": 31.935999999999993
+          },
+          "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 117.44
+          },
+          "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)": {
+            "calls": 9,
+            "duration_us": 14.786000000000001
+          },
+          "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)": {
+            "calls": 8,
+            "duration_us": 618.4970000000001
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 5,
+            "duration_us": 146.623
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 14.751999999999999
+          },
+          "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 10,
+            "duration_us": 296.48
+          },
+          "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)": {
+            "calls": 1,
+            "duration_us": 159.52
+          },
+          "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 35.553
+          },
+          "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 23.711
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)": {
+            "calls": 3,
+            "duration_us": 28.767
+          },
+          "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 26.045
+          },
+          "void wgrad_alg0_engine<float, 128, 5, 5, 3, 3, 3, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 4,
+            "duration_us": 90.4
+          },
+          "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)": {
+            "calls": 2,
+            "duration_us": 4.32
+          },
+          "sm80_xmma_wgrad_implicit_gemm_indexed_f32f32_f32f32_f32_nhwckrsc_nhwc_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_execute_kernel__5x_cudnn": {
+            "calls": 1,
+            "duration_us": 18.72
+          },
+          "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)": {
+            "calls": 1,
+            "duration_us": 3.232
+          },
+          "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)": {
+            "calls": 1,
+            "duration_us": 24.768
+          },
+          "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)": {
+            "calls": 1,
+            "duration_us": 34.368
+          }
+        },
+        "optimizer_step": {
+          "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float)": {
+            "calls": 1,
+            "duration_us": 47.776
+          }
+        }
+      }
+    },
+    {
+      "run_id": 8,
+      "mode": "on",
+      "trace": "project_02_performance_laboratory/resnet18_benchmark_on_off_008.trace.json",
+      "trace_sha256": "e5a301db94ab82389f634f36b98dc0365497daac90f33da881bf5a659d31bce8",
+      "all_kernels_attributed": 690,
+      "step2": {
+        "zero_grad": {
+          "cpu_duration_us": 70.969,
+          "kernel_duration_us": 0.0,
+          "kernel_count": 0
+        },
+        "forward_pass": {
+          "cpu_duration_us": 2759.379,
+          "kernel_duration_us": 1314.0180000000003,
+          "kernel_count": 90
+        },
+        "loss": {
+          "cpu_duration_us": 77.358,
+          "kernel_duration_us": 3.7760000000000002,
+          "kernel_count": 2
+        },
+        "loss_backward": {
+          "cpu_duration_us": 3511.998,
+          "kernel_duration_us": 1672.9030000000002,
+          "kernel_count": 137
+        },
+        "optimizer_step": {
+          "cpu_duration_us": 182.621,
+          "kernel_duration_us": 47.776,
+          "kernel_count": 1
+        }
+      },
+      "examples": {
+        "forward_pass": {
+          "kernel": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+          "kernel_duration_us": 36.128,
+          "launch_api": "cudaLaunchKernel",
+          "correlation": 4454,
+          "external_id": 382,
+          "cpu_thread": 26798,
+          "launch_duration_us": 10.681,
+          "launch_start_us_from_step2": 163.7548828125,
+          "cpu_op": "aten::cudnn_convolution",
+          "input_dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "loss_backward": {
+          "kernel": "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "kernel_duration_us": 117.44,
+          "launch_api": "cudaLaunchKernelExC",
+          "correlation": 6481,
+          "external_id": 1208,
+          "cpu_thread": 26824,
+          "launch_duration_us": 4.753,
+          "launch_start_us_from_step2": 3472.845703125,
+          "cpu_op": "aten::convolution_backward",
+          "input_dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ]
+        }
+      },
+      "step2_kernel_groups": {
+        "zero_grad": {},
+        "forward_pass": {
+          "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)": {
+            "calls": 1,
+            "duration_us": 36.128
+          },
+          "void at::native::vectorized_elementwise_kernel<2, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2ul>)": {
+            "calls": 20,
+            "duration_us": 28.194000000000006
+          },
+          "void cudnn::bn_fw_tr_1C11_kernel_NCHW<float, float, int, 128, true, 1, true>(cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float const*, float, float, float*, float*, float*, float*, float, float)": {
+            "calls": 1,
+            "duration_us": 15.2
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)": {
+            "calls": 17,
+            "duration_us": 27.806000000000008
+          },
+          "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)": {
+            "calls": 1,
+            "duration_us": 10.56
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 4,
+            "duration_us": 111.68100000000001
+          },
+          "void cudnn::bn_fw_tr_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_fw_tr_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 93.02500000000002
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 12.542999999999997
+          },
+          "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 14,
+            "duration_us": 946.016
+          },
+          "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 1,
+            "duration_us": 14.112
+          },
+          "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 3.008
+          },
+          "void scal_kernel<float, float, 1, true, 6, 5, 5, 3>(cublasTransposeParams<float>, float const*, float*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.025
+          },
+          "void sgemm_largek_lds64<true, false, 5, 5, 4, 4, 4, 34>(float*, float const*, float const*, int, int, int, int, int, int, float const*, float const*, float, float, int, int, int*, int*)": {
+            "calls": 1,
+            "duration_us": 13.152
+          },
+          "void cublasLt::epilogue::impl::globalKernel<8, 32, float, float, float, true, true, 1>(int, int, long, float*, cublasLtEpilogue_t, int, float*, long, void*, long, long, long, float*, long, int*)": {
+            "calls": 1,
+            "duration_us": 1.568
+          }
+        },
+        "loss": {
+          "void (anonymous namespace)::softmax_warp_forward<float, float, float, 4, true, false>(float*, float const*, int, int, int, bool const*, int, bool)": {
+            "calls": 1,
+            "duration_us": 1.6
+          },
+          "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)": {
+            "calls": 1,
+            "duration_us": 2.176
+          }
+        },
+        "loss_backward": {
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)": {
+            "calls": 3,
+            "duration_us": 5.12
+          },
+          "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)": {
+            "calls": 1,
+            "duration_us": 1.664
+          },
+          "void (anonymous namespace)::softmax_warp_backward<float, float, float, 4, true, false>(float*, float const*, float const*, int, int, int, bool const*)": {
+            "calls": 1,
+            "duration_us": 1.216
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_64x64_8x5_nn_align1>(cutlass_80_simt_sgemm_64x64_8x5_nn_align1::Params)": {
+            "calls": 1,
+            "duration_us": 3.071
+          },
+          "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": {
+            "calls": 1,
+            "duration_us": 1.855
+          },
+          "sm80_xmma_gemm_f32f32_f32f32_f32_nt_n_tilesize32x32x8_stage3_warpsize1x2x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas": {
+            "calls": 8,
+            "duration_us": 82.687
+          },
+          "void at::native::reduce_kernel<256, 2, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)": {
+            "calls": 1,
+            "duration_us": 4.097
+          },
+          "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+            "calls": 1,
+            "duration_us": 1.984
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::(anonymous namespace)::threshold_kernel_impl<float>(at::TensorIteratorBase&, float, float)::{lambda(float, float)#1}>, std::array<char*, 3ul>)": {
+            "calls": 17,
+            "duration_us": 32.418
+          },
+          "void cudnn::bn_bw_1C11_singleread<float, 512, true, 1, 2, 0>(cudnn::bn_bw_1C11_args<float>)": {
+            "calls": 19,
+            "duration_us": 116.22299999999998
+          },
+          "sm80_xmma_dgrad_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn": {
+            "calls": 10,
+            "duration_us": 579.618
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 6, 7, 3, 3, 5, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 3,
+            "duration_us": 125.312
+          },
+          "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)": {
+            "calls": 8,
+            "duration_us": 14.305
+          },
+          "void cudnn::cnn::wgrad_alg1_engine<float, float, 128, 5, 5, 3, 3, 3, false, false>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, float, int, int, int*, int*, int, int)": {
+            "calls": 2,
+            "duration_us": 34.209
+          },
+          "void cudnn::engines_precompiled::scalePackedTensor_kernel<float, float>(long, float*, float)": {
+            "calls": 9,
+            "duration_us": 16.384
+          },
+          "void cudnn::detail::dgrad_engine<float, 512, 6, 5, 3, 3, 3, false>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int, int)": {
+            "calls": 8,
+            "duration_us": 340.992
+          },
+          "void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 35.296
+          },
+          "void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 23.426
+          },
+          "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x32_8x5_nt_align1>(cutlass_80_simt_sgemm_128x32_8x5_nt_align1::Params)": {
+            "calls": 3,
+            "duration_us": 28.927999999999997
+          },
+          "void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)": {
+            "calls": 10,
+            "duration_us": 26.016999999999996
+          },
+          "void wgrad_alg0_engine<float, 128, 6, 7, 3, 3, 5, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 1,
+            "duration_us": 11.328
+          },
+          "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)": {
+            "calls": 2,
+            "duration_us": 3.872
+          },
+          "sm80_xmma_wgrad_implicit_gemm_indexed_f32f32_f32f32_f32_nhwckrsc_nhwc_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_execute_kernel__5x_cudnn": {
+            "calls": 1,
+            "duration_us": 18.848
+          },
+          "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)": {
+            "calls": 1,
+            "duration_us": 3.232
+          },
+          "void wgrad_alg0_engine<float, 128, 5, 5, 3, 3, 3, false, 512>(int, int, int, float const*, int, float*, float const*, kernel_grad_params, unsigned long long, int, float, int, int, int, int)": {
+            "calls": 3,
+            "duration_us": 79.745
+          },
+          "void cudnn::detail::dgrad2d_alg1_1<float, 0, 6, 6, 5, 4, 4, false, true>(int, int, int, float const*, int, float const*, int, float*, kernel_grad_params, unsigned long long, int, unsigned long long, int, float, int, int)": {
+            "calls": 1,
+            "duration_us": 21.536
+          },
+          "void at::native::(anonymous namespace)::max_pool_backward_nchw<float, float, int>(float const*, long const*, int, int, int, int, int, int, int, int, int, int, int, int, int, int, float*)": {
+            "calls": 1,
+            "duration_us": 25.344
+          },
+          "void cudnn::bn_bw_1C11_kernel_new<float, float, float2, 128, true, 1>(float, float, float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, float const*, float*, float*, float const*, float const*, float)": {
+            "calls": 1,
+            "duration_us": 34.176
+          }
+        },
+        "optimizer_step": {
+          "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 2, 2, 0>, std::plus<float>, float)": {
+            "calls": 1,
+            "duration_us": 47.776
+          }
+        }
+      }
+    }
+  ],
+  "representative_pair_off6_on5": {
+    "zero_grad": {
+      "off_us": 0.0,
+      "on_us": 0.0,
+      "saved_us": 0.0,
+      "reduction_percent": null
+    },
+    "forward_pass": {
+      "off_us": 1676.552,
+      "on_us": 1316.2630000000004,
+      "saved_us": 360.28899999999953,
+      "reduction_percent": 21.489879228320955
+    },
+    "loss": {
+      "off_us": 3.552,
+      "on_us": 3.551,
+      "saved_us": 0.0009999999999998899,
+      "reduction_percent": 0.028153153153150052
+    },
+    "loss_backward": {
+      "off_us": 1795.3240000000008,
+      "on_us": 1675.332,
+      "saved_us": 119.99200000000064,
+      "reduction_percent": 6.683584690005848
+    },
+    "optimizer_step": {
+      "off_us": 47.392,
+      "on_us": 47.841,
+      "saved_us": -0.44899999999999807,
+      "reduction_percent": -0.9474172856178217
+    }
+  }
+}

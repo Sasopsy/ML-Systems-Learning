@@ -119,3 +119,15 @@ For correlation 5036, take the preceding stream-7 GPU event's end as time zero:
 - [Kineto launch metrics at PyTorch 2.11's pinned revision](https://github.com/pytorch/kineto/blob/7a731b6ae01cfc2b1fc75d83a91f84e682e43fd7/libkineto/src/DeviceProperties.cpp)
 - [Kineto metadata writer at the same revision](https://github.com/pytorch/kineto/blob/7a731b6ae01cfc2b1fc75d83a91f84e682e43fd7/libkineto/src/CuptiActivity.cpp)
 - [Nsight Compute occupancy and launch statistics](https://docs.nvidia.com/nsight-compute/ProfilingGuide/)
+
+
+## Standard versus extensible launch API
+
+- **cudaLaunchKernel:** kernel arguments plus grid/block dimensions, dynamic
+  shared-memory size and stream passed as function arguments.
+- **cudaLaunchKernelExC:** same basic settings in a configuration structure,
+  with optional extra launch attributes. C-style counterpart of cudaLaunchKernelEx.
+- Both submit GPU work; neither API name proves a faster kernel or which optional
+  attributes were used. CPU launch duration is not GPU execution duration.
+- **Correlation is an integer ID**, not the launch start timestamp.
+- [CUDA 13.0 execution API](https://docs.nvidia.com/cuda/archive/13.0.0/cuda-runtime-api/group__CUDART__EXECUTION.html).

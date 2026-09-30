@@ -1,0 +1,7974 @@
+{
+  "method": "Second forward phase; 20 ordered calls. Pair matched by ordinal, dims/strides and concrete inputs except benchmark flag at index6. Each kernel External id checked through correlation to launch inside its CPU convolution. Same workload shapes, not equality of tensor values.",
+  "runs": [
+    {
+      "run_id": 3,
+      "mode": "off",
+      "calls": [
+        {
+          "ordinal": 1,
+          "dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              12288,
+              4096,
+              64,
+              1
+            ],
+            [
+              147,
+              49,
+              7,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[3, 3]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 35.552,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 35.552,
+              "correlation": 4454
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 73.408,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 73.408,
+              "correlation": 4552
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 66.944,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 66.944,
+              "correlation": 4637
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 67.2,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 67.2,
+              "correlation": 4729
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 66.944,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 66.944,
+              "correlation": 4814
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.904,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.904,
+              "correlation": 4906
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.359,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.359,
+              "correlation": 4991
+            }
+          ]
+        },
+        {
+          "ordinal": 8,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              64,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 16.032,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 16.032,
+              "correlation": 5066
+            }
+          ]
+        },
+        {
+          "ordinal": 9,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.136,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.136,
+              "correlation": 5158
+            }
+          ]
+        },
+        {
+          "ordinal": 10,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.52,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.52,
+              "correlation": 5243
+            }
+          ]
+        },
+        {
+          "ordinal": 11,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.752,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.752,
+              "correlation": 5335
+            }
+          ]
+        },
+        {
+          "ordinal": 12,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.144,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.144,
+              "correlation": 5420
+            }
+          ]
+        },
+        {
+          "ordinal": 13,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              128,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 6.783,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 6.783,
+              "correlation": 5495
+            }
+          ]
+        },
+        {
+          "ordinal": 14,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 73.824,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 73.824,
+              "correlation": 5587
+            }
+          ]
+        },
+        {
+          "ordinal": 15,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.752,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.752,
+              "correlation": 5672
+            }
+          ]
+        },
+        {
+          "ordinal": 16,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 76.992,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 76.992,
+              "correlation": 5764
+            }
+          ]
+        },
+        {
+          "ordinal": 17,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 202.816,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 202.816,
+              "correlation": 5849
+            }
+          ]
+        },
+        {
+          "ordinal": 18,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              256,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 10.912,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 10.912,
+              "correlation": 5924
+            }
+          ]
+        },
+        {
+          "ordinal": 19,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 202.848,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 202.848,
+              "correlation": 6016
+            }
+          ]
+        },
+        {
+          "ordinal": 20,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 201.888,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 201.888,
+              "correlation": 6101
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": 4,
+      "mode": "on",
+      "calls": [
+        {
+          "ordinal": 1,
+          "dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              12288,
+              4096,
+              64,
+              1
+            ],
+            [
+              147,
+              49,
+              7,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[3, 3]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 35.584,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 35.584,
+              "correlation": 4464
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.744,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.744,
+              "correlation": 4562
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.328,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.328,
+              "correlation": 4647
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.424,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.424,
+              "correlation": 4739
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.584,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.584,
+              "correlation": 4824
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 21.056,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 21.056,
+              "correlation": 4916
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.336,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.336,
+              "correlation": 5001
+            }
+          ]
+        },
+        {
+          "ordinal": 8,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              64,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 7.008,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 7.008,
+              "correlation": 5076
+            }
+          ]
+        },
+        {
+          "ordinal": 9,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.368,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.368,
+              "correlation": 5168
+            }
+          ]
+        },
+        {
+          "ordinal": 10,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.176,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.176,
+              "correlation": 5253
+            }
+          ]
+        },
+        {
+          "ordinal": 11,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.208,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.208,
+              "correlation": 5345
+            }
+          ]
+        },
+        {
+          "ordinal": 12,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.049,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.049,
+              "correlation": 5430
+            }
+          ]
+        },
+        {
+          "ordinal": 13,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              128,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 10.4,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 10.4,
+              "correlation": 5505
+            }
+          ]
+        },
+        {
+          "ordinal": 14,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.144,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.144,
+              "correlation": 5597
+            }
+          ]
+        },
+        {
+          "ordinal": 15,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 73.856,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 73.856,
+              "correlation": 5682
+            }
+          ]
+        },
+        {
+          "ordinal": 16,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 76.608,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 76.608,
+              "correlation": 5774
+            }
+          ]
+        },
+        {
+          "ordinal": 17,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 152.544,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 152.544,
+              "correlation": 5859
+            }
+          ]
+        },
+        {
+          "ordinal": 18,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              256,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 10.912,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 10.912,
+              "correlation": 5934
+            }
+          ]
+        },
+        {
+          "ordinal": 19,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 152.929,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 152.929,
+              "correlation": 6026
+            }
+          ]
+        },
+        {
+          "ordinal": 20,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 151.649,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 151.649,
+              "correlation": 6111
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": 5,
+      "mode": "on",
+      "calls": [
+        {
+          "ordinal": 1,
+          "dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              12288,
+              4096,
+              64,
+              1
+            ],
+            [
+              147,
+              49,
+              7,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[3, 3]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 35.424,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 35.424,
+              "correlation": 4464
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.84,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.84,
+              "correlation": 4562
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.585,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.585,
+              "correlation": 4647
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.775,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.775,
+              "correlation": 4739
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.649,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.649,
+              "correlation": 4824
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 21.184,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 21.184,
+              "correlation": 4916
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.24,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.24,
+              "correlation": 5001
+            }
+          ]
+        },
+        {
+          "ordinal": 8,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              64,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 7.04,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 7.04,
+              "correlation": 5076
+            }
+          ]
+        },
+        {
+          "ordinal": 9,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.401,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.401,
+              "correlation": 5168
+            }
+          ]
+        },
+        {
+          "ordinal": 10,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.785,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.785,
+              "correlation": 5253
+            }
+          ]
+        },
+        {
+          "ordinal": 11,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.592,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.592,
+              "correlation": 5345
+            }
+          ]
+        },
+        {
+          "ordinal": 12,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 73.888,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 73.888,
+              "correlation": 5430
+            }
+          ]
+        },
+        {
+          "ordinal": 13,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              128,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 10.496,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 10.496,
+              "correlation": 5505
+            }
+          ]
+        },
+        {
+          "ordinal": 14,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.528,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.528,
+              "correlation": 5597
+            }
+          ]
+        },
+        {
+          "ordinal": 15,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.369,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.369,
+              "correlation": 5682
+            }
+          ]
+        },
+        {
+          "ordinal": 16,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 76.704,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 76.704,
+              "correlation": 5774
+            }
+          ]
+        },
+        {
+          "ordinal": 17,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 154.144,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 154.144,
+              "correlation": 5859
+            }
+          ]
+        },
+        {
+          "ordinal": 18,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              256,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 10.72,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 10.72,
+              "correlation": 5934
+            }
+          ]
+        },
+        {
+          "ordinal": 19,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 152.928,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 152.928,
+              "correlation": 6026
+            }
+          ]
+        },
+        {
+          "ordinal": 20,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 153.025,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 153.025,
+              "correlation": 6111
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": 6,
+      "mode": "off",
+      "calls": [
+        {
+          "ordinal": 1,
+          "dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              12288,
+              4096,
+              64,
+              1
+            ],
+            [
+              147,
+              49,
+              7,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[3, 3]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 35.68,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 35.68,
+              "correlation": 4454
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 73.44,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 73.44,
+              "correlation": 4552
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 66.944,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 66.944,
+              "correlation": 4637
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 67.136,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 67.136,
+              "correlation": 4729
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 66.88,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 66.88,
+              "correlation": 4814
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 28.064,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 28.064,
+              "correlation": 4906
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.552,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.552,
+              "correlation": 4991
+            }
+          ]
+        },
+        {
+          "ordinal": 8,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              64,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 15.968,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 15.968,
+              "correlation": 5066
+            }
+          ]
+        },
+        {
+          "ordinal": 9,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.168,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.168,
+              "correlation": 5158
+            }
+          ]
+        },
+        {
+          "ordinal": 10,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.456,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.456,
+              "correlation": 5243
+            }
+          ]
+        },
+        {
+          "ordinal": 11,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.816,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.816,
+              "correlation": 5335
+            }
+          ]
+        },
+        {
+          "ordinal": 12,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 75.104,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 75.104,
+              "correlation": 5420
+            }
+          ]
+        },
+        {
+          "ordinal": 13,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              128,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 6.784,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 6.784,
+              "correlation": 5495
+            }
+          ]
+        },
+        {
+          "ordinal": 14,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.016,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.016,
+              "correlation": 5587
+            }
+          ]
+        },
+        {
+          "ordinal": 15,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.241,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.241,
+              "correlation": 5672
+            }
+          ]
+        },
+        {
+          "ordinal": 16,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 76.448,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 76.448,
+              "correlation": 5764
+            }
+          ]
+        },
+        {
+          "ordinal": 17,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 202.688,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 202.688,
+              "correlation": 5849
+            }
+          ]
+        },
+        {
+          "ordinal": 18,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              256,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 11.009,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 11.009,
+              "correlation": 5924
+            }
+          ]
+        },
+        {
+          "ordinal": 19,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 201.503,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 201.503,
+              "correlation": 6016
+            }
+          ]
+        },
+        {
+          "ordinal": 20,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 202.08,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 202.08,
+              "correlation": 6101
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": 7,
+      "mode": "off",
+      "calls": [
+        {
+          "ordinal": 1,
+          "dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              12288,
+              4096,
+              64,
+              1
+            ],
+            [
+              147,
+              49,
+              7,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[3, 3]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 35.456,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 35.456,
+              "correlation": 4454
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 73.569,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 73.569,
+              "correlation": 4552
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 67.072,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 67.072,
+              "correlation": 4637
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 67.264,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 67.264,
+              "correlation": 4729
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 66.912,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 66.912,
+              "correlation": 4814
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 28.0,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 28.0,
+              "correlation": 4906
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.2,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.2,
+              "correlation": 4991
+            }
+          ]
+        },
+        {
+          "ordinal": 8,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              64,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 16.095,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 16.095,
+              "correlation": 5066
+            }
+          ]
+        },
+        {
+          "ordinal": 9,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 51.36,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 51.36,
+              "correlation": 5158
+            }
+          ]
+        },
+        {
+          "ordinal": 10,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 50.944,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 50.944,
+              "correlation": 5243
+            }
+          ]
+        },
+        {
+          "ordinal": 11,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.688,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.688,
+              "correlation": 5335
+            }
+          ]
+        },
+        {
+          "ordinal": 12,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.272,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.272,
+              "correlation": 5420
+            }
+          ]
+        },
+        {
+          "ordinal": 13,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              128,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 6.656,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 6.656,
+              "correlation": 5495
+            }
+          ]
+        },
+        {
+          "ordinal": 14,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.528,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.528,
+              "correlation": 5587
+            }
+          ]
+        },
+        {
+          "ordinal": 15,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.528,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.528,
+              "correlation": 5672
+            }
+          ]
+        },
+        {
+          "ordinal": 16,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 77.12,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 77.12,
+              "correlation": 5764
+            }
+          ]
+        },
+        {
+          "ordinal": 17,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 203.104,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 203.104,
+              "correlation": 5849
+            }
+          ]
+        },
+        {
+          "ordinal": 18,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              256,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 10.976,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 10.976,
+              "correlation": 5924
+            }
+          ]
+        },
+        {
+          "ordinal": 19,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 202.016,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 202.016,
+              "correlation": 6016
+            }
+          ]
+        },
+        {
+          "ordinal": 20,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "False",
+            "False",
+            "False"
+          ],
+          "duration_us": 201.888,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 201.888,
+              "correlation": 6101
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": 8,
+      "mode": "on",
+      "calls": [
+        {
+          "ordinal": 1,
+          "dims": [
+            [
+              32,
+              3,
+              64,
+              64
+            ],
+            [
+              64,
+              3,
+              7,
+              7
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              12288,
+              4096,
+              64,
+              1
+            ],
+            [
+              147,
+              49,
+              7,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[3, 3]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 36.128,
+          "kernels": [
+            {
+              "name": "void implicit_convolve_sgemm<float, float, 1024, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+              "duration_us": 36.128,
+              "correlation": 4454
+            }
+          ]
+        },
+        {
+          "ordinal": 2,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 28.289,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 28.289,
+              "correlation": 4552
+            }
+          ]
+        },
+        {
+          "ordinal": 3,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.712,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.712,
+              "correlation": 4637
+            }
+          ]
+        },
+        {
+          "ordinal": 4,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.84,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.84,
+              "correlation": 4729
+            }
+          ]
+        },
+        {
+          "ordinal": 5,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              64,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 27.84,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 27.84,
+              "correlation": 4814
+            }
+          ]
+        },
+        {
+          "ordinal": 6,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              576,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 21.344,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 21.344,
+              "correlation": 4906
+            }
+          ]
+        },
+        {
+          "ordinal": 7,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.784,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.784,
+              "correlation": 4991
+            }
+          ]
+        },
+        {
+          "ordinal": 8,
+          "dims": [
+            [
+              32,
+              64,
+              16,
+              16
+            ],
+            [
+              128,
+              64,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              16384,
+              256,
+              16,
+              1
+            ],
+            [
+              64,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 5.216,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 5.216,
+              "correlation": 5066
+            }
+          ]
+        },
+        {
+          "ordinal": 9,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.944,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.944,
+              "correlation": 5158
+            }
+          ]
+        },
+        {
+          "ordinal": 10,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              128,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.656,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.656,
+              "correlation": 5243
+            }
+          ]
+        },
+        {
+          "ordinal": 11,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              1152,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 38.24,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 38.24,
+              "correlation": 5335
+            }
+          ]
+        },
+        {
+          "ordinal": 12,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.177,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.177,
+              "correlation": 5420
+            }
+          ]
+        },
+        {
+          "ordinal": 13,
+          "dims": [
+            [
+              32,
+              128,
+              8,
+              8
+            ],
+            [
+              256,
+              128,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              8192,
+              64,
+              8,
+              1
+            ],
+            [
+              128,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 6.911,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 6.911,
+              "correlation": 5495
+            }
+          ]
+        },
+        {
+          "ordinal": 14,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.592,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.592,
+              "correlation": 5587
+            }
+          ]
+        },
+        {
+          "ordinal": 15,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              256,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 74.144,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 74.144,
+              "correlation": 5672
+            }
+          ]
+        },
+        {
+          "ordinal": 16,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              2304,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 76.736,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 76.736,
+              "correlation": 5764
+            }
+          ]
+        },
+        {
+          "ordinal": 17,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 152.768,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 152.768,
+              "correlation": 5849
+            }
+          ]
+        },
+        {
+          "ordinal": 18,
+          "dims": [
+            [
+              32,
+              256,
+              4,
+              4
+            ],
+            [
+              512,
+              256,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              4096,
+              16,
+              4,
+              1
+            ],
+            [
+              256,
+              1,
+              1,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[0, 0]",
+            "[2, 2]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 14.112,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_indexed_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 14.112,
+              "correlation": 5924
+            }
+          ]
+        },
+        {
+          "ordinal": 19,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 153.344,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 153.344,
+              "correlation": 6016
+            }
+          ]
+        },
+        {
+          "ordinal": 20,
+          "dims": [
+            [
+              32,
+              512,
+              2,
+              2
+            ],
+            [
+              512,
+              512,
+              3,
+              3
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "strides": [
+            [
+              2048,
+              4,
+              2,
+              1
+            ],
+            [
+              4608,
+              9,
+              3,
+              1
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "inputs": [
+            "",
+            "",
+            "[1, 1]",
+            "[1, 1]",
+            "[1, 1]",
+            "1",
+            "True",
+            "False",
+            "False"
+          ],
+          "duration_us": 152.16,
+          "kernels": [
+            {
+              "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize32x32x8_stage3_warpsize1x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+              "duration_us": 152.16,
+              "correlation": 6101
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "off006_on005_groups": [
+    {
+      "shapes": [
+        [
+          32,
+          64,
+          16,
+          16
+        ],
+        [
+          64,
+          64,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "off_us": 274.4,
+      "on_us": 110.84899999999999,
+      "saved_us": 163.551
+    },
+    {
+      "shapes": [
+        [
+          32,
+          512,
+          2,
+          2
+        ],
+        [
+          512,
+          512,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        17,
+        19,
+        20
+      ],
+      "off_us": 606.271,
+      "on_us": 460.097,
+      "saved_us": 146.17399999999998
+    },
+    {
+      "shapes": [
+        [
+          32,
+          128,
+          8,
+          8
+        ],
+        [
+          128,
+          128,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        7,
+        9,
+        10
+      ],
+      "off_us": 154.176,
+      "on_us": 115.426,
+      "saved_us": 38.749999999999986
+    },
+    {
+      "shapes": [
+        [
+          32,
+          64,
+          16,
+          16
+        ],
+        [
+          128,
+          64,
+          1,
+          1
+        ]
+      ],
+      "ordinals": [
+        8
+      ],
+      "off_us": 15.968,
+      "on_us": 7.04,
+      "saved_us": 8.928
+    },
+    {
+      "shapes": [
+        [
+          32,
+          64,
+          16,
+          16
+        ],
+        [
+          128,
+          64,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        6
+      ],
+      "off_us": 28.064,
+      "on_us": 21.184,
+      "saved_us": 6.879999999999999
+    },
+    {
+      "shapes": [
+        [
+          32,
+          256,
+          4,
+          4
+        ],
+        [
+          256,
+          256,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        12,
+        14,
+        15
+      ],
+      "off_us": 223.361,
+      "on_us": 222.785,
+      "saved_us": 0.5759999999999934
+    },
+    {
+      "shapes": [
+        [
+          32,
+          256,
+          4,
+          4
+        ],
+        [
+          512,
+          256,
+          1,
+          1
+        ]
+      ],
+      "ordinals": [
+        18
+      ],
+      "off_us": 11.009,
+      "on_us": 10.72,
+      "saved_us": 0.2889999999999997
+    },
+    {
+      "shapes": [
+        [
+          32,
+          3,
+          64,
+          64
+        ],
+        [
+          64,
+          3,
+          7,
+          7
+        ]
+      ],
+      "ordinals": [
+        1
+      ],
+      "off_us": 35.68,
+      "on_us": 35.424,
+      "saved_us": 0.2560000000000002
+    },
+    {
+      "shapes": [
+        [
+          32,
+          128,
+          8,
+          8
+        ],
+        [
+          256,
+          128,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        11
+      ],
+      "off_us": 38.816,
+      "on_us": 38.592,
+      "saved_us": 0.22400000000000375
+    },
+    {
+      "shapes": [
+        [
+          32,
+          256,
+          4,
+          4
+        ],
+        [
+          512,
+          256,
+          3,
+          3
+        ]
+      ],
+      "ordinals": [
+        16
+      ],
+      "off_us": 76.448,
+      "on_us": 76.704,
+      "saved_us": -0.2560000000000002
+    },
+    {
+      "shapes": [
+        [
+          32,
+          128,
+          8,
+          8
+        ],
+        [
+          256,
+          128,
+          1,
+          1
+        ]
+      ],
+      "ordinals": [
+        13
+      ],
+      "off_us": 6.784,
+      "on_us": 10.496,
+      "saved_us": -3.7120000000000006
+    }
+  ]
+}
