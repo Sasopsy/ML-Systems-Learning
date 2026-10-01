@@ -1,0 +1,16 @@
+Run ID: 21
+Mode: benchmark
+CUDNN benchmark: True
+CUDNN deterministic: False
+CUDNN allow_tf32: False
+Maximum absolute error: 0.0001594768301
+Relative L2 error: 4.1820152335153264e-07
+Criterion: atol=1e-05, rtol=1.3e-06
+Elements outside tolerance: 4736 / 524288 (0.90%)
+Elementwise criterion: FAIL
+Block 1 time: 27.64 microseconds per call
+Block 2 time: 27.67 microseconds per call
+Block 3 time: 27.66 microseconds per call
+Block 4 time: 27.64 microseconds per call
+Block 5 time: 27.66 microseconds per call
+Median block time: 27.66 microseconds per call

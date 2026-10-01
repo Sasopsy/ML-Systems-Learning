@@ -140,7 +140,9 @@ def main():
     print(prof.key_averages().table(sort_by="self_cuda_time_total", row_limit=15))
 
 
-    trace_path = Path(__file__).with_name(
+    trace_directory = Path(__file__).resolve().parent / "results" / "resnet18" / "traces"
+    trace_directory.mkdir(parents=True, exist_ok=True)
+    trace_path = trace_directory / (
         f"resnet18_benchmark_{args.cudnn_benchmark}_{args.cudnn_allow_tf32}_{args.run_id:03d}.trace.json")
     prof.export_chrome_trace(str(trace_path))
 

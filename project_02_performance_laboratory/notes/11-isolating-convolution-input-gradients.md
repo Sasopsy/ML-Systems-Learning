@@ -173,3 +173,12 @@
   influences these rates; they do not measure accuracy alone.
 - Isolated result: about 19% lower helper time, small relative L2 error, but both
   modes fail the original elementwise criterion. Training impact remains unknown.
+
+
+## Comparing against a float64 reference
+
+- Convert the existing float32 inputs to float64; do not regenerate different values.
+- Keep the reference in float64 and promote the tested output before subtracting. Casting the reference back to float32 adds rounding to the comparison.
+- **Maximum absolute error** uses `.abs().max()`; **mean absolute error** uses `.abs().mean()`.
+- Maximum error alone cannot determine an elementwise tolerance result: the allowance also depends on the corresponding reference magnitude.
+- Explicitly retain the chosen float32 error criterion when doing comparison arithmetic in float64.

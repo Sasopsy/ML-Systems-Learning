@@ -60,3 +60,10 @@ Let **`N` = measured steps**, **`T` = block seconds**, **`B` = batch size**.
 - Five block means do not define a universal noise threshold.
 - Small real improvements are not automatically impossible to measure.
 - Timing variation alone does **not identify its cause**.
+
+
+## Validate the work that was timed
+
+- Retain the output from timed calls; run correctness checks on the final result outside the timer.
+- Store block timings and print afterward to avoid printing between blocks.
+- One off/on process pair is an initial comparison, not a repeated-process performance estimate.

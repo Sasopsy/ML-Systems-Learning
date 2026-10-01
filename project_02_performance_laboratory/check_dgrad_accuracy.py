@@ -7,7 +7,7 @@ import torch
 
 
 def main():
-    directory = Path(__file__).resolve().parent
+    directory = Path(__file__).resolve().parent / "results" / "conv_dgrad" / "tensors"
     filenames = {
         "off": "conv_dgrad_off_no_tf32_007.pt",
         "on": "conv_dgrad_on_no_tf32_008.pt",

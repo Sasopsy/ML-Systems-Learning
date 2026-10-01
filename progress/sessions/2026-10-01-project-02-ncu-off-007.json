@@ -1,0 +1,44 @@
+{
+  "report": "project_02_performance_laboratory/conv_fprop_ncu_off_007.ncu-rep",
+  "sha256": "3cefc53d89351f2b8119aa74b428fc39a89ea3e1b9bec5fb5fe4f60ed649e236",
+  "run_id": 7,
+  "cudnn_benchmark": false,
+  "allow_tf32": false,
+  "replay_passes": 10,
+  "replay_mode": "kernel",
+  "cache_control": "all",
+  "clock_control": "none",
+  "counter_collection_succeeded": true,
+  "grid": [
+    1,
+    32,
+    1
+  ],
+  "block": [
+    128,
+    1,
+    1
+  ],
+  "sm_count": 132,
+  "registers_per_thread": 255,
+  "dynamic_shared_memory_bytes_per_block": 33280,
+  "duration_us": 73.98,
+  "theoretical_occupancy_percent": 12.5,
+  "achieved_occupancy_percent": 6.25,
+  "achieved_active_warps_per_sm": 4.0,
+  "compute_sm_throughput_percent": 17.05,
+  "dram_throughput_percent": 0.94,
+  "block_limit_registers": 2,
+  "block_limit_shared_memory": 3,
+  "warnings": [
+    "Unfixed GPU frequencies; one diagnostic capture, not performance estimate.",
+    "Profiler rule speedup estimates are not measured gains."
+  ],
+  "numerical_diagnostic": {
+    "max_abs_error": 0.0001594768301,
+    "failed_elements": 4736,
+    "total_elements": 524288,
+    "atol": 1e-05,
+    "rtol": 1.3e-06
+  }
+}

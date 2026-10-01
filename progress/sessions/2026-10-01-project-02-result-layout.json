@@ -1,0 +1,157 @@
+{
+  "description": "Original artifacts moved without content changes. Historical commands retain original paths; use this map for current locations.",
+  "artifacts": {
+    "project_02_performance_laboratory/conv_dgrad.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad.trace.json",
+      "sha256": "101c5a82b2a47f136ab79ddcd928d70f72494a64d32450dbfb44d7141fed831a"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_off_no_tf32.trace.json",
+      "sha256": "880bcc8c8a02df178249b82806bc287434fa42af36402aca469657002b8d18df"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_001.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_off_no_tf32_001.trace.json",
+      "sha256": "e2dd889bec561289bddcb9081e4efe68dfce356f449cccc4bc671614f029ae3d"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_004.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_off_no_tf32_004.trace.json",
+      "sha256": "9a654bd1b93b43437c32aa03d3d4af0768241eb1d8c067a0546792a7f6d18b7b"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_005.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_off_no_tf32_005.trace.json",
+      "sha256": "acf7f9019230a593a64c1a85cb9c88ab8a6becde7633b5ec38aa514a4a0e3e00"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_off_no_tf32_007.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_off_no_tf32_007.trace.json",
+      "sha256": "96e02902bf6e7f313a8b23fd9fb2a9c9f5d66082f713febf48f52e9a8ad5b180"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_on_no_tf32.trace.json",
+      "sha256": "243d659be15e1d402859d98673eee3dde2cf6d0c3b89da161fb0b8df581f20e1"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_002.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_on_no_tf32_002.trace.json",
+      "sha256": "63c8346c6592b22d2a91dcc17ec89228cfa568a436e6df713a29da03af61970f"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_003.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_on_no_tf32_003.trace.json",
+      "sha256": "90a27d9e2973c4c02516c81785381b5180eace45e60d57061f35718abf29be83"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_006.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_on_no_tf32_006.trace.json",
+      "sha256": "852d732aa9b180cdd62d96f9328abb32258db735ffae6f8e91c05013c47114db"
+    },
+    "project_02_performance_laboratory/conv_dgrad_benchmark_on_no_tf32_008.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/traces/conv_dgrad_benchmark_on_no_tf32_008.trace.json",
+      "sha256": "9bdbcdda38bffbdf83aa9aea52dce419b48f7ba787ff9848c38f86bc9e0de607"
+    },
+    "project_02_performance_laboratory/conv_fprop_benchmark_off_tf32_off_005.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/traces/conv_fprop_benchmark_off_tf32_off_005.trace.json",
+      "sha256": "436a3598c8de8c5cf70fa0028f880f1ed0a4bc9b2c3d04b73c7490fb3e19450c"
+    },
+    "project_02_performance_laboratory/conv_fprop_benchmark_on_tf32_off_006.trace.json": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/traces/conv_fprop_benchmark_on_tf32_off_006.trace.json",
+      "sha256": "fff74ff012aef7d03b74727a9dd99db0e90fcd5e8480eec89377f9281c354536"
+    },
+    "project_02_performance_laboratory/resnet18.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18.trace.json",
+      "sha256": "0d4d5c06342c99b50544a1823d3b02a8746d56107964d03f9b82897302c8c9f7"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_off_off_001.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_off_off_001.trace.json",
+      "sha256": "df10acddfa0ccb0f40262e777dcd5b983b655e14bd40db3b3797c32b9c1f51ce"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_off_off_003.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_off_off_003.trace.json",
+      "sha256": "d6c278afd3906208f0c4b65a8aa840fc8fef273c67f1f12d73cd18cfd631844a"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_off_off_006.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_off_off_006.trace.json",
+      "sha256": "6782a9ef9a6714450b7a8aae384ae2d0a9fee2173e224bf8fbf149e4d1a1470b"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_off_off_007.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_off_off_007.trace.json",
+      "sha256": "2f4a432c1dca96c0eaa8a49ec999a70f83678cfb50438bb6cce6cbec1c2a7bca"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_on_off_002.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_on_off_002.trace.json",
+      "sha256": "8c42ebfa38b1d981de2dc761880cab46300fc796fbbb510fb6b5b1832c035abc"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_on_off_004.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_on_off_004.trace.json",
+      "sha256": "ad2cef045794a52b6df34b2406caaaa4be22fe52e23e9a37bc881b6db4e75933"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_on_off_005.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_on_off_005.trace.json",
+      "sha256": "fc6d2f519357687dd2bcfe4fcdc19db0bbb91562c1116cce3517732e7b3a3de3"
+    },
+    "project_02_performance_laboratory/resnet18_benchmark_on_off_008.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_benchmark_on_off_008.trace.json",
+      "sha256": "e5a301db94ab82389f634f36b98dc0365497daac90f33da881bf5a659d31bce8"
+    },
+    "project_02_performance_laboratory/resnet18_phases.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_phases.trace.json",
+      "sha256": "ab1af0aa616908b4a7067a49c02b3e74fa97013a7094c322f2df2d76eaee060b"
+    },
+    "project_02_performance_laboratory/resnet18_shapes.trace.json": {
+      "path": "project_02_performance_laboratory/results/resnet18/traces/resnet18_shapes.trace.json",
+      "sha256": "3ccaa4736a574ffaaf0ba2b0a60f64f2d94be91a484b6aae0ce757c7cfffa760"
+    },
+    "project_02_performance_laboratory/conv_dgrad_off_no_tf32_007.pt": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/tensors/conv_dgrad_off_no_tf32_007.pt",
+      "sha256": "5c388545a904a94775204db34a78c0447770bab5c21a59701618a1af3316ad43"
+    },
+    "project_02_performance_laboratory/conv_dgrad_on_no_tf32_008.pt": {
+      "path": "project_02_performance_laboratory/results/conv_dgrad/tensors/conv_dgrad_on_no_tf32_008.pt",
+      "sha256": "7cd27fdf6a22e87beebc71af10eee02698e8e9abc5091656d374e2568f7d135e"
+    },
+    "project_02_performance_laboratory/conv_fprop_ncu_off_007.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/basic/search_off/conv_fprop_ncu_off_007.ncu-rep",
+      "sha256": "3cefc53d89351f2b8119aa74b428fc39a89ea3e1b9bec5fb5fe4f60ed649e236"
+    },
+    "project_02_performance_laboratory/conv_fprop_ncu_on_008.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/basic/search_on/conv_fprop_ncu_on_008.ncu-rep",
+      "sha256": "b8a4eda5b436c7e0a42a49cc264639d7c1ae12ba2a701ca96e607836c056ce13"
+    },
+    "artifacts/project02-offline/ncu_off_030.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_off/tile_256x64x8/run_030/ncu_off_030.ncu-rep",
+      "sha256": "121a404e8a83fc4aecd3d13b534fa9ac6d108f79f98ff1fc8820805d59bab95c"
+    },
+    "artifacts/project02-offline/ncu_on_031.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_on/tile_32x32x8/run_031/ncu_on_031.ncu-rep",
+      "sha256": "e1f556c29d02a1de0732ceb7089e7b5b5bc39d8432fb26020c5fb2bc9aa59dfd"
+    },
+    "artifacts/project02-offline/ncu_on_032.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_on/tile_32x32x8/run_032/ncu_on_032.ncu-rep",
+      "sha256": "9c282c41463a7d5d94401fbbc92060fcb3947967885d8739503a4b427162344e"
+    },
+    "artifacts/project02-offline/ncu_off_033.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_off/tile_256x64x8/run_033/ncu_off_033.ncu-rep",
+      "sha256": "dcdc73d79e04590e6c0ce13a23b92e10fd6d6b0191a014c5c93d2f5bd05d9c2b"
+    },
+    "artifacts/project02-offline/ncu_off_034.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_off/tile_256x64x8/run_034/ncu_off_034.ncu-rep",
+      "sha256": "cba1f181142a0796c44e5f1e5336ac6e6039fa01314c88fa50489a592f9e2a58"
+    },
+    "artifacts/project02-offline/ncu_on_035.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_on/tile_128x32x8/run_035/ncu_on_035.ncu-rep",
+      "sha256": "0c0bcf786fbfbd8c244bb5fd2bde5b10a5128aba33199ca0eb445c0460b6bd66"
+    },
+    "artifacts/project02-offline/ncu_on_036.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_on/tile_128x32x8/run_036/ncu_on_036.ncu-rep",
+      "sha256": "94d53ea98c2bd0d3b0f1395f147dbd718b913e1e5c1a7ce39c952940c772b84a"
+    },
+    "artifacts/project02-offline/ncu_on_037.ncu-rep": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/nsight/expanded/search_on/tile_128x32x8/run_037/ncu_on_037.ncu-rep",
+      "sha256": "60dd8dc9af1957a8e5a0df47e8d99cd0a355eb5b4f9689ae977e370837e5d548"
+    },
+    "artifacts/project02-offline/benchmark_off_020.pt": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/tensors/benchmark_off_020.pt",
+      "sha256": "5ea9468b661e47ae01616a2246f4fa87367d24a955a8ff667a6a312ea0c525b3"
+    },
+    "artifacts/project02-offline/benchmark_on_021.pt": {
+      "path": "project_02_performance_laboratory/results/conv_fprop/tensors/benchmark_on_021.pt",
+      "sha256": "3cebd243da298120b7714ba5cdaf925171ab27ecb92483d711b128131303dd96"
+    }
+  }
+}

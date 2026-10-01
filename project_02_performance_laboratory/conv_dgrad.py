@@ -99,7 +99,10 @@ def main():
 
     benchmark_label = "on" if args.cudnn_benchmark == "on" else "off"
     tf32_label = "tf32" if args.cudnn_allow_tf32 == "on" else "no_tf32"
-    tensor_path = Path(__file__).with_name(
+    result_directory = Path(__file__).resolve().parent / "results" / "conv_dgrad"
+    tensor_directory = result_directory / "tensors"
+    tensor_directory.mkdir(parents=True, exist_ok=True)
+    tensor_path = tensor_directory / (
         f"conv_dgrad_{benchmark_label}_{tf32_label}_{args.run_id:03d}.pt"
     )
     torch.save(
@@ -126,16 +129,11 @@ def main():
             )
         torch.cuda.synchronize()
     print(prof.key_averages().table(sort_by="self_cuda_time_total", row_limit=15)) 
-    if torch.backends.cudnn.benchmark:
-        if torch.backends.cudnn.allow_tf32:
-            trace_path = Path(__file__).with_name(f"conv_dgrad_benchmark_on_tf32_{args.run_id:03d}.trace.json")
-        else:
-            trace_path = Path(__file__).with_name(f"conv_dgrad_benchmark_on_no_tf32_{args.run_id:03d}.trace.json")
-    else:
-        if torch.backends.cudnn.allow_tf32:
-            trace_path = Path(__file__).with_name(f"conv_dgrad_benchmark_off_tf32_{args.run_id:03d}.trace.json")
-        else:
-            trace_path = Path(__file__).with_name(f"conv_dgrad_benchmark_off_no_tf32_{args.run_id:03d}.trace.json")
+    trace_directory = result_directory / "traces"
+    trace_directory.mkdir(parents=True, exist_ok=True)
+    trace_path = trace_directory / (
+        f"conv_dgrad_benchmark_{benchmark_label}_{tf32_label}_{args.run_id:03d}.trace.json"
+    )
     
     prof.export_chrome_trace(str(trace_path))
 

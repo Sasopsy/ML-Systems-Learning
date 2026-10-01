@@ -1,0 +1,193 @@
+{
+  "purpose": "Verify isolated forward kernel selection before Nsight Compute. Durations are profiled diagnostic observations, not benchmark results.",
+  "runs": [
+    {
+      "mode": "off",
+      "run_id": 5,
+      "trace": "project_02_performance_laboratory/conv_fprop_benchmark_off_tf32_off_005.trace.json",
+      "sha256": "436a3598c8de8c5cf70fa0028f880f1ed0a4bc9b2c3d04b73c7490fb3e19450c",
+      "cpu_ranges": 3,
+      "matches_resnet_kernel_name": true,
+      "kernels": [
+        {
+          "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 67.904,
+          "args": {
+            "External id": 5,
+            "queued": 0,
+            "device": 0,
+            "context": 1,
+            "stream": 7,
+            "correlation": 12,
+            "registers per thread": 255,
+            "shared memory": 33280,
+            "blocks per SM": 0.242424,
+            "warps per SM": 0.969697,
+            "grid": [
+              1,
+              32,
+              1
+            ],
+            "block": [
+              128,
+              1,
+              1
+            ],
+            "est. achieved occupancy %": 2
+          },
+          "launch_name": "cudaLaunchKernelExC"
+        },
+        {
+          "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 66.464,
+          "args": {
+            "External id": 10,
+            "queued": 0,
+            "device": 0,
+            "context": 1,
+            "stream": 7,
+            "correlation": 30,
+            "registers per thread": 255,
+            "shared memory": 33280,
+            "blocks per SM": 0.242424,
+            "warps per SM": 0.969697,
+            "grid": [
+              1,
+              32,
+              1
+            ],
+            "block": [
+              128,
+              1,
+              1
+            ],
+            "est. achieved occupancy %": 2
+          },
+          "launch_name": "cudaLaunchKernelExC"
+        },
+        {
+          "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize256x64x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 66.4,
+          "args": {
+            "External id": 15,
+            "queued": 0,
+            "device": 0,
+            "context": 1,
+            "stream": 7,
+            "correlation": 48,
+            "registers per thread": 255,
+            "shared memory": 33280,
+            "blocks per SM": 0.242424,
+            "warps per SM": 0.969697,
+            "grid": [
+              1,
+              32,
+              1
+            ],
+            "block": [
+              128,
+              1,
+              1
+            ],
+            "est. achieved occupancy %": 2
+          },
+          "launch_name": "cudaLaunchKernelExC"
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "run_id": 6,
+      "trace": "project_02_performance_laboratory/conv_fprop_benchmark_on_tf32_off_006.trace.json",
+      "sha256": "fff74ff012aef7d03b74727a9dd99db0e90fcd5e8480eec89377f9281c354536",
+      "cpu_ranges": 3,
+      "matches_resnet_kernel_name": true,
+      "kernels": [
+        {
+          "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 27.36,
+          "args": {
+            "External id": 5,
+            "queued": 0,
+            "device": 0,
+            "context": 1,
+            "stream": 7,
+            "correlation": 12,
+            "registers per thread": 166,
+            "shared memory": 16896,
+            "blocks per SM": 0.969697,
+            "warps per SM": 3.878788,
+            "grid": [
+              2,
+              64,
+              1
+            ],
+            "block": [
+              128,
+              1,
+              1
+            ],
+            "est. achieved occupancy %": 6
+          },
+          "launch_name": "cudaLaunchKernelExC"
+        },
+        {
+          "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 26.688,
+          "args": {
+            "External id": 10,
+            "queued": 0,
+            "device": 0,
+            "context": 1,
+            "stream": 7,
+            "correlation": 30,
+            "registers per thread": 166,
+            "shared memory": 16896,
+            "blocks per SM": 0.969697,
+            "warps per SM": 3.878788,
+            "grid": [
+              2,
+              64,
+              1
+            ],
+            "block": [
+              128,
+              1,
+              1
+            ],
+            "est. achieved occupancy %": 6
+          },
+          "launch_name": "cudaLaunchKernelExC"
+        },
+        {
+          "name": "sm80_xmma_fprop_implicit_gemm_f32f32_f32f32_f32_nchwkcrs_nchw_tilesize128x32x8_stage3_warpsize2x2x1_g1_ffma_aligna4_alignc4_execute_kernel__5x_cudnn",
+          "duration_us": 26.719,
+          "args": {
+            "External id": 15,
+            "queued": 0,
+            "device": 0,
+            "context": 1,
+            "stream": 7,
+            "correlation": 48,
+            "registers per thread": 166,
+            "shared memory": 16896,
+            "blocks per SM": 0.969697,
+            "warps per SM": 3.878788,
+            "grid": [
+              2,
+              64,
+              1
+            ],
+            "block": [
+              128,
+              1,
+              1
+            ],
+            "est. achieved occupancy %": 6
+          },
+          "launch_name": "cudaLaunchKernelExC"
+        }
+      ]
+    }
+  ]
+}

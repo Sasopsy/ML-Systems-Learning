@@ -17,3 +17,8 @@
 - [Ranking backward kernels](10-ranking-backward-kernels.md)
 - [Isolating convolution input gradients](11-isolating-convolution-input-gradients.md)
 - [From kernel to model performance](12-from-kernel-to-model-performance.md)
+- [Nsight: timeline versus kernel investigation](13-nsight-introduction.md)
+
+## Offline study
+
+- [Report index, reading order and handoff](../../OFFLINE_PROJECT02.md)

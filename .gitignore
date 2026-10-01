@@ -31,6 +31,8 @@ data/
 datasets/
 checkpoints/
 artifacts/
+# Downloadable experiment results and offline context snapshots
+/project_02_performance_laboratory/results/
 runs/
 traces/
 *.pt

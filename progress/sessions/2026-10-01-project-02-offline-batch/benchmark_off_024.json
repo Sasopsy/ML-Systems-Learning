@@ -1,0 +1,57 @@
+{
+  "run_id": 24,
+  "mode": "benchmark",
+  "seed": 42,
+  "cudnn_benchmark": false,
+  "cudnn_allow_tf32": false,
+  "cudnn_deterministic": false,
+  "input_shape": [
+    32,
+    64,
+    16,
+    16
+  ],
+  "weight_shape": [
+    64,
+    64,
+    3,
+    3
+  ],
+  "input_stride": [
+    16384,
+    256,
+    16,
+    1
+  ],
+  "weight_stride": [
+    576,
+    9,
+    3,
+    1
+  ],
+  "convolution": {
+    "stride": 1,
+    "padding": 1,
+    "dilation": 1,
+    "groups": 1
+  },
+  "dtype": "torch.float32",
+  "device": "cuda:0",
+  "warmup_calls": 10,
+  "block_repetitions": 100,
+  "block_times_us": [
+    67.7632699807873,
+    67.7627500044764,
+    67.89585000660736,
+    67.71116000891197,
+    67.66619000700302
+  ],
+  "median_us": 67.7627500044764,
+  "max_abs_error": 0.0001594768301060867,
+  "relative_l2_error": 4.1820152335153264e-07,
+  "atol": 1e-05,
+  "rtol": 1.3e-06,
+  "failure_count": 4736,
+  "total_count": 524288,
+  "criterion_passed": false
+}

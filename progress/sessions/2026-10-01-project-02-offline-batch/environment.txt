@@ -1,0 +1,1 @@
+{"python": "3.12.14", "torch": "2.11.0+cu130", "cuda": "13.0", "cudnn": 91900, "gpu": "NVIDIA H100 80GB HBM3", "sm_count": 132}
