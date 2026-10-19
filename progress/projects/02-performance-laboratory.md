@@ -1,5 +1,189 @@
 # Project 2: ML Performance Laboratory
 
+## Notes organized — 2026-10-20
+
+- Moved 19 Project 2 notes into five topic folders: timing/setup, timeline profiling, GPU hardware/scheduling, performance comparisons, and review. Root/section indexes updated; lesson content/numbers preserved.
+- Updated links and active repository references; checked 91 local note-link targets. Ignored bundled study snapshots retain their independent paths. Added future folder/index/link-maintenance rules to AGENTS.md and learning instructions.
+- Learning review remains paused after Q20; resume Q21 from `project_02_performance_laboratory/notes/05-review/19-profiling-review-questions-and-answers.md`. Changes local, uncommitted; no push or new experiment.
+
+## PAUSED — profiling review saved 2026-10-20
+
+- User requested stopping and saving. **20/24 questions reviewed; Q21 asked but unanswered. Resume at Q21**, the off/on coverage comparison; do not restart the quiz.
+- Separate revision file: `project_02_performance_laboratory/notes/05-review/19-profiling-review-questions-and-answers.md` includes Q1–Q20 corrected answers, follow-ups, topic links, and exact Q21 prompt. Notes index updated.
+- Tracker reconciled through Q20. Assisted topics include Q15 latency/dependent loads, Q19 bank conflicts/broadcast, and Q20 service versus total latency; saved answers do not establish mastery. Q22–Q24 remain unasked; throttle classification still untested.
+- No new GPU runs. Changes remain local and uncommitted; no push or remote synchronization performed.
+
+## Service-latency example — 2026-10-20
+
+- Added requested 7-versus-8-cycle worked example to note 17; general service-work/latency caveat already existed. Q20 throughput arithmetic correct; total-latency interpretation assisted.
+- Next: answer pending Q21 off/on GPU coverage comparison. No new measurements or remote sync.
+
+## Dependent-load explanation — 2026-10-20
+
+- Q15 introduced a prerequisite not previously taught explicitly: load-result-dependent addresses. Explained embedding lookup versus independent loads and how few requests in flight can coexist with low bandwidth and long waits. Added requested example to note 16.
+- Learner reports understanding; dependent-load transfer remains unassessed. Next: one changed Q15 example before Q16. Documentation local; no new experiment.
+
+## Q15 clarification — 2026-10-20
+
+- Q15 diagnosis required guidance: low DRAM bandwidth use does not imply little memory latency. Learner suggested memory/warp statistics; per-tier throughput inspection explained. Follow-up on dependent loads remains pending.
+- Added requested resident-state/admitted-to-SM explanation and changing eligibility to note 16, plus L1TEX operation meaning and shared-memory classification caveat. No new measurement.
+
+## Instruction-fetch and constant stalls — 2026-10-20
+
+- Before Q15, explained No Instructions versus IMC Miss. Existing notes covered IMC reissue and briefly instruction-fetch waiting; added explicit comparison to note 16 and cross-link from note 15.
+- Q15 remains unanswered: low DRAM throughput plus Long Scoreboard diagnosis. No new profiling or mastery claim.
+
+## Stall-state review — 2026-10-20
+
+- Review tracker updated through Q14 using recorded answers; Q10/Q11 corrections and assisted explanations preserved. Q14 five state matches all correct; throttle distinction remains untested.
+- Not Selected already appeared briefly in note 16; added dedicated explanation and Details/Source/Raw lookup instructions with sampling and missing-data caveats. Next Q15 low-DRAM/Long-Scoreboard diagnosis. No new profiling or live UI inspection.
+
+## Review round 2 complete — 2026-10-19
+
+- 8/24 reviewed. Q7 matching correct, maximum aggregation refined. Q8 active/elapsed percentages correct; different clock domains explained with toy frequencies, then learner correctly selected DRAM elapsed cycles.
+- Added requested clock-domain example and matching-denominator guidance to note 17. Next: Q9 resource-limited theoretical residency. No GPU measurement or synchronization.
+
+## Review pipeline clarification — 2026-10-19
+
+- 6/24 reviewed: Q5 normalization correct; Q6 maximum aggregation correct with interpretation refinements. Q7 pending after explaining memory-instruction pipelines.
+- Added requested plain-language Mem Pipes Busy definition and scheduler/pipeline distinction to note 17. Next: match Q7 instruction, internal service, and transfer limits to the three memory summaries. Documentation only; no new GPU run.
+
+## Review round 1 complete — 2026-10-19
+
+- 4/24 reviewed: Q2 cache denominators and Q4 counter lookup answered independently with notes allowed; Q1 reuse and Q3 measurement selection assisted. Q3 follow-up correctly identified shorter time; concurrent loads remain a possible cause, not established evidence.
+- Q4 correctly named integer thread instructions and DRAM read bytes; clarified total DRAM traffic also includes writes. Missing counter correctly identified as potentially uncollected.
+- Next: Q5 normalization using events, elapsed cycles, and peak events/cycle. No new experiment or remote sync.
+
+## Instruction-counter notes — 2026-10-19
+
+- Q3 partly supported: learner correctly distinguished total instructions from floating-point work; instruction category/opcode lookup explained after proposing throughput metrics. Added integer counter, thread/warp units, and address-purpose distinction to note 18.
+- Next: pending Q3 follow-up, unchanged bytes with higher bytes/second implies what timing change? No new GPU measurements; documentation local.
+
+## Cache review — 2026-10-19
+
+- Review: 2/24 questions covered. Q1 assisted: cache reuse and requests versus hits explained; measurement selection to revisit in Q4. Q2 answered correctly without further hints: 400 L2 requests, 300 hits, 100 sectors from DRAM.
+- Next: Q3, distinguish total instructions, DRAM bytes, and useful FLOPs. Include short-note links in feedback. No GPU runs or remote synchronization.
+
+## Comprehensive review — 2026-10-18
+
+- User approved the 24-question plan. [Tracker](02-profiling-review.md): 1/24 attempted; Q1 partly supported, changed-example follow-up pending. One question at a time, notes allowed, feedback every answer and progress recap every four.
+- Follow-ups address named gaps; no new GPU runs or mastery claim. Learner identified variable copy size; cache reuse and traffic-versus-issued-count distinction explained. Next: Q1 changed-example check. Include short-note references in future feedback.
+
+
+## Nsight metric lookup — 2026-10-18
+
+- Mapped issue activity, total instructions, opcode/category breakdown, and memory traffic to Details/Raw locations. Rechecked on035 saved counters; added reference table to note 18. No new GPU run or live UI inspection.
+- Open-note review: learner explained more concurrency/prefetching and register-residency tradeoff; refined activity-versus-runtime interpretation. Next apply the lookup to compare useful progress with added instruction/traffic work.
+
+## Dependency-stall revision — 2026-10-17
+
+- Added requested note 16 clarification: dependencies do not always cause stalls; independent work can allow a result to arrive before use. Distinguished execution latency, producer category, and scheduler idleness. Learner reports understanding; transfer not yet assessed.
+- Next: answer the pending hypothetical 3%-DRAM / Long-Scoreboard / no-eligible-warps question. No new GPU run or remote synchronization.
+
+## Open-note review — 2026-10-16
+
+- Further scoreboard clarification: separated operation execution, dependency bookkeeping, and profiler stall measurement. Explained physical L1TEX/shared grouping versus scoreboard classification, MIO meaning, and producer-dependent waits despite register destinations. No new mastery claim; low-DRAM exercise still pending.
+
+- Further scoreboard clarification requested: separated readiness tracking from stall measurement; explained MIO, shared SRAM versus operation paths, and register destinations versus producer dependencies. Updated note 16. Low-DRAM exercise remains pending.
+
+- Explained scoreboard dependency tracking with a global-load/accumulator consumer example. Long/Short classify operation paths, not a measured-cycle threshold; Long Scoreboard does not establish a DRAM miss or saturation. Added note 16. Pending low-DRAM/Long-Scoreboard exercise remains unanswered.
+
+- Learner correctly calculated eligibility averages and issue counts after clarification of eligible-warp cycles versus issued instructions; final case = one average eligible warp, 0.5 instructions/cycle. Units corrected. Added requested formulas and three worked cases to note 16. Next pending question: low DRAM utilization with Long Scoreboard/no-eligible cycles, distinguishing latency from bandwidth.
+
+- On request, completed note 16 with the eligibility checklist, selection distinction, and shared-tile barrier example; added an index link. Pending exercise remains equal average eligibility with different timing distributions.
+
+- Learner correctly calculated 32 active/100 idle SMs, one resident warp/scheduler, 6.25% active-cycle occupancy, and 1.21% elapsed resident-warp capacity use; definition/percent notation refined with assistance. Correctly distinguished residency from readiness.
+- Paused eligible-average exercise to explain instruction fetch, barriers, pipeline/queue availability, control flow, and sleep as eligibility blockers. Added Q&A to note 16. Next resume the 100-cycle eligibility-distribution exercise; answers not yet supplied. No new GPU experiment.
+
+## Variant instruction check — 2026-10-16
+
+- Added requested instruction-counter lookup to note 18 and notes index: Details → Instruction Statistics, Raw metric names, warp-instruction units, and saved CSV/log verification method. Next: final learner synthesis and independent transfer; numerical acceptance remains unresolved.
+
+- On explicit request, expanded note 18 with percentage changes and concise explanations of instruction counts versus DRAM bytes and useful arithmetic work. Accumulation increase remains unverified.
+
+- Learner predicted increased memory/accumulation instructions. Re-read on035/on031 counters: total instructions 18,097,152→21,179,392; shared loads 902,656→1,198,080; LDGSTS 378,880→606,208. DRAM bytes slightly decrease. Memory-instruction increase confirmed; accumulation count unverified (no direct FFMA count in inspected exports).
+- Updated note 18; no GPU run. Next distinguish more instruction work from useful convolution work and avoid claiming increased accumulation without opcode evidence.
+
+## Off/on synthesis — 2026-10-15
+
+- Began requested 512-block transfer comparison: re-read on031/032 and on035/036/037 raw CSVs. 512-block kernel uses 64 threads/block, 92 registers/thread, ~12.04% achieved occupancy, ~1.95 active/~1.20 eligible warps per scheduler, ~75% active-cycle issue. Repeat profile durations overlap at 29.920 µs. Added comparison to note 18; learner interpretation of utilization versus runtime pending.
+
+- Supplied requested full explanation: smaller tiles/more blocks improve potential GPU coverage despite similar achieved occupancy and lower active-cycle issue rate. Added note 18 with separate unprofiled 2.45×/59.18% result, identity variability, and unresolved numerical acceptance. Assisted explanation; next transfer to saved alternate 512-block on capture.
+
+- Added explicitly requested memory-metrics Q&A to note 17 and linked it from the index; existing formulas/examples retained. Off/on coverage explanation remains the pending learner task.
+
+- Began paired comparison using expanded off030/on035 only. Re-read raw CSVs: 32/128 blocks, both 128 threads/block; duration 73.984/30.144 µs; achieved occupancy both about 6.25%; active-cycle issue 72.40/65.11%; elapsed SM throughput 17.06/57.58%.
+- Next learner explains how wider device coverage can coexist with similar occupancy and lower issue rate during active cycles. Profiler timing is diagnostic; numerical tolerance failure remains unresolved. No GPU run.
+
+## Notes consolidation — 2026-10-15
+
+- User requested all covered material in short notes. Consolidated note 17 with a quick revision summary, cache-hit denominators/reuse, SRAM management, hardware names, metric formulas, wavefront examples, and bounded memory/scheduler conclusions; linked note 16 and updated the index.
+- Learner correctly rejected sustained DRAM saturation, but reasoning was refined with assistance; alternative dependency/latency explanation was supplied. No independent transfer or project completion claimed.
+- Next: combine the saved off/on kernel coverage and throughput findings to explain the performance difference, preserving measurement and numerical-acceptance limitations. Documentation remains local; no new GPU run.
+
+## Memory metrics explanation — 2026-10-15
+
+- Worked scalar shared-load example added: `s[lane]` → one wavefront; `s[2*lane]` → two due to bank conflicts. One instruction/warp remains intact; service steps are not full load latency. No GPU run or independent transfer assessment.
+
+- Follow-up: service throughput versus completion latency, stage-specific wavefronts, and clock-specific peak rates. Saved H100 normalization implies 1,280 aggregate DRAM bytes/cycle; no B200 measurements. Next clarify this model before the pending diagnosis.
+
+- User requested first-principles measurement of Mem Busy, Max Bandwidth, and Mem Pipes Busy. Rechecked raw on035 summary/component matches (41.909052%, 30.280275%, 17.281627%); explained distinct instruction, service, and transfer capacities plus max-of-normalized-constituents aggregation.
+- Notes updated; no new GPU run or independent conclusion. Next: learner gives the bounded memory-bandwidth diagnosis. See [session](../sessions/2026-10-15-project-02-memory-metrics.md).
+
+## Notes update — 2026-10-14
+
+- User requested short notes on L2/TEX and cache sharing. Updated note 17 and its index with concise definitions, 132-SM/50-MiB report context, and a weight-reuse example.
+- Explanation recorded, not independent mastery. Next: bounded memory-bandwidth conclusion. See [session](../sessions/2026-10-14-project-02-cache-notes.md).
+
+## Latest lesson — 2026-10-09
+
+- Hardware-name clarification: LTC/LTS and TEX/L1TEX; verified saved device attributes (132 SMs, 50 MiB L2). Explained device-wide L2 sharing versus physical partitions. Memory conclusion remains pending; no new GPU run.
+
+- Proceeding to Mem Busy 41.91%, Max Bandwidth 30.28%, Mem Pipes Busy 17.28% from the supplied screenshot; checked NVIDIA definitions. Next learner gives a bounded memory-bandwidth conclusion using these summaries and 2.28% DRAM read utilization.
+
+- Memory follow-up: explained sector hit-rate denominators and moved to shared SRAM management. Distinguished per-block shared allocation from per-SM carveout; used illustrative dense-layer tiles and convolution reuse. No kernel change or new measurement. Next return to memory-analysis interpretation after clarifying the allocation/cache distinction.
+
+- Moved to memory analysis after learner selected Wait for investigation (reason refined with assistance). Verified on035 DRAM reads: 2.299392 MB, 76.280255 GB/s, 2.279788% of peak sustained elapsed; duration 30.144 µs. Explained byte counting and elapsed-cycle normalization in note 17. Next distinguish cache hit-rate denominators. No new GPU run or independent mastery claim.
+
+- Clarified operand collection as reading stored input values for execution. NVIDIA's public Dispatch Stall definition does not specify registers only; register-bank contention is a documented example. Understanding remains under discussion; no new experiment.
+
+- User accepted bounded current-case closure and asked to proceed. Presented on035 all versus Not-Issued sample comparison: Wait 382/376; Dispatch Stall 223/5. No new capture. Next learner prioritizes investigation from these counts, then memory behavior.
+- Learner requested counter locations and label recap. Provided Raw/Metric Details lookup with exact metric prefixes and clarified that the sample table came from CSV, not necessarily the default chart. GUI location not verified on current screen; documented navigation checked against NVIDIA manual.
+- Further clarification: base means all samples (not baseline experiment); Not-Issued filters cycles with no scheduler instruction issued. Dispatch's specific internal conflict remains undiagnosed. Interpretation still assisted.
+- Learner now describes Wait as instruction dependencies; clarified fixed-latency scope and supplied documented register-file bandwidth/bank-contention dispatch examples from NVIDIA engineers. No claim these caused this H100 capture's dispatch stalls; register residency versus access bandwidth distinguished.
+- Current clarification: register-bank versus shared-memory-bank conflict labels. Used producer/consumer sequence to explain physical root cause versus observed stall stage and introduced scoreboard as pending-result tracking. No diagnosis or new experiment.
+
+- User requested remaining scope before proceeding. Reviewed Project 2 roadmap and historical evidence; current convolution capture work is available for offline interpretation, while full laboratory breadth remains unfinished. Proposed bounded closure: scheduler/stalls, memory, combined off/on comparison, evidence-based conclusion with accuracy limitation, alternate-report transfer. Broader roadmap and exit criterion unchanged.
+
+- Requested fuller latency-hiding explanation after affirming another warp can fill an issue opportunity.
+- Note 16 uses an explicitly illustrative four-cycle dependency: one warp versus four independent warps; distinguishes latency, pipeline acceptance rate, occupancy and readiness.
+- No GPU run or independent mastery claim. Next learner predicts a two-warp schedule before returning to Not-Issued sample comparison. See [session](../sessions/2026-10-09-project-02-latency-hiding.md).
+
+## Latest clarification — 2026-10-04
+
+- Verified on035 warp cycles/issued = 1.531242 and warp cycles/executed = 1.532910; both round to 1.53. Explained denominators and warp-cycles versus instruction latency.
+- Issued/executed instruction counts differ slightly; no cause assigned. No GPU run or independent transfer evidence.
+- See [session](../sessions/2026-10-04-project-02-issued-executed.md). Next return to the pending question about another warp filling a stalled warp's issue opportunity.
+
+## Current task — 2026-10-03
+
+- Continue offline with on035 Warp State Statistics. Learner first reads two largest non-Selected reasons and their values/units; interpretation follows.
+- Active-cycle versus elapsed-cycle normalization explained with a toy example; no independent transfer yet.
+- Saved counter CSV inspected, no GPU run. See [session](../sessions/2026-10-03-project-02-warp-state-reading.md).
+- Learner identified the two leading non-Selected categories, Wait and Dispatch Stall. Units unclear in UI; saved ratios verified. Definitions and accumulator-dependency example added to note 14. Exact dispatch cause and performance impact remain unestablished.
+
+## Latest resumption — 2026-10-02
+
+- User requested continuation from **compute throughput**, in TUTOR mode.
+- Mac copy verified: `python3 project_02_performance_laboratory/results/verify_download.py` passed all **229** manifest-listed files.
+- Next: learner explains their current interpretation of the off007/on008 throughput comparison, then study resident/eligible/issued warps using expanded off030/on035.
+- No GPU execution or new mastery evidence; earlier handoff history below remains preserved. See [session](../sessions/2026-10-02-project-02-throughput-resume.md).
+- Follow-up: requested foundations of compute throughput, hardware-unit measurements, and hardware controllers. Rechecked original CSVs and NVIDIA documentation; note 13 now distinguishes counters/controllers and operation throughput/pipeline activity with a toy example. Explanation is assisted; learner interpretation pending.
+- Further follow-up: explained sub-100% issue activity through readiness/resource/coverage examples and maximum aggregation as a way to expose a heavily used constituent. These are explanatory possibilities, not a measured diagnosis. Next: scheduler readiness in expanded reports.
+- In-depth example requested: added note 14/index entry for a hypothetical dense layer, operand/accumulator dependencies, six-cycle issue-window arithmetic, grid coverage and maximum aggregation. Checked actual convolution source shapes for connection; illustrative timings are not H100 measurements. Understanding remains explained, not assessed.
+- Latest: learner reports understanding normalization and asks for next steps. Extracted expanded scheduler values from saved logs/CSVs, no GPU run. First interpretation task uses on035 active/eligible/issued approximately 1.00/0.65/0.65 per scheduler; distinguish active-cycle averages from elapsed-cycle headline. Independent interpretation pending.
+- Learner correctly chose readiness for the immediate prompted comparison and clarified "not ready on time". Before stall analysis, requested calculations for attached scheduler graph. Verified on035 device/resource/counter values; note 13 derives 16 maximum and 3 theoretical, then measured averages. Screenshot lacks report ID; values are consistent with on035. No new GPU run or independent transfer claim.
+
 Roadmap revision (2026-09-30): user accepted explicit numerical-accuracy and
 performance-model coverage. The roadmap now connects this laboratory to Project
 4C quantization, memory accounting, and Project 3 concurrency work. No experiment

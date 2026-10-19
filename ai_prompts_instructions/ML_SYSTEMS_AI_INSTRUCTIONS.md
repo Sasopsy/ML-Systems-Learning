@@ -90,3 +90,12 @@ independent, and independently transferred to a new case.
 Prepare a brief session note with tested claims, evidence paths, misconceptions,
 remaining questions, and the next task. Save it only when authorized; otherwise
 return the note for me to save. Never mark mastery solely from finished code.
+
+## Organizing revision notes
+
+- Follow the **Quick revision notes** rules in `AGENTS.md`: organize each project's
+  notes into topic section folders, with a top-level index and section indexes.
+- Add future lessons to the appropriate section; keep review questions/answers
+  in a separate review section. Preserve concise revision style and lesson numbers.
+- When reorganizing, update cross-links and repository references and verify local
+  link targets. Progress records retain learning evidence and the resume point.

@@ -37,7 +37,7 @@
 - **Same name does not mean same workload.** Do not treat the 112.455 us mean
   as a fixed-shape isolated baseline. Start with the previously inspected
   142.015 us call, then recover tensor shapes and convolution parameters.
-- Evidence: [derived report with full names and launch links](../../progress/sessions/2026-09-27-project-02-backward-kernel-summary.json).
+- Evidence: [derived report with full names and launch links](../../../progress/sessions/2026-09-27-project-02-backward-kernel-summary.json).
 
 ## Recovering the workload shapes
 
@@ -80,7 +80,7 @@
   kernel/cuDNN path is selected rather than assuming the same implementation.
 - Shapes/settings are recovered; tensor values and exact module identity are not.
   A random-tensor reproducer would be a stated synthetic workload.
-- [Recorded candidate evidence](../../progress/sessions/2026-09-27-project-02-selected-convolution.json).
+- [Recorded candidate evidence](../../../progress/sessions/2026-09-27-project-02-selected-convolution.json).
 
 ## Why tensor counts alone are insufficient
 

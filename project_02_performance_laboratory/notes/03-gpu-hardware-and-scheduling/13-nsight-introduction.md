@@ -134,4 +134,39 @@
 - Keep binary reports, text/CSV exports, workload settings, source and numerical checks together. Git ignores our binary reports/tensors/traces, so transfer them separately.
 - Search on selected both128x32x8 and32x32x8 tiles in expanded captures. **Identify the kernel before combining measurements.**
 - Repeated captures support consistency checks; they do not prove exact causality or independent understanding.
-- [Offline report index and reading order](../../OFFLINE_PROJECT02.md).
+- [Offline report index and reading order](../../../OFFLINE_PROJECT02.md).
+
+## Counters, controllers, and what a percentage measures
+
+- **Controller:** hardware that coordinates actions, such as a memory controller managing memory requests.
+- **Counter:** measurement hardware that records events or cycles. Nsight combines readings into rates and percentages; counters do not schedule the workload.
+- **Raw count:** e.g. 100 arithmetic operations. **Rate:** operations divided by elapsed cycles or seconds. **Activity:** cycles satisfying a condition, such as a pipeline being active.
+- **Toy example:** a unit can process 4 operations/cycle. Across 100 cycles it processes 100 operations during 50 active cycles. Operation throughput is `100 / (4 * 100) = 25%` of capacity; active-cycle fraction is `50 / 100 = 50%`. These answer different questions.
+- A **cycle** is a clock tick. A **pipeline** processes instructions in stages, allowing work to overlap.
+- **FLOP/s:** floating-point operations per second. The report's **Compute (SM) Throughput** percentage summarizes selected normalized hardware metrics; it is not automatically a FLOP/s measurement.
+- In our basic reports, FMA/ALU rows measure pipeline-active cycles; LSU measures executed instructions normalized to its peak. The tensor-MMA-specific counter is zero. Always read the exact metric name.
+- **Pitfalls:** percentages need not sum to 100%; issuing a memory instruction does not imply an HBM access completed; a high aggregate does not mean every execution unit is equally busy.
+- Sources: [Nsight metric definitions](https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-structure), [pipeline definitions](https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#pipelines).
+
+## Why below 100%, and why summarize with a maximum?
+
+- **Issue capacity can go unused:** resident warps may wait for a load, a prior instruction's result, or a barrier; an instruction may also lack an available execution resource. Another ready warp can sometimes fill that issue opportunity.
+- **Coverage matters:** too few blocks can leave SMs without work. Startup and tail periods can also reduce elapsed-cycle averages.
+- These are possible mechanisms, not an established breakdown of our 57.77% result. Grid size is known; exact scheduling and waiting contributions require further report analysis.
+- **Toy scheduler:** if it can issue once/cycle but issues in only 58 of 100 cycles, issue activity is 58%. This illustrates missing issue opportunities; it is not the exact whole-GPU metric calculation.
+- **Aggregate means summary, not necessarily average.** Nsight SM throughput selects the maximum of selected normalized constituent metrics; their own rollups summarize hardware instances.
+- **Why maximum:** one pipeline can reach capacity while others are unused. Averaging a hypothetical 100% arithmetic pipe and 0% tensor pipe would give 50% and conceal the saturated arithmetic resource.
+- The summary helps locate a potentially limiting resource; it is not proof of a bottleneck, useful FLOP/s, or the sum of pipeline percentages.
+
+## Calculating the warps-per-scheduler graph
+
+- Screenshot bars are consistent with expanded on035: **16, 3, approximately 1.00, 0.65, 0.65**. Screenshot itself does not identify the report.
+- **GPU maximum:** recorded H100 supports 64 warps/SM and 4 schedulers/SM, giving 16 resident warps/scheduler. This is residency capacity, not instructions issued each cycle.
+- **Theoretical:** 128 threads/block gives 4 warps/block. Recorded block limits: registers 3, shared memory 7, warp capacity 16, blocks 32, barriers 32. Minimum is 3 resident blocks/SM; `3 * 4 / 4 = 3` warps/scheduler, or `3 / 16 = 18.75%` theoretical occupancy.
+- Resource arithmetic: 168 allocated register slots/thread times 128 threads = 21,504 slots/block; `floor(65,536 / 21,504) = 3`. Shared-memory allocation 17,920 B/block with 135,168 B configured per SM gives 7 blocks. Allocation granularity and hardware partitioning matter generally.
+- **Active:** counter accumulates resident-warp counts over active cycles. `smsp__warps_active.avg.per_cycle_active = 0.997023` in on035.
+- **Eligible:** counter accumulates ready-warp counts over active cycles. `smsp__warps_eligible.avg.per_cycle_active = 0.651120`.
+- **Issued:** saved issue-activity metric `smsp__issue_active.avg.per_cycle_active = 0.65`, with percentage 65.112002%. Counts cycles with issue; does not count completed warps. The graph is not a count of instructions in flight.
+- **Toy one-scheduler calculation:** resident counts `[2,2,2,2,2]` average 2; eligible counts `[0,1,2,0,1]` average 0.8; issue indicators `[0,1,1,0,1]` average 0.6. Two eligible warps do not imply two issued warps that cycle.
+- Actual measurements combine hardware instances and use active-cycle normalization. Do not reconstruct them by dividing total launch warps by all hardware schedulers, or assume SM and SMSP active-cycle denominators are identical.
+- Theoretical residency assumes enough work. The 128-block grid cannot supply 3 blocks to every one of 132 SMs simultaneously; exact placement is not established by this graph.

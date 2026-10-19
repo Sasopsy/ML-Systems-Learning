@@ -19,6 +19,15 @@ pitfalls. Capture covered material, not the entire future syllabus. Use relative
 links and keep notes easy to revise; experiment logs and mastery evidence belong
 in `progress/`. Notes summarize lessons, not proof of independent understanding.
 
+Organize topic notes into descriptive section folders under `notes/` (for example,
+`timing-and-setup/`, `gpu-hardware-and-scheduling/`, and `review/`) rather than a
+large flat list. Keep `notes/README.md` as the top-level map and a short README
+inside each section. Reuse a suitable section for new lessons; create a new one
+only for a distinct topic. Keep review Q&A separate from lesson explanations.
+When moving notes, preserve their content and existing lesson numbers, update
+relative links and repository references, and check that local link targets exist.
+Keep progress/mastery evidence in `progress/`, not in place of the notes index.
+
 Use short bullet points, descriptive headings, and bold key terms for quick
 scanning. Use numbered steps for procedures, small tables for comparisons or
 formulas, and brief code examples where helpful. Avoid dense paragraphs; keep

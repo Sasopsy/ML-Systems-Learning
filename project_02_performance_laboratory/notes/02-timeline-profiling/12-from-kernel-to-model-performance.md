@@ -43,7 +43,7 @@
 - These are workload-specific estimates, not exact or universal improvements.
 - Finite or similar final losses do **not** establish equivalent training quality.
   Our original elementwise numerical criterion remains unresolved.
-- [First model comparison evidence](../../progress/sessions/2026-09-29-project-02-model-cudnn-comparison/summary.json)
+- [First model comparison evidence](../../../progress/sessions/2026-09-29-project-02-model-cudnn-comparison/summary.json)
 
 ## Next experiment
 
@@ -60,7 +60,7 @@
 - Search-on trace kernel counts varied across processes. Count differences
   alone do not establish which algorithms changed or explain the timing gain.
 - Finite final losses are only a sanity check, not training-accuracy validation.
-- [Repeated-run evidence](../../progress/sessions/2026-09-29-project-02-model-cudnn-repeat-runs/summary.json).
+- [Repeated-run evidence](../../../progress/sessions/2026-09-29-project-02-model-cudnn-repeat-runs/summary.json).
 
 
 ## Locate savings by phase
@@ -76,7 +76,7 @@
   which model phase would save most.
 - Profiled kernel-duration sums do not directly equal unprofiled wall-time
   savings. CPU work, overlap and profiler perturbation affect that comparison.
-- [Phase attribution evidence](../../progress/sessions/2026-10-01-project-02-phase-kernel-comparison.json).
+- [Phase attribution evidence](../../../progress/sessions/2026-10-01-project-02-phase-kernel-comparison.json).
 
 
 ## Match calls before explaining savings
@@ -93,7 +93,7 @@
   it does not by itself establish why that implementation executes faster.
 - Some calls can regress despite overall improvement; include them in totals.
   One 1x1 convolution increased from **6.784 to 10.496 us** in this pair.
-- [Forward comparison evidence](../../progress/sessions/2026-10-01-project-02-forward-convolution-comparison.json).
+- [Forward comparison evidence](../../../progress/sessions/2026-10-01-project-02-forward-convolution-comparison.json).
 
 
 ## Tiles, blocks and resource use

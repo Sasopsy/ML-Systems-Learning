@@ -11,7 +11,7 @@
 
 - Read learning instructions, latest progress, note 11, and session template;
   ran `git rev-parse HEAD`. Consulted official PyTorch 2.11 testing documentation.
-- Added short tolerance recap to project_02_performance_laboratory/notes/11-isolating-convolution-input-gradients.md.
+- Added short tolerance recap to project_02_performance_laboratory/notes/02-timeline-profiling/11-isolating-convolution-input-gradients.md.
 - No learning-code edits, new numerical tests, or GPU runs. Earlier float64
   comparison remains in progress/sessions/2026-09-27-project-02-cudnn-repeat-runs/float64-reference.json.
 

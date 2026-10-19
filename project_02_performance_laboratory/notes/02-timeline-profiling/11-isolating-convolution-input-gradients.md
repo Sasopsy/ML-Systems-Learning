@@ -67,7 +67,7 @@
   **142.302 us** in the shape capture. These are diagnostic observations, not an
   unprofiled baseline, repeatability study, or speedup claim.
 - cuDNN flags: benchmark **False**, deterministic **False**, allow_tf32 **True**.
-- [Verified capture evidence](../../progress/sessions/2026-09-27-project-02-isolated-dgrad-capture.json).
+- [Verified capture evidence](../../../progress/sessions/2026-09-27-project-02-isolated-dgrad-capture.json).
 
 ## Completed helper-call baseline
 

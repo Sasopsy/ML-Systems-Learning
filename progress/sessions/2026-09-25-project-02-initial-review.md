@@ -23,7 +23,7 @@
   loop never invoked. Findings beyond constructor are not runtime-verified.
 - Evidence: source and task tool output; no separate runtime artifact saved.
 - Assistant changed only progress/revision documentation, not learner code.
-- Added `project_02_performance_laboratory/notes/02-training-step-setup.md` with
+- Added `project_02_performance_laboratory/notes/01-timing-and-setup/02-training-step-setup.md` with
   short review reminders and linked it from the notes index.
 
 ## Experiment (if applicable)

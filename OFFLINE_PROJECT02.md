@@ -26,7 +26,7 @@
 
 ## Read in this order
 
-1. **Launch Statistics and Occupancy:** connect grid size, resource allocation, theoretical residency, and achieved residency. Review [note13](project_02_performance_laboratory/notes/13-nsight-introduction.md).
+1. **Launch Statistics and Occupancy:** connect grid size, resource allocation, theoretical residency, and achieved residency. Review [note13](project_02_performance_laboratory/notes/03-gpu-hardware-and-scheduling/13-nsight-introduction.md).
 2. **Scheduler Statistics:** distinguish resident, eligible, and issued warps. Compare the same kernel across its three reports before explaining an off/on difference.
 3. **Warp State Statistics:** identify measured waiting conditions. A large stall category alone is not proof that removing it would improve elapsed time.
 4. **Memory Workload Analysis:** inspect cache traffic, hit rates, bytes, and throughput. Separate issuing a load from completing it; low HBM bandwidth alone does not prove that memory latency is irrelevant.
