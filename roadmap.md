@@ -804,7 +804,89 @@ Test rank failure and recovery.
 
 # Phase 10 — TensorRT
 
+## Connected Runtime Track — Scheduling, Memory, and GPU Execution
+
+Build a **small inference runtime** across Projects 9 and 10. Keep their existing
+IDs and reuse the Project 2 measurement harness, Project 3 kernels, Project 4B
+compiler experience, and Project 5 CUDA Graph machinery.
+
+**Goal:** turn incoming requests into correct GPU work, account for their state
+and memory, and explain scheduling and execution costs.
+
+| Layer | Responsibilities | Production reference |
+| --- | --- | --- |
+| Model execution | Model loading, execution contexts, shapes, input/output buffers, launches | TensorRT |
+| LLM request execution | Request admission, batching, generation, KV-cache ownership | vLLM; later TensorRT-LLM |
+| Device execution | Allocations, streams, events, kernel submission and completion | CUDA runtime |
+
+These are interacting layers, not interchangeable APIs. Trace their boundaries
+using the installed versions and matching source/documentation.
+
+### Five milestones
+
+1. **Basic model executor — Project 9.** Start with one small model and PyTorch
+   operations. Implement reusable input/output buffers, shape validation, explicit
+   completion tracking, and safe buffer reuse. Verify repeated calls with changing
+   inputs against a reference; diagnose a deliberate premature-buffer-reuse bug.
+2. **Execution backends — Project 9.** Run a supported workload through eager
+   PyTorch, CUDA Graph replay, and TensorRT. Separate engine building/capture,
+   loading, warmup, and repeated execution. Explain backend-specific state,
+   supported shapes, and fallback behavior. Retain the compiler comparisons below.
+3. **Request scheduler — bridge from Project 9 to 10.** Use an in-process request
+   generator with controlled arrivals. Implement a queue, batching, admission and
+   memory limits, cancellation, and cleanup. Compare immediate execution with
+   waiting to form larger batches; measure both queueing and execution time.
+4. **Decoder runtime — Project 10 V1–V4.** Extend to one small pretrained decoder:
+   prefill, incremental decode, per-request KV state, variable-length batches,
+   continuous batching, then block-based KV allocation and reclamation. Verify
+   output/state correctness as requests join, finish, or cancel.
+5. **Production-runtime trace and comparison — Project 10.** Follow one request
+   through a pinned vLLM version: admission → scheduling → cache allocation →
+   model execution → output → cleanup. Map those components to the implementation
+   above and run a bounded matched-workload comparison. TensorRT-LLM comparison
+   and full serving-backend integrations are later extensions.
+
+### First-version scope and correctness
+
+* One GPU, one small model at a time, and an in-process request generator.
+* Begin with the executor; introduce decoder state after basic execution and
+  scheduling work. Use a pretrained decoder; training it is not a prerequisite.
+* The learner implements the runtime mechanisms. Reuse existing tensor operations
+  and kernels initially; packaging and benchmark plumbing are support work.
+* Track buffer ownership until GPU completion. Cancelling a request does not make
+  its in-flight buffers immediately reusable.
+* Keep memory bounded; reclaim finished/cancelled request state without leaks,
+  premature reuse, or corruption of other requests.
+* Defer multi-GPU execution, network serving, and advanced generation policies
+  until measurements justify them. Project 16 covers the broader service.
+
+**Worked workload to investigate:** A has a long prompt, B is decoding, C arrives,
+and B is cancelled while GPU work is in flight. Predict which requests run next,
+where their state lives, and when B's storage becomes reusable. Study chunking A's
+prefill later as an optional scheduling extension.
+
+### Measurements and independent exit
+
+* Record queueing time, scheduling/CPU overhead, GPU execution and idle gaps,
+  end-to-end latency, throughput, and live/peak memory.
+* For generation, also record prefill/decode separately, time to first token,
+  inter-token latency, and latency distributions under a declared arrival load.
+* Match model, inputs, generation policy, precision/quality requirements, arrival
+  pattern, and timing boundaries across comparisons; disclose unsupported paths.
+* Separate diagnostic profiling from repeated unprofiled measurements. Increased
+  activity alone is not evidence of improved application performance.
+
+**Exit:** Given an unfamiliar request pattern, independently predict scheduling,
+account for memory ownership and lifetime, and explain measured latency. Diagnose
+one correctness failure and one performance regression, then test the explanation.
+
+References: [TensorRT runtime capabilities](https://docs.nvidia.com/deeplearning/tensorrt/latest/inference-library/capabilities.html),
+[vLLM architecture](https://docs.vllm.ai/en/latest/design/arch_overview/).
+
 ## Project 9: TensorRT Deployment Laboratory
+
+Owns milestones 1–2 of the [connected runtime track](#connected-runtime-track--scheduling-memory-and-gpu-execution);
+milestone 3 bridges into Project 10.
 
 Learn TensorRT as a **general DL inference system**, not only TensorRT-LLM.
 
@@ -868,6 +950,10 @@ Integrate one of your own GPU kernels.
 
 ## Project 10: Build an LLM Runtime
 
+Continue the [connected runtime track](#connected-runtime-track--scheduling-memory-and-gpu-execution):
+extend the executor/scheduler through milestones 4–5. Reuse its buffers,
+completion tracking, request lifecycle, and measurement harness.
+
 Support one decoder architecture.
 
 **First pass:** complete V1–V3 with correct request cancellation and state cleanup.
@@ -907,9 +993,12 @@ Investigate:
 * CPU/off-device KV;
 * disaggregated prefill/decode.
 
-Compare against:
+Complete a bounded comparison and source trace against:
 
-* vLLM;
+* vLLM.
+
+Later comparison extension:
+
 * TensorRT-LLM.
 
 Integrate:
@@ -1434,8 +1523,8 @@ That last question is especially important.
 8. Data pipeline + training-memory optimization (Project 6)
 9. LLM pretraining (Project 7)
 10. Distributed training (Project 8)
-11. TensorRT deployment (Project 9)
-12. LLM runtime V1–V4 (Project 10; V5 optional)
+11. Runtime track milestones 1–3: executor, backends, scheduler (Project 9 → 10)
+12. Runtime track milestones 4–5: LLM V1–V4 and vLLM trace/comparison (Project 10; V5 optional)
 13. Bounded post-training + QLoRA (Project 11; rollout platform optional)
 14. One architecture transfer: SSM or diffusion (Project 12 or 13)
 15. General inference service and cost/latency evaluation (Project 16)

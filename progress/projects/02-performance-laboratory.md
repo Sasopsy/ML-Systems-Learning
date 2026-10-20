@@ -1,5 +1,11 @@
 # Project 2: ML Performance Laboratory
 
+## Focus moved to Project 3 — 2026-10-20
+
+- User chose to continue learning profiling while writing kernels in Project 3.
+- Standalone review stays paused after Q20, with Q21 unanswered. Numerical acceptance and independent exit remain unresolved; this transition does not mark Project 2 complete.
+- Active work: [Project 3](03-gpu-operator-library.md).
+
 ## Notes organized — 2026-10-20
 
 - Moved 19 Project 2 notes into five topic folders: timing/setup, timeline profiling, GPU hardware/scheduling, performance comparisons, and review. Root/section indexes updated; lesson content/numbers preserved.

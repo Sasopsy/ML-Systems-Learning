@@ -1,5 +1,19 @@
 # Current status
 
+## Active focus: Project 3 — 2026-10-20
+
+- User requested moving to kernel writing, integrating profiling into each operator. Project 2 review remains paused at Q21; its numerical-acceptance and independent-transfer work remains open.
+- [Project 3 plan](projects/03-gpu-operator-library.md): Mac for design/reference checks/source review; Linux NVIDIA GPU for compilation, device validation, timing, and profiling. Detailed sequence is proposed, not yet exercised.
+- Next: define the first FP32 contiguous elementwise operator contract and have the learner derive its work assignment and boundary handling before implementation.
+- Documentation only; no kernel implemented, environment installed, GPU contacted, commit, or push. Earlier runtime-track edits remain local.
+
+## Runtime track planned — 2026-10-20
+
+- User approved a connected inference-runtime track across Projects 9–10 in `roadmap.md`: executor, execution backends, request scheduler, decoder/KV runtime, and vLLM source trace/comparison.
+- First version: one GPU, one small model at a time, in-process requests. TensorRT-LLM comparison remains an extension. Planning only; no implementation, experiment, or mastery claim.
+- Plan record: [runtime track](projects/09-10-inference-runtime.md). Project 2 review remains paused after Q20; next learning task is unanswered Q21.
+- These roadmap/progress edits are local and uncommitted; no push in this update.
+
 ## Notes organized — 2026-10-20
 
 - Moved 19 Project 2 notes into five topic folders: timing/setup, timeline profiling, GPU hardware/scheduling, performance comparisons, and review. Root/section indexes updated; lesson content/numbers preserved.
