@@ -1,0 +1,4 @@
+COMMAND: artifacts/project03-2026-10-26/bin/bias_relu
+PASS: all 4810 outputs match (37 x 130)
+
+EXIT: 0

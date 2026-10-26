@@ -1,5 +1,127 @@
 # Project 3: GPU Operator Library
 
+## Git handoff and separate results download — 2026-10-27
+
+- User authorized committing and pushing the code, benchmark scripts, revision notes, progress records and small validation logs.
+- Project 3 `results/` is now ignored by Git, alongside Project 2 results and generated binaries/profiler reports. All local result files are preserved for separate download (about 200 MiB for the complete Project 3 results folder).
+- Result links in these documents require restoring the downloaded folder at its original repository-relative location; a Git clone alone will not contain reports.
+- This checkpoint prepares the authorized commit/push; confirm remote synchronization from Git after the push. Historical local-only entries below describe earlier checkpoints.
+- Next: download results and open the 4096×1024 and 4096×2048 paired reports on the Mac before shutting down the rental. Download verification and shutdown have not been performed.
+
+## Offline profiles expanded to both winners — 2026-10-27
+
+- User requested profiling the PyTorch-faster shapes too. Added14 reports for seven missing shapes; preserved22 prior reports. Complete package now has36 full reports across all18 sweep shapes, both kernels per shape.
+- All added captures exited0 and passed independent FP64 pre/post reference and probability checks. Index labels nine ours-both-mode wins, seven PyTorch-both-mode wins and two direct-only ours wins. Diagnostic replay durations are separate from selection timings.
+- Updated source snapshots/capture script, per-case comparisons, raw/details/SASS exports, checksum manifest and OFFLINE_PROJECT03.md. Same folder: `project_03_gpu_operator_library/results/2026-10-27-offline-profiles/README.md`.
+- Next offline task: compare4096×1024 (PyTorch wins) with4096×2048 (ours wins). Changes local/uncommitted/unpushed; no rental shutdown or Mac download verification performed.
+
+## Offline GPU handoff prepared — 2026-10-27
+
+- User requested updated tests/kernel records and paired profiles for cases beating PyTorch. Captured all11 shapes that won in either sweep mode:22 full Nsight reports, each independently validated before/after. Nine cases won both modes;37×128 and256×128 only direct mode, explicitly labeled.
+- Self-contained114.3MB folder: `project_03_gpu_operator_library/results/2026-10-27-offline-profiles/README.md`. Includes per-case metric comparisons, details/raw/SASS exports, source snapshots, pinned PyTorch source/license, sweep/validation evidence and verified148-entry SHA256 manifest. All reports imported successfully to text/CSV/SASS.
+- PyTorch binary lacks CUDA line mapping; separate pinned source provided, not falsely presented as embedded mapping. Replay caches/clocks uncontrolled and six CTC counters unavailable; logs preserve warnings.
+- Added `OFFLINE_PROJECT03.md`, results index, reusable capture and index scripts. Updated test scope:62-case retained-width1024 suite and four sanitizers;54 sweep comparisons/972 timings;22 profile validations. No broader sanitizer coverage claimed.
+- Next offline task: compare4096×2048 pair to explain crossover before choosing another change. No GPU required to read saved reports. Project3 still active; assisted work, not independent mastery.
+- Changes local/uncommitted/unpushed. No rental shutdown performed; verify download before shutting down.
+
+## Matched softmax shape sweep — 2026-10-27
+
+- User confirmed current conditional online baseline. Compared PyTorch preallocated, online and register-online across18 FP32 shapes (rows37/256/4096; widths128/512/1024/2048/4096/8192), direct and graph timing modes. All54 initial reference comparisons and after-batch validations passed;972 samples saved.
+- Added stream-aware CUDA bridge and Python sweep, generalized retained kernel to compile-time widths divisible by128 (default1024 preserved). Static compiler reports no spills,22–80 registers/thread across widths.
+- At4096 rows, PyTorch fastest through1024; retained online fastest at2048/4096/8192 in both modes. Direct medians at8192: PyTorch147.598µs,online162.498µs,retained103.338µs. No universal speedup or causal bottleneck claim.
+- Results/methodology: `project_03_gpu_operator_library/results/2026-10-27-softmax-sweep/README.md`. Same50 warmups,9×500 batch format; graph mode separates per-operation host submission. No per-call p99 or new-width sanitizer suite.
+- Next: profile width2048 crossover before another optimization. Assisted implementation/measurement; local/uncommitted/unpushed.
+
+## Online kernel source attribution — 2026-10-27
+
+- Investigated user's three questions using existing report/source; no GPU rerun or kernel edit. Divergent-target attribution:111092 at specialized value≤running-max update,8192 at merge empty guard.
+- Confirmed shared pair exchange in SASS:64-bit loads/stores plus two block barriers; five shared warp loads and five stores per block explain20480 each across4096 blocks.
+- Extra instruction work explained by online rescaling/pair merges, output exponential computation, divergence and four-warps/row communication, versus PyTorch scalar reductions/retained exponentials/one warp per row. No exact causal runtime percentages claimed.
+- Details/source export saved with register-online results and revision note updated. Next controlled algorithm/mapping experiment pending; local/uncommitted.
+
+## Full PyTorch instruction/stall comparison — 2026-10-27
+
+- User clarified request; captured full reports for register-buffered online and PyTorch at 4096×1024. Both validation checks passed. Ours/PyTorch: 9.517M/4.899M executed warp instructions, identical131072 global loads, shared-load/store20480 each versus0.
+- New conditional online branch efficiency82.4% versus100%, active lanes27.01/32; barrier stall ratio1.706/0. Long-scoreboard ratios similar1.300/1.364. Earlier generic-online low-divergence conclusion does not apply to this changed kernel.
+- Reports/CSV/interpretation saved under register-online results. Stall ratios are not runtime percentages; warm-cache replay differences limit causal traffic comparisons. No source edits or new benchmark.
+- Next: select one controlled algorithm/mapping change to reduce instruction and cross-warp work. Local/uncommitted; no mastery claim.
+
+## PyTorch versus retained-online occupancy — 2026-10-27
+
+- Matching Nsight LaunchStats/Occupancy capture for PyTorch FP32 4096×1024 passed post-profile validation. Theoretical/achieved occupancy: PyTorch62.50%/39.67%, ours100%/80.67%. Registers48/30, register block limits10/16; grids1024/4096, both128 threads/block.
+- PyTorch uses four rows/block versus one, reducing launched blocks; lower occupancy does not imply slower execution. Earlier separate-run timings favored PyTorch; no new speed measurement or causal isolation performed.
+- Report and caveats appended to `project_03_gpu_operator_library/results/2026-10-27-register-online/README.md`. Added reproducible PyTorch capture harness. Next: paired load/instruction/stall analysis remains pending; changes local/uncommitted.
+
+## Register-buffered kernel occupancy — 2026-10-27
+
+- Measured at 4096×1024 using Nsight LaunchStats/Occupancy: theoretical 100% (64 warps/SM), achieved 80.67% (51.63 active warps/SM). Register/warp block limits both 16; 30 registers/thread.
+- One-pass capture and post-profile correctness passed. Report saved in `project_03_gpu_operator_library/results/2026-10-27-register-online/occupancy.ncu-rep`. Occupancy is residency, not compute utilization. Next load/stall comparison remains pending; changes local/uncommitted.
+
+## Register-buffered online variant implemented and measured — 2026-10-27
+
+- User delegated new kernel and original benchmark format. Added fixed-width-1024 `softmax_online_registers<128>`, retaining eight inputs/thread with unchanged online recurrence and warp/block merging. Existing variants preserved; timing/profiling dispatch extended.
+- Added eight targeted fixtures: all 62 correctness runs passed; four sanitizer tools passed with zero errors/hazards. Compile reports: new variant 30 registers/thread, existing online 31; neither spills.
+- Same-run 4096×1024 online versus retained medians: 16.873 versus 13.823 µs (~18.1% reduction); warp 12.216 µs still faster. Compilation specializes/unrolls width too; no sole-cause load-latency claim.
+- Results: `project_03_gpu_operator_library/results/2026-10-27-register-online/README.md`. Same 50 warmups/nine rounds/500 calls benchmark, unchanged correctness tolerances. Added quick lesson note.
+- Next: paired profiling of existing/new online for load traffic and stalls. Assisted implementation, no independent mastery assessment. Changes local/uncommitted/unpushed.
+
+## PyTorch dispatch survey — 2026-10-27
+
+- Captured 57 eager CUDA softmax cases: 17 widths × three dtypes plus six row-count checks. All completed with finite output; dispatch inspection only, not benchmarks/full reference validation.
+- Observed warp, register-buffered, shared-memory-buffered and general block kernel families. Width 16384 selects shared memory for FP16/BF16 but general fallback for FP32. Row count did not change families in tested 1024/4096-width cases.
+- Reproducible script and per-case traces/metadata: `project_03_gpu_operator_library/results/2026-10-27-pytorch-dispatch-survey/README.md`. Version/H100/layout-specific results; kernels unchanged, files local/uncommitted.
+- Next: implement one retained-value experiment while preserving mapping before separately testing PyTorch's one-warp-per-row strategy.
+
+## Exact PyTorch softmax dispatch identified — 2026-10-27
+
+- Captured both output modes at FP32 4096×1024: same `softmax_warp_forward<float,float,float,10,false,false>`, grid 1024, block (32,4), 48 registers/thread, no shared memory in trace.
+- Matched installed PyTorch 2.11.0+cu130 revision and PersistentSoftmax.cuh: one warp/row, 32 saved values/thread, max then retained exponentials then sum/normalization, warp-only reductions. This selected path is not online normalization.
+- Traces, metadata and pinned source links: `project_03_gpu_operator_library/results/2026-10-27-pytorch-implementation/README.md`. Added reproducible dispatch-capture script. No new timing or independent spill validation.
+- Next: one controlled retained-value experiment before separately changing row mapping. Assisted source investigation; changes local/uncommitted.
+
+## Specialized online update validated — 2026-10-27
+
+- At user's request, implemented only private per-element specialization, then compiled and ran after separate authorization. All 30 softmax correctness cases and all four sanitizer tools passed with unchanged tolerances; timed workloads also passed validation.
+- Updated online medians: 3.191 µs at 37×130; 17.126 µs at 4096×1024 (mean 17.108 µs). Earlier large median 17.772 µs; ~3.6% lower across separate runs, not a controlled causal estimate. Current warp median 12.543 µs remains faster.
+- Results/build logs/source hash: `project_03_gpu_operator_library/results/2026-10-27-specialized-online/README.md`. No new Nsight capture. Next: profile specialized online to compare instruction work, divergence and load-dependency stalls. Changes local/uncommitted; implementation assisted, not independent mastery.
+
+## Online softmax divergence checked — 2026-10-27
+
+- Reused saved Nsight reports: online branch efficiency 99.01% versus warp 100%; active threads/instruction 31.38 versus 32. Divergence is present, but aggregate lane participation remains high.
+- Source export attributes 8,192 divergent branch targets to two machine branches mapped to `merge_online`'s `if (b.s == 0)` guard. Not evidence of widespread data-dependent divergence in every update.
+- Added source export and interpretation to `project_03_gpu_operator_library/results/2026-10-27-softmax-ncu/README.md`. No new kernel execution or code changes; local/uncommitted. Next: choose one controlled optimization, preserving correctness.
+
+## Quick PyTorch softmax baseline — 2026-10-27
+
+- User requested a quick framework timing before further load-stall investigation. Added `benchmarks/time_torch_softmax.py` under Project 3; eager FP32, matching inputs, 50 warmups, nine rounds × 500 calls and unchanged numerical criteria. All checks passed.
+- H100/PyTorch 2.11.0+cu130: at 4096×1024, default output median 12.685 µs; preallocated output 10.175 µs. At 37×130: 5.337/4.663 µs. CUDA events include submission gaps; Python and C++ host paths differ, so this is not a pure kernel-latency ranking.
+- Results: `project_03_gpu_operator_library/results/2026-10-27-pytorch-softmax/README.md`. No PyTorch kernel identity or bottleneck captured. Changes local/uncommitted.
+- Next: return to controlled load-dependency investigation; framework speed alone does not explain the mechanism.
+
+## Softmax Nsight Compute diagnosis — 2026-10-27
+
+- Captured baseline/warp/online at FP32 4096×1024 after 50 warmups; all captures and post-profile correctness checks passed. New support harness only; kernels unchanged.
+- Online versus warp: 11.153M versus 7.324M executed warp instructions (+52.3%), one-third fewer global-load instructions, long-scoreboard cycles/issued instruction 6.26 versus 2.69. Registers 26 versus 30; no spills; achieved occupancy 79.4% versus 80.5%.
+- Evidence supports extra instruction work and exposed load-dependency latency, not a saturated exponential unit or DRAM bandwidth ceiling. Stall fractions are not wall-time fractions; precise causal contributions remain unproven.
+- Reports with embedded source, text/CSV exports, capture warnings and interpretation: `project_03_gpu_operator_library/results/2026-10-27-softmax-ncu/README.md`. Each report used 38 replay passes, uncontrolled caches/clocks; profiling durations are diagnostic only.
+- Next: review the two reports side by side, then choose one controlled optimization to test. Harness/results/notes remain local, uncommitted and unpushed.
+
+## First CUDA timings — 2026-10-26
+
+- Added delegated standalone `project_03_gpu_operator_library/benchmarks/time_cuda.cu`; reuses existing kernels unchanged. All seven variants timed across 12 variant/shape combinations; correctness passed on every workload before and after timed batches.
+- H100, 50 warmup launches/variant, 9 rounds × 500 direct launches, CUDA-event batch averages; variant order rotates. Allocation/transfers/validation excluded; submission gaps and warm-cache reuse included. No profiler or sanitizer during timing.
+- At 4096×1024: row sum baseline/warp median 5.405/5.141 µs; softmax baseline/warp/online 13.108/12.270/17.772 µs. Online slower here; cause unproven. Small row-sum timing ranges overlap.
+- Raw rounds, summary and reproduction details: `project_03_gpu_operator_library/results/2026-10-26-cuda-timing/README.md`. Single-process evidence, no universal speed or framework comparison claim.
+- Next: interpret why online softmax can lose despite fewer logical traversals, then choose one controlled follow-up measurement. Harness, results and progress remain local/uncommitted.
+
+## H100 correctness and sanitizer validation — 2026-10-26
+
+- Pulled `9882f73` and compiled the unchanged CUDA kernels with CUDA 13.0.88 (`-std=c++17 -O3 -lineinfo -arch=sm_90`). GPU: H100 80GB HBM3; driver 580.173.02.
+- Passed: CPU softmax reference/validator tests, affine (1,000 outputs), bias + ReLU (4,810 outputs), baseline/warp row sum (20 variant/case runs), baseline/warp/online softmax (30 variant/case runs). Existing references and tolerances unchanged.
+- All four CUDA executables passed memcheck, racecheck, synccheck and initcheck: 16 sanitizer runs, zero reported errors/hazards. This validates tested workloads, not all possible inputs or independent mastery.
+- Evidence: `progress/evidence/2026-10-26-project-03-validation/`; session: `progress/sessions/2026-10-26-project-03-execution-preflight.md`. No kernel source changes or performance measurements.
+- Next: establish a matched CUDA-event timing harness for baseline/warp/online softmax, separating warmup, allocations and transfers from repeated kernel execution. Validation notes/evidence remain local and uncommitted.
+
 ## Commit/push checkpoint — 2026-10-26
 
 - User requested saving accumulated Project 3 work to Git. Kernel/harness/notes/roadmap scope includes initial elementwise operators, both row sums, and all three softmax variants. GPU compilation, correctness and performance remain untested.

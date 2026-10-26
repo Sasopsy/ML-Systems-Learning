@@ -33,6 +33,7 @@ checkpoints/
 artifacts/
 # Downloadable experiment results and offline context snapshots
 /project_02_performance_laboratory/results/
+/project_03_gpu_operator_library/results/
 runs/
 traces/
 *.pt

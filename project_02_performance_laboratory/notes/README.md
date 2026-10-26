@@ -10,6 +10,7 @@
 - [GPU timing and synchronization](01-timing-and-setup/01-gpu-timing-and-synchronization.md)
 - [Training-step setup pitfalls](01-timing-and-setup/02-training-step-setup.md)
 - [Warmup and timing a block of steps](01-timing-and-setup/03-warmup-and-block-timing.md)
+- [CUDA Graph capture and replay timing](01-timing-and-setup/21-cuda-graph-replay-timing.md)
 
 ## Timeline profiling
 
@@ -33,7 +34,9 @@
 - [Compute throughput through a dense layer](03-gpu-hardware-and-scheduling/14-compute-throughput-dense-layer-example.md)
 - [Constants and instruction reissue](03-gpu-hardware-and-scheduling/15-constants-and-instruction-reissue.md)
 - [Latency hiding](03-gpu-hardware-and-scheduling/16-latency-hiding.md)
+- [Load-dependency stall cycles per issued instruction](03-gpu-hardware-and-scheduling/16-latency-hiding.md#load-dependency-stall-cycles-per-issued-instruction)
 - [GPU memory: throughput, caches, and wavefronts](03-gpu-hardware-and-scheduling/17-dram-throughput.md)
+- [Branch divergence, predication, and finding the metrics](03-gpu-hardware-and-scheduling/20-divergence-and-predication.md)
 
 ## Performance comparisons
 

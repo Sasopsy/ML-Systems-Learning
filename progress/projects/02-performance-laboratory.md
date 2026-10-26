@@ -1,5 +1,21 @@
 # Project 2: ML Performance Laboratory
 
+## CUDA Graph timing note — 2026-10-27
+
+- User requested saving the replay-timing explanation in Project 2. Added timing note21 with capture/replay distinction,500-call batch example,nine-round CUDA-event procedure, timing boundaries and per-call-p99 caveat. Linked both indexes and existing Project3 sweep harness.
+- Documentation only; no new benchmark or mastery assessment. Project2 review remains paused atQ21; Project3 sweep interpretation remains active. Changes local/uncommitted.
+
+## Divergence metrics revision note — 2026-10-27
+
+- Added user-requested Project 2 note 20 on branch efficiency, active lanes, active predicated-on lanes and divergent branch-target counts, including Nsight navigation, raw metric names and interpretation pitfalls. Linked both note indexes.
+- Documentation only, based on existing Project 3 profiles; no new GPU runs or independent mastery assessment. Project 2 review remains paused at Q21; active Project 3 next task unchanged. Changes local/uncommitted.
+
+## Load-dependency metric revision note — 2026-10-27
+
+- User requested saving the Project 3 profiling explanation in Project 2. Added definition, scoreboard/load-consumer example, 626/100 normalization example, metric identifier and interpretation pitfalls to note 16; linked it from the notes index.
+- Distinguishes normalized warp waiting from per-load latency, raw sampling counts and GPU wall time. User acknowledged explanation; no independent transfer assessment or new experiment.
+- Project 2 review remains paused at Q21; active work remains Project 3. Documentation local/uncommitted.
+
 ## Focus moved to Project 3 — 2026-10-20
 
 - User chose to continue learning profiling while writing kernels in Project 3.

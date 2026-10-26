@@ -1,0 +1,4 @@
+COMMAND: artifacts/project03-2026-10-26/bin/affine
+PASS: all 1000 outputs match
+
+EXIT: 0

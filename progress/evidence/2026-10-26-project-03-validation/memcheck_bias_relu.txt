@@ -1,0 +1,6 @@
+COMMAND: /usr/local/cuda-13.0/bin/compute-sanitizer --tool memcheck --error-exitcode 99 artifacts/project03-2026-10-26/bin/bias_relu
+========= COMPUTE-SANITIZER
+PASS: all 4810 outputs match (37 x 130)
+========= ERROR SUMMARY: 0 errors
+
+EXIT: 0

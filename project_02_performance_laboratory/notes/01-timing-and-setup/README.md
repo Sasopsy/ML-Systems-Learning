@@ -5,3 +5,4 @@
 - [GPU timing and synchronization](01-gpu-timing-and-synchronization.md)
 - [Training-step setup pitfalls](02-training-step-setup.md)
 - [Warmup and timing a block of steps](03-warmup-and-block-timing.md)
+- [CUDA Graph capture and replay timing](21-cuda-graph-replay-timing.md)

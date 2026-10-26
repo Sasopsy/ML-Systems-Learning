@@ -6,6 +6,25 @@
 - The original result can take just as long to arrive. Aggregate instruction throughput can improve because other work overlaps the wait.
 - Already-resident warps keep their registers and execution state on chip; the scheduler can choose a different eligible warp without saving/restoring those registers to external memory.
 
+## Load-dependency stall cycles per issued instruction
+
+- **Meaning:** average warp cycles spent waiting on an L1TEX dependency, normalized by issued warp instructions. Nsight calls this **Long Scoreboard**.
+- **Scoreboard:** hardware tracking of pending results, preventing dependent instructions from using data before it is ready.
+
+```cpp
+float value = x[i];       // Issue a global-memory load.
+float result = value * 2; // Cannot execute until value is available.
+```
+
+- **Conceptual formula:** accumulated warp cycles waiting on load dependencies ÷ issued warp instructions.
+- **Toy example:** 626 waiting warp-cycles / 100 issued instructions = **6.26 cycles per issued instruction**. This illustrates normalization, not an exact reconstruction of Nsight's hardware aggregation.
+- **Not per-load latency:** not every instruction waits 6.26 cycles; a few dependencies can account for most waiting.
+- **Not GPU idle time:** another ready warp can issue while this warp waits. Overlapping warp waits cannot be added as kernel wall time.
+- **Comparison example:** 2.69 → 6.26 means more dependency waiting per issued instruction, not that each load takes 2.3× longer. Both the accumulated waits and instruction count can change.
+- **Not automatically bandwidth saturation:** a load may be served by cache or DRAM; the stall label alone does not identify the memory level or exhausted resource.
+- **Metric:** `smsp__average_warps_issue_stalled_long_scoreboard_per_issue_active.ratio`; find it under **Details → Warp State Statistics** or **Raw** when collected. Distinguish this normalized metric from PC-sampling counts.
+- Reference: [NVIDIA profiling guide](https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-reference).
+
 ## Toy arithmetic timeline
 
 - One scheduler can issue one warp instruction/cycle; arithmetic pipeline accepts one/cycle; result latency is four cycles.

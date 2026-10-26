@@ -195,11 +195,19 @@ __global__ void softmax_online(const float* x, float* y, int cols) {
     const int warp = t / 32;
     OnlineState state{-INFINITY, 0.0f};
 
-    // TODO 1: Traverse this thread's strided columns once to build its pair.
-    // A single finite input v has the summary {v, 1.0f}; use merge_online.
+    // Initialize from the first value, then use one exponential per update.
     // Threads with no input keep the empty state and still participate below.
-    for (int i = t; i < cols; i += N) {
-        state = merge_online(state, OnlineState{x[row * cols + i], 1.0f});
+    if (t < cols) {
+        state = OnlineState{x[row * cols + t], 1.0f};
+    }
+    for (int i = t + N; i < cols; i += N) {
+        const float value = x[row * cols + i];
+        if (value <= state.m) {
+            state.s += expf(value - state.m);
+        } else {
+            state.s = state.s * expf(state.m - value) + 1.0f;
+            state.m = value;
+        }
     }
 
     // TODO 2: Reduce pairs within each warp at offsets 16, 8, 4, 2, 1.
@@ -241,6 +249,79 @@ __global__ void softmax_online(const float* x, float* y, int cols) {
     }
 }
 
+// Register-buffered online experiment: FP32 contiguous [rows, Cols].
+// Launch exactly rows blocks of 128 threads; Cols is a positive multiple of 128.
+// Default specialization preserves the original 1024-column experiment.
+template <int N, int Cols = 1024>
+__global__ void softmax_online_registers(const float* x, float* y) {
+    static_assert(N >= 32 && N <= 1024 && N % 32 == 0,
+                  "Use complete warps and at most 1024 threads per block");
+    constexpr int num_warps = N / 32;
+    __shared__ OnlineState warp_partials[num_warps];
+
+    const int row = blockIdx.x;
+    const int t = threadIdx.x;
+    const int lane = t % 32;
+    const int warp = t / 32;
+    OnlineState state{-INFINITY, 0.0f};
+
+    static_assert(N == 128, "This experiment uses 128 threads per row");
+    static_assert(Cols > 0 && Cols % N == 0, "Width must be a positive multiple of 128");
+    constexpr int cols = Cols;
+    constexpr int values_per_thread = cols / N;
+    float values[values_per_thread];
+
+    // Load each assigned input once into a fixed-size private buffer.
+    // Unrolled constant indexing lets the compiler allocate values to registers.
+    #pragma unroll
+    for (int j = 0; j < values_per_thread; ++j) {
+        values[j] = x[row * cols + t + j * N];
+    }
+
+    // Same specialized online recurrence and input order as softmax_online.
+    state = OnlineState{values[0], 1.0f};
+    #pragma unroll
+    for (int j = 1; j < values_per_thread; ++j) {
+        const float value = values[j];
+        if (value <= state.m) {
+            state.s += expf(value - state.m);
+        } else {
+            state.s = state.s * expf(state.m - value) + 1.0f;
+            state.m = value;
+        }
+    }
+
+    // Merge warp summaries exactly as in the existing online kernel.
+    for (int d = 16; d > 0; d /= 2) {
+        state = merge_online(state, OnlineState{__shfl_down_sync(0xffffffff, state.m, d), __shfl_down_sync(0xffffffff, state.s, d)});
+    }
+    if (lane == 0) {
+        warp_partials[warp] = state;
+    }
+    __syncthreads();
+
+    // Warp 0 reduces shared summaries, padding unused lanes with empty pairs.
+    if (warp == 0) {
+        if (lane < num_warps) {
+            state = warp_partials[lane];
+        }
+        else {
+            state = OnlineState{-INFINITY, 0.0f};
+        }
+        for (int d = 16; d > 0; d /= 2) {
+            state = merge_online(state, OnlineState{__shfl_down_sync(0xffffffff, state.m, d), __shfl_down_sync(0xffffffff, state.s, d)});
+        }
+        if (lane == 0) warp_partials[0] = state;
+    }
+    __syncthreads();
+    // Reuse retained inputs after the final row maximum and sum are known.
+    state = warp_partials[0];
+    #pragma unroll
+    for (int j = 0; j < values_per_thread; ++j) {
+        y[row * cols + t + j * N] = expf(values[j] - state.m) / state.s;
+    }
+}
+
 // Correctness only: allocation, reference work, and checks are not benchmarks.
 void check_cuda(cudaError_t status, const char* operation) {
     if (status != cudaSuccess) {
@@ -253,9 +334,21 @@ int main() {
     constexpr int threads_per_block = 128;
     int failed_runs = 0;
     int total_runs = 0;
-    const char* variants[] = {"baseline", "warp", "online"};
+    const char* variants[] = {"baseline", "warp", "online", "online_registers"};
     constexpr int num_variants = sizeof(variants) / sizeof(variants[0]);
-    const auto tests = softmax_test::cases();
+    auto tests = softmax_test::cases();
+    // All existing cases remain; exercise the fixed-width variant on every pattern.
+    using softmax_test::Pattern;
+    tests.insert(tests.end(), {
+        {"registers_mixed_single", 1, 1024, Pattern::Mixed},
+        {"registers_mixed", 37, 1024, Pattern::Mixed},
+        {"registers_equal", 3, 1024, Pattern::Equal},
+        {"registers_negative", 3, 1024, Pattern::Negative},
+        {"registers_large_positive", 3, 1024, Pattern::LargePositive},
+        {"registers_large_negative", 3, 1024, Pattern::LargeNegative},
+        {"registers_tied", 3, 1024, Pattern::Tied},
+        {"registers_peaked", 3, 1024, Pattern::Peaked},
+    });
     printf("FP32 criteria: atol=%g, rtol=%g, row_sum_atol=%g\n",
            softmax_test::atol, softmax_test::rtol, softmax_test::row_sum_atol);
 
@@ -270,6 +363,7 @@ int main() {
         check_cuda(cudaMalloc(&y_gpu, bytes), "allocate y");
         check_cuda(cudaMemcpy(x_gpu, x.data(), bytes, cudaMemcpyHostToDevice), "upload x");
         for (int variant = 0; variant < num_variants; ++variant) {
+            if (variant == 3 && test.cols != 1024) continue; // Explicit fixed-width contract.
             printf("Running softmax/%s %s [%d,%d]\n",
                    variants[variant], test.name, test.rows, test.cols);
             fflush(stdout);
@@ -279,8 +373,10 @@ int main() {
                 softmax<threads_per_block><<<test.rows, threads_per_block>>>(x_gpu, y_gpu, test.cols);
             } else if (variant == 1) {
                 softmax_warp<threads_per_block><<<test.rows, threads_per_block>>>(x_gpu, y_gpu, test.cols);
-            } else {
+            } else if (variant == 2) {
                 softmax_online<threads_per_block><<<test.rows, threads_per_block>>>(x_gpu, y_gpu, test.cols);
+            } else {
+                softmax_online_registers<threads_per_block><<<test.rows, threads_per_block>>>(x_gpu, y_gpu);
             }
             check_cuda(cudaGetLastError(), "launch softmax variant");
             check_cuda(cudaDeviceSynchronize(), "execute softmax variant");

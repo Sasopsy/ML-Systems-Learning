@@ -1,0 +1,3 @@
+COMMAND: /usr/local/cuda-13.0/bin/nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 project_03_gpu_operator_library/kernels/cuda/bias_relu.cu -o artifacts/project03-2026-10-26/bin/bias_relu
+
+EXIT: 0

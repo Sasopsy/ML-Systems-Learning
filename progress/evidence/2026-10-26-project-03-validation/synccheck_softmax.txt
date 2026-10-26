@@ -1,0 +1,67 @@
+COMMAND: /usr/local/cuda-13.0/bin/compute-sanitizer --tool synccheck --error-exitcode 99 artifacts/project03-2026-10-26/bin/softmax
+========= COMPUTE-SANITIZER
+FP32 criteria: atol=1e-07, rtol=1e-05, row_sum_atol=1e-05
+Running softmax/baseline mixed_initial [37,130]
+PASS softmax/baseline mixed_initial: bad_elements=0, bad_rows=0, max_abs_error=5.67672704e-09, row_sum_error=8.72603323e-08
+Running softmax/warp mixed_initial [37,130]
+PASS softmax/warp mixed_initial: bad_elements=0, bad_rows=0, max_abs_error=6.25817803e-09, row_sum_error=7.70694442e-08
+Running softmax/online mixed_initial [37,130]
+PASS softmax/online mixed_initial: bad_elements=0, bad_rows=0, max_abs_error=7.58811765e-09, row_sum_error=8.72505552e-08
+Running softmax/baseline single_column [3,1]
+PASS softmax/baseline single_column: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/warp single_column [3,1]
+PASS softmax/warp single_column: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/online single_column [3,1]
+PASS softmax/online single_column: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/baseline equal_short [3,17]
+PASS softmax/baseline equal_short: bad_elements=0, bad_rows=0, max_abs_error=2.19134724e-10, row_sum_error=3.7252903e-09
+Running softmax/warp equal_short [3,17]
+PASS softmax/warp equal_short: bad_elements=0, bad_rows=0, max_abs_error=2.19134724e-10, row_sum_error=3.7252903e-09
+Running softmax/online equal_short [3,17]
+PASS softmax/online equal_short: bad_elements=0, bad_rows=0, max_abs_error=2.19134724e-10, row_sum_error=3.7252903e-09
+Running softmax/baseline negative_127 [4,127]
+PASS softmax/baseline negative_127: bad_elements=0, bad_rows=0, max_abs_error=2.57606101e-09, row_sum_error=3.16629212e-08
+Running softmax/warp negative_127 [4,127]
+PASS softmax/warp negative_127: bad_elements=0, bad_rows=0, max_abs_error=5.85437286e-09, row_sum_error=7.13389454e-08
+Running softmax/online negative_127 [4,127]
+PASS softmax/online negative_127: bad_elements=0, bad_rows=0, max_abs_error=2.57606101e-09, row_sum_error=3.16629212e-08
+Running softmax/baseline equal_128 [3,128]
+PASS softmax/baseline equal_128: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/warp equal_128 [3,128]
+PASS softmax/warp equal_128: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/online equal_128 [3,128]
+PASS softmax/online equal_128: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/baseline large_positive_129 [3,129]
+PASS softmax/baseline large_positive_129: bad_elements=0, bad_rows=0, max_abs_error=3.99817392e-09, row_sum_error=1.74545676e-08
+Running softmax/warp large_positive_129 [3,129]
+PASS softmax/warp large_positive_129: bad_elements=0, bad_rows=0, max_abs_error=3.99817392e-09, row_sum_error=1.74545676e-08
+Running softmax/online large_positive_129 [3,129]
+PASS softmax/online large_positive_129: bad_elements=0, bad_rows=0, max_abs_error=3.99817392e-09, row_sum_error=5.20772119e-08
+Running softmax/baseline large_negative_130 [3,130]
+PASS softmax/baseline large_negative_130: bad_elements=0, bad_rows=0, max_abs_error=4.64940736e-09, row_sum_error=4.92975687e-08
+Running softmax/warp large_negative_130 [3,130]
+PASS softmax/warp large_negative_130: bad_elements=0, bad_rows=0, max_abs_error=4.64940736e-09, row_sum_error=4.92975687e-08
+Running softmax/online large_negative_130 [3,130]
+PASS softmax/online large_negative_130: bad_elements=0, bad_rows=0, max_abs_error=4.64940736e-09, row_sum_error=4.92975687e-08
+Running softmax/baseline tied_maxima_257 [3,257]
+PASS softmax/baseline tied_maxima_257: bad_elements=0, bad_rows=0, max_abs_error=2.14570818e-08, row_sum_error=4.29145253e-08
+Running softmax/warp tied_maxima_257 [3,257]
+PASS softmax/warp tied_maxima_257: bad_elements=0, bad_rows=0, max_abs_error=3.8147563e-08, row_sum_error=7.62956702e-08
+Running softmax/online tied_maxima_257 [3,257]
+PASS softmax/online tied_maxima_257: bad_elements=0, bad_rows=0, max_abs_error=3.8147563e-08, row_sum_error=7.62956702e-08
+Running softmax/baseline dominant_tail_1025 [3,1025]
+PASS softmax/baseline dominant_tail_1025: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/warp dominant_tail_1025 [3,1025]
+PASS softmax/warp dominant_tail_1025: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/online dominant_tail_1025 [3,1025]
+PASS softmax/online dominant_tail_1025: bad_elements=0, bad_rows=0, max_abs_error=0, row_sum_error=0
+Running softmax/baseline mixed_long_4097 [2,4097]
+PASS softmax/baseline mixed_long_4097: bad_elements=0, bad_rows=0, max_abs_error=1.74043482e-10, row_sum_error=8.52980264e-08
+Running softmax/warp mixed_long_4097 [2,4097]
+PASS softmax/warp mixed_long_4097: bad_elements=0, bad_rows=0, max_abs_error=1.61748257e-10, row_sum_error=4.31943192e-08
+Running softmax/online mixed_long_4097 [2,4097]
+PASS softmax/online mixed_long_4097: bad_elements=0, bad_rows=0, max_abs_error=1.61748257e-10, row_sum_error=4.31943192e-08
+PASS: 10 cases, 30 variant/case runs, 0 failed
+========= ERROR SUMMARY: 0 errors
+
+EXIT: 0

@@ -1,0 +1,44 @@
+COMMAND: artifacts/project03-2026-10-26/bin/row_sum
+Running row_sum/baseline [37,1]
+PASS row_sum/baseline [37,1]: 0 mismatched rows
+Running row_sum/warp [37,1]
+PASS row_sum/warp [37,1]: 0 mismatched rows
+Running row_sum/baseline [37,17]
+PASS row_sum/baseline [37,17]: 0 mismatched rows
+Running row_sum/warp [37,17]
+PASS row_sum/warp [37,17]: 0 mismatched rows
+Running row_sum/baseline [37,31]
+PASS row_sum/baseline [37,31]: 0 mismatched rows
+Running row_sum/warp [37,31]
+PASS row_sum/warp [37,31]: 0 mismatched rows
+Running row_sum/baseline [37,32]
+PASS row_sum/baseline [37,32]: 0 mismatched rows
+Running row_sum/warp [37,32]
+PASS row_sum/warp [37,32]: 0 mismatched rows
+Running row_sum/baseline [37,33]
+PASS row_sum/baseline [37,33]: 0 mismatched rows
+Running row_sum/warp [37,33]
+PASS row_sum/warp [37,33]: 0 mismatched rows
+Running row_sum/baseline [37,127]
+PASS row_sum/baseline [37,127]: 0 mismatched rows
+Running row_sum/warp [37,127]
+PASS row_sum/warp [37,127]: 0 mismatched rows
+Running row_sum/baseline [37,128]
+PASS row_sum/baseline [37,128]: 0 mismatched rows
+Running row_sum/warp [37,128]
+PASS row_sum/warp [37,128]: 0 mismatched rows
+Running row_sum/baseline [37,130]
+PASS row_sum/baseline [37,130]: 0 mismatched rows
+Running row_sum/warp [37,130]
+PASS row_sum/warp [37,130]: 0 mismatched rows
+Running row_sum/baseline [37,257]
+PASS row_sum/baseline [37,257]: 0 mismatched rows
+Running row_sum/warp [37,257]
+PASS row_sum/warp [37,257]: 0 mismatched rows
+Running row_sum/baseline [37,1025]
+PASS row_sum/baseline [37,1025]: 0 mismatched rows
+Running row_sum/warp [37,1025]
+PASS row_sum/warp [37,1025]: 0 mismatched rows
+PASS: 20 variant/case runs, 0 failed
+
+EXIT: 0

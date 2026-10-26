@@ -7,3 +7,4 @@
 - [Constants and instruction reissue](15-constants-and-instruction-reissue.md)
 - [Latency hiding](16-latency-hiding.md)
 - [GPU memory: throughput, caches, and wavefronts](17-dram-throughput.md)
+- [Branch divergence, predication, and finding the metrics](20-divergence-and-predication.md)

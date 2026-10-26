@@ -1,0 +1,3 @@
+COMMAND: g++ -std=c++17 -O2 -Wall -Wextra -Werror project_03_gpu_operator_library/kernels/cuda/softmax_reference_test.cpp -o artifacts/project03-2026-10-26/bin/softmax_reference_test
+
+EXIT: 0

@@ -1,0 +1,4 @@
+COMMAND: artifacts/project03-2026-10-26/bin/softmax_reference_test
+PASS: CPU reference and validator checks; CUDA kernel was not executed.
+
+EXIT: 0
