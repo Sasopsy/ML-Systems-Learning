@@ -216,15 +216,23 @@ Create bad workloads—CPU preprocessing bottlenecks, unnecessary synchronizatio
 Build a small representative operator collection. The categories below are a
 coverage menu, not a requirement to implement every operator in every language.
 
+**Performance objective (revised 2026-10-22):** build efficient forward and backward
+implementations of the core softmax, normalization, GEMM, and attention operators
+for a declared workload suite. Introductory kernels are stepping stones. Include
+warp MMA and Hopper WGMMA as explicit milestones, with measured performance and
+generated-code evidence. Do not equate Tensor Core use with efficiency.
+
 ### Dense
 
-* tiled GEMM;
+* naive GEMM → shared-memory/register-tiled GEMM → warp-level `mma.sync`
+  Tensor Core GEMM → Hopper asynchronous WGMMA GEMM;
 * GEMM + bias + activation fusion.
 
 ### Reduction
 
 * RMSNorm / LayerNorm;
-* softmax.
+* stable softmax → fused row-resident implementation → online/tiled normalizer
+  and large-row variants, selecting by measured shape-dependent performance.
 
 ### Spatial
 
@@ -233,8 +241,9 @@ coverage menu, not a requirement to implement every operator in every language.
 
 ### Sequence
 
-* naive attention followed by tiled attention with online softmax; compare
-  intermediate memory, correctness, and execution time;
+* use a simple framework attention reference, then implement tiled Tensor Core
+  attention directly: MMA + online softmax → Hopper WGMMA/TMA/pipelining;
+  implement and optimize dQ/dK/dV without materializing quadratic intermediates;
 * associative scan (extension for the SSM project).
 
 ### Irregular memory access
@@ -243,19 +252,84 @@ coverage menu, not a requirement to implement every operator in every language.
 
 ### Practical coverage of all three languages
 
-Use **CUDA C++, Triton, and TileLang** with comparable first-pass depth:
+Use **CUDA C++, Triton, and TileLang** throughout, comparing common contracts:
 
 1. In each, write a small elementwise kernel, a reduction, and a tiled GEMM.
 2. Handle boundary tiles/non-divisible shapes; validate against an independent
    reference and debug one deliberate indexing or synchronization error.
 3. Benchmark shared shapes/dtypes with the same measurement boundary; explain
    memory access, parallel work assignment, and one measured tuning change.
-4. Implement a fused operator and the attention exercise in whichever language
-   suits the task. Reuse the others in later projects; avoid three full libraries.
+4. Develop forward/backward softmax, normalization, GEMM, and fused attention
+   across the three languages, interleaved by operator. Establish an understandable
+   implementation before optimizing; do not duplicate every teaching variant.
+5. CUDA C++ teaches explicit thread/warp ownership, fragments, shared layouts,
+   and asynchronous pipeline correctness. Build small `__device__` inline PTX
+   wrappers using `asm volatile` for `mma.sync`, `ldmatrix`, asynchronous copies,
+   and WGMMA issue/fence/commit/wait operations as needed. Study SageAttention's
+   `mma.cuh`/`wgmma.cuh` as references; implement and validate our own selected
+   primitives. Intrinsics/CuTe can serve as comparisons, not replace this explicit
+   PTX milestone. These are wrappers for existing ISA instructions, not new opcodes.
+   Learn operand constraints, fragment layouts, address conversion, and compiler
+   versus hardware ordering; `volatile` alone is not synchronization. Verify
+   generated PTX/SASS and reuse validated primitives in GEMM/attention backward.
+6. Triton starts with block tensors, reductions, `tl.dot`, tile/warp/stage tuning,
+   and generated PTX/SASS inspection. Use experimental Gluon for explicit Hopper
+   WGMMA/layout/barrier control when needed; pin and verify the installed version.
+7. TileLang starts with shared/fragment buffers, tiled copies, reductions, GEMM,
+   and software pipelines; then explicit asynchronous WGMMA scheduling where
+   supported. Verify lowering rather than inferring it from a high-level GEMM call.
 
-**Defer:** exhaustive autotuning, production GEMM/attention parity, compiler
-internals for each DSL, and architecture-specific instruction tuning. Return to
-these when a measured project bottleneck justifies the depth.
+### Optimization and backward milestones
+
+* **Softmax:** benchmark row-resident and online/tiled variants. Online normalization
+  is not universally faster and does not alone eliminate standalone output passes.
+  Implement backward using a row reduction, without a full Jacobian.
+* **Normalization:** optimize RMSNorm forward plus input/weight gradients; include
+  LayerNorm when extending to mean/variance handling.
+* **GEMM:** establish tiling and register reuse, then `mma.sync`, asynchronous
+  copies/multistage buffering, and WGMMA/TMA with correct barriers, waits, and buffer
+  lifetimes. Add warp specialization/persistent scheduling when measured useful.
+  Implement dA/dB as GEMMs with the required transpose/layout handling; fused
+  epilogues also require activation and bias gradients.
+* **Attention:** after softmax and GEMM foundations, start the custom implementation
+  with tiled MMA attention. Keep running normalization and output accumulators;
+  introduce causal masking and tails, then WGMMA overlap. Plan backward separately:
+  saved normalization statistics, recomputation, dQ/dK/dV ownership, and reduction
+  or atomic tradeoffs. Tune forward and backward independently.
+* **Hardware:** plan the WGMMA track for Hopper/H100, subject to environment
+  verification. Warp-level MMA and warpgroup MMA are distinct; a C++ WMMA API
+  introduction is optional and is not a substitute for the `mma.sync` milestone.
+  A Blackwell target requires a separate instruction-path plan, not an assumed
+  WGMMA carryover.
+
+### Performance acceptance
+
+* Declare target GPU, shapes, layouts, dtypes, accumulation precision, masks,
+  supported boundaries, and numerical tolerances before tuning. The agreed primary
+  MMA/WGMMA variants are FP16 inputs → native FP16 accumulator → FP16 output,
+  and BF16 inputs → FP32 accumulator → BF16 output. Retain FP32 accumulation for
+  FP16 inputs as an accuracy/performance comparison. These settings describe matrix
+  accumulation; softmax statistics and other reductions need their own explicit
+  precision contracts. Match accumulation/output
+  precision in comparisons where supported; disclose differences otherwise.
+  Validate against stronger references with dtype-appropriate tolerances and do
+  not silently change precision between comparisons.
+* Use a small, fixed suite spanning short/long rows, square/rectangular GEMMs,
+  aligned/tail cases, and representative attention lengths/head dimensions.
+* Compare with optimized library baselines: framework softmax/norm, cuBLAS/cuBLASLt,
+  and a verified optimized SDPA/FlashAttention backend. Record exact backend versions.
+* Set per-family latency targets after baseline collection and before tuning.
+  Report baseline/ours ratios for each shape, regressions, memory, and forward,
+  backward, and combined time. Competitiveness is a measured goal, not a promised
+  speedup or a claim based on an instruction name.
+* Validate gradients against autograd references and small finite-difference checks
+  with precision-appropriate tolerances. Include memory/race/synchronization checks.
+  Separate unprofiled timings from diagnostic captures and exclude compilation/
+  autotuning unless explicitly measuring them. Keep held-out shapes for transfer.
+
+**Defer:** exhaustive shape/dtype coverage, unlimited autotuning, full compiler
+internals, multi-GPU kernels, and universal production-library parity. Architecture-
+specific MMA/WGMMA tuning on the chosen target is now in scope.
 
 Study:
 
@@ -279,7 +353,8 @@ Ideal runtime ≳ max(
 )
 ```
 
-Implement backward for at least one nontrivial operator and integrate at least one kernel into a real model.
+Implement and optimize backward for the core operators above and integrate at
+least one forward/backward operator into a real model.
 
 ### GPU concurrency exercise
 
@@ -288,10 +363,12 @@ Compare serialized execution with a double-buffered pipeline; verify data and
 buffer lifetime correctness before interpreting overlap. Inspect the timeline
 and explain when shared resources or dependencies prevent overlap.
 
-**Exit:** In each language, you can write, validate, modify, and profile a small
-kernel without copying a complete solution. Explain performance across shapes
-and integrate at least one operator into a model. Peak hardware performance is
-not a first-pass requirement.
+**Exit:** In each language, independently write, validate, modify, and profile
+operators; demonstrate efficient forward/backward implementations against the
+declared suite and targets, explain measured gaps, and integrate at least one
+operator into a model. Demonstrate warp MMA and WGMMA mechanisms on the supported
+target. Correct-but-untuned introductory kernels do not complete this project;
+universal peak performance is not required.
 
 ---
 

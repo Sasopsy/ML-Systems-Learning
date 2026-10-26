@@ -1,5 +1,233 @@
 # Current status
 
+## Project 3 checkpoint prepared — 2026-10-26
+
+- User requested commit/push of accumulated kernels, host validation, lesson notes, session history and expanded roadmap. Checkpoint includes affine, bias + ReLU, baseline/warp row sum, and baseline/warp/online softmax.
+- CPU reference/validator and integer-fixture checks have passed as recorded below; current local documentation-link check passed (28 targets). CUDA compilation, GPU correctness/synchronization checks and timings remain pending. Source-reviewed implementations followed guided corrections.
+- Suggested next offline lesson: retain softmax values in registers with the existing 128-thread mapping; not implemented. Then GPU comparisons, softmax backward and language ports before the GEMM progression. GPU session remains deferred at the user's request.
+- This entry records the prepared checkpoint; successful commit/push must be verified from Git command results.
+
+## Online softmax added to host suite — 2026-10-26
+
+- User authorized harness extension. Softmax now schedules baseline/warp/online on the same ten cases (30 variant/case runs), with unchanged reference/tolerances, per-launch NaN reset, checked completion and per-variant diagnostics.
+- Kernel arithmetic unchanged. Reviewed dispatch and ran `git diff --check`; no whitespace errors. CUDA compilation/GPU execution remain pending.
+- Next: deferred GPU correctness session for row-sum and all three softmax variants before performance comparisons. Changes local/uncommitted.
+
+## Online softmax cleanup verified — 2026-10-26
+
+- Learner removed duplicate warp-summary loading and explicitly initializes unused final-warp lanes to the empty pair. Two required block barriers remain; no blocking source issue found in the reviewed implementation.
+- Next: include online softmax in the existing common-reference host suite alongside baseline and warp variants. No CUDA compilation/execution or timings; guided implementation is source-reviewed only.
+
+## Online softmax source review — 2026-10-26
+
+- Learner added per-warp shared stores, a valid final shuffle loop, final pair publication and all-thread read. No remaining correctness issue found for the intended finite-input test workloads and launch contract; compilation/device validation remain pending.
+- Redundant warp-0 partial loading and its extra barrier can be removed, but the retained load must explicitly assign empty pairs to padding lanes; merging with empty does not reset a nonempty state.
+- Next: simplify the duplicate loading stage before adding online to the common host validation. No kernel edits during review; online is still not launched by the harness.
+
+## Online kernel first review — 2026-10-26
+
+- TODO 1 correctly merges singleton states over strided columns. TODO 2 shuffles both original fields before assignment with full-warp participation; lane 0 obtains the intended warp summary. Optional valid-source guard avoids self-merges in out-of-range lanes.
+- Later stages were also filled but remain incorrect: no shared partial writes before reads, undefined `d` and partial-mask participation in final merge, no final pair publication/all-thread broadcast.
+- Next: fix TODO 3 to publish each warp's lane-0 pair, then synchronize before reads. No code edits, compilation, or GPU execution during review.
+
+## Online merge helper source-reviewed — 2026-10-26
+
+- Learner corrected both exponent signs to old maximum minus merged maximum. Empty handling and nonempty pair merge now match the taught formula for valid finite-input summaries.
+- Next: online kernel TODOs 1–2, private pair accumulation and first warp pair reduction. Source review only; no compilation/device validation.
+
+## Online merge helper first review — 2026-10-26
+
+- M1 correctly returns the other summary for an empty input, including both-empty. M2 chooses the correct maximum but reverses both rescaling exponents (new minus old instead of old minus new).
+- Next: learner corrects exponent signs before implementing the kernel. Source review only; no code edits or CUDA execution.
+
+## Online softmax skeleton added — 2026-10-25
+
+- User delegated scaffolding. Added `OnlineState`, `merge_online` TODOs with an explicit NaN placeholder, and a six-stage `softmax_online` skeleton in `softmax.cu`.
+- Next: learner implements helper empty handling/rescaling, then private state accumulation and first warp reduction. Both pair fields must be shuffled by all lanes before any guarded merge.
+- Existing kernels and two-variant host validation unchanged. No CUDA compilation or execution; new skeleton is not launched.
+
+## Online softmax recurrence covered — 2026-10-25
+
+- Learner correctly derived rescaling for a larger maximum, unchanged-max update, parallel pair merge example, NaN from two empty maxima, and final output exp(x-m)/s. Empty-group guards and shuffle participation were explained by assistant.
+- Expanded Project 3 note 06. Next: learner implements a small pair-merge helper before the online kernel. Guided conceptual understanding; no implementation or GPU validation yet.
+- Documentation-only follow-up; existing GPU batch remains deferred and changes local/uncommitted.
+
+## Online softmax lesson started — 2026-10-24
+
+- User requested moving to online softmax. Checked original paper and existing notes/roadmap; introduced joint running maximum/shifted sum and three-to-two logical input traversals versus current kernels.
+- Next: learner derives rescaling of exp(2-3)+exp(3-3) when a new value 5 raises the running maximum. Parallel pair merge and implementation follow; no online kernel created.
+- Added note 06. Performance remains a hypothesis; deferred GPU validation of existing variants is still pending.
+
+## Baseline/warp correctness harnesses ready — 2026-10-24
+
+- User delegated host support. Row sum now tests both variants on ten widths (1/17/31/32/33/127/128/130/257/1025), 37 rows each. Softmax runs both variants on its unchanged ten cases and fixed tolerances. Each executable schedules 20 variant/case runs.
+- Every variant gets a fresh NaN output sentinel, checked launch/completion/download, the same independent CPU reference, labeled diagnostics and aggregate failure status. Kernel bodies unchanged; no timing added.
+- CPU softmax reference/validator tests passed; row-sum reference formula and FP32 exactness bounds verified for all 370 rows. `git diff --check` passed. No nvcc on PATH; CUDA builds and GPU execution remain untested.
+- Next: deferred GPU session to compile and run both harnesses and validate synchronization/memory safety before benchmarking. Changes local/uncommitted; no remote action.
+
+## Warp softmax source-reviewed — 2026-10-24
+
+- Learner fixed `row_max` declaration and per-warp sum stores. Full source review found no remaining correctness issue under the declared finite-input/launch contract; both warp variants are now source-reviewed after guidance.
+- Softmax uses four shared floats and five block barriers at N=128, versus baseline 128 floats and seventeen barriers. These are source counts, not measured performance.
+- Next: extend the host correctness harnesses to exercise baseline and warp variants on identical inputs before the deferred GPU validation session. Hosts currently launch only baselines. No CUDA compilation/execution; changes local/uncommitted.
+
+## Warp softmax first review — 2026-10-24
+
+- TODOs 1–2 are correct: strided private max with negative-infinity identity and unconditional full-warp shuffle/max reduction. Learner also implemented later stages.
+- Two blocking source issues remain: undeclared `row_max`, and all warp leaders store sum partials into slot 0 instead of their per-warp slots. Max-stage publication and shared-reuse barriers are correctly placed.
+- Next: learner corrects declaration and sum-partial destination. Source review only; no kernel edits, CUDA compilation, or GPU execution.
+
+## Warp softmax skeleton added — 2026-10-24
+
+- User delegated scaffolding. Added `softmax_warp` beside the baseline with complete-warp constraints, shared partials, identifiers, and TODOs for max/sum reductions, all-thread broadcasts, safe shared reuse, and output.
+- Learner implements arithmetic and synchronization. Next: TODOs 1–2, private maximum and first warp maximum reduction. Baseline host launch and numerical criteria unchanged; no CUDA compilation/device execution. Changes local/uncommitted.
+
+## Warp row sum source-reviewed — 2026-10-24
+
+- Learner corrected the second-stage inputs: warp 0 loads shared warp totals with zero padding before its full-warp shuffle reduction. No remaining correctness issue found under the documented launch/input contract.
+- Initial shared zero stores and skeleton/TODO comments are redundant cleanup. Host still launches the baseline; no CUDA compilation, device validation, or timing.
+- Next learning task: adapt this two-level reduction to softmax with all-thread result publication and safe shared-buffer reuse. GPU comparisons remain deferred; changes local/uncommitted.
+
+## Warp row-sum follow-up review — 2026-10-24
+
+- Learner fixed full-warp shuffle participation, lane-0-only partial stores, block synchronization, and the single output writer.
+- Remaining correctness issue: warp 0 still reduces its old register values instead of loading shared warp totals with zero padding. Next: initialize the second reduction's per-lane input inside `warp == 0` before its loop. Initial shared-zero stores are unnecessary.
+- Source review only; no code edits or CUDA execution. Host still launches baseline.
+
+## Warp row-sum first review — 2026-10-24
+
+- TODO 1 correctly accumulates strided columns. TODO 2 incorrectly guards full-mask shuffles with `lane < d`; all named lanes must participate. Next: remove that guard around the first shuffle loop and review.
+- Learner also filled later stages: shared partials currently have multiple writers, final merge never loads shared partials, and every warp writes the row output. These remain pending corrections; kernel unchanged during review.
+- Source inspection only; no CUDA compilation or execution. Host still launches baseline.
+
+## Warp row-sum skeleton added — 2026-10-24
+
+- User delegated scaffolding. Added `row_sum_warp` beside the baseline with template constraints, shared partial storage, identifiers, and staged TODOs. Reduction body remains learner work; host still launches baseline.
+- Next: learner implements private accumulation and first warp reduction (TODOs 1–2). No CUDA compilation or execution; changes local/uncommitted.
+
+## Warp-reduction synchronization reasoning — 2026-10-24
+
+- Learner correctly selected sum/max identities, recognized all threads need the softmax maximum, and explained the read-before-overwrite race when shared storage is reused. Block-wide versus warp-only synchronization was clarified with guidance.
+- Added Project 3 note 05. No kernel edits, CUDA compilation, GPU execution, or performance measurement.
+- Next: learner adds a separate warp row-sum kernel alongside the shared-tree baseline, starting with private accumulation and the first warp reduction. Changes remain local/uncommitted.
+
+## Warp-reduction optimization started — 2026-10-23
+
+- User requested warp reductions for row sum and softmax. Keep current kernels as baselines; first develop warp-shuffle row sum, then softmax max/sum with block-wide result broadcasts.
+- Plan for 128-thread blocks: private accumulation → four warp reductions → four shared partials → warp 0 merges. All 32 lanes participate in each full-mask shuffle; no-data lanes contribute identities.
+- Hypothesis: less shared traffic and fewer block barriers, to test later with matched correctness/timing boundaries. No speedup measured and no warp kernel implemented yet.
+- Next: learner reasons about neutral lanes in the final warp reduction before implementation. GPU execution remains deferred.
+
+## Softmax correctness harness added — 2026-10-23
+
+- User delegated host scaffolding/reference/test cases. Added a 10-case CUDA harness around the learner kernel, CPU-only reusable test support, and a CPU reference/validator test executable.
+- Fixed acceptance: elementwise abs error <= 1e-7 + 1e-5*abs(reference); row-sum error <= 1e-5; finite outputs in [0,1]. Includes widths 1/17/127/128/129/130/257/1025/4097 and negative/equal/large/tied/peaked/mixed logits.
+- Compiled and ran the CPU test with clang++ C++17 and warnings-as-errors: PASS. No CUDA compilation/device execution; no timings. Next: separate GPU correctness batch when user is ready, then measured softmax optimization. Changes local/uncommitted.
+
+## Softmax kernel source-reviewed — 2026-10-23
+
+- Learner completed stable FP32 softmax correctly under the declared launch/input contract: max reduction, safe shared-array reuse, shifted exponential sum, sum reduction, and normalized outputs.
+- Final barrier after privately reading the denominator is redundant because the shared array is not written again; harmless, not a correctness issue. No kernel edits made during review.
+- Next: host numerical-validation harness with stable FP64 reference, explicit tolerances, and adversarial inputs. No compilation/GPU run; local changes remain uncommitted.
+
+## Softmax skeleton ready — 2026-10-23
+
+- Learner correctly selected negative infinity/max combine and placed the barrier after privately reading the shared maximum, before shared-array reuse.
+- Created `project_03_gpu_operator_library/kernels/cuda/softmax.cu` with signature/shared storage/TODOs only, at user request. Next: learner implements the stable FP32 baseline, recomputing exponentials for output.
+- No softmax implementation, compilation, or GPU execution yet. Notes updated; changes local/uncommitted.
+
+## Stable softmax lesson — 2026-10-23
+
+- Started FP32 [37,130] row-wise softmax, one 128-thread block per row, finite inputs/no mask. Learner correctly identified exponential overflow and explained shift invariance through cancellation of the common factor.
+- Added note 04. Next: derive the maximum reduction's initial value and tree combine operation, then implement the stable kernel. No softmax code or GPU execution yet; batch validation remains deferred.
+
+## MMA/WGMMA precision agreed — 2026-10-22
+
+- User confirmed primary variants: FP16 inputs/accumulation/output; BF16 inputs with FP32 accumulation and BF16 output. Canonical roadmap updated; this resolves the earlier BF16 accumulation question.
+- Applies to matrix accumulation, not an implicit change to softmax/reduction precision. No code or GPU run; next lesson remains stable softmax.
+
+## Low-precision accumulation request — 2026-10-22
+
+- User requested FP16/BF16 accumulation as well as outputs. Added native FP16 accumulation to the MMA/WGMMA plan, superseding the FP32-only accumulation preference below.
+- Checked NVIDIA PTX instruction forms: FP16 accumulation supported with FP16 multiplicands; BF16 warp MMA and Hopper WGMMA require FP32 accumulators. Native all-BF16 requested path cannot be supplied on these instructions; no silent emulation/substitution planned.
+- Roadmap records limitation and optional separately labeled rounding experiments. Documentation only; no GPU or code changes.
+
+## MMA/WGMMA output precision — 2026-10-22
+
+- User requested FP16/BF16 outputs. Initial variants now explicitly pair FP16 inputs/output or BF16 inputs/output, retaining FP32 accumulation and converting at the output epilogue.
+- Roadmap updated; output dtype must match benchmark baselines and numerical criteria. Planning only; no kernel changes or GPU run. Stable softmax remains the next lesson.
+
+## Inline PTX direction — 2026-10-22
+
+- User requested SageAttention-style `asm volatile` wrappers for the CUDA GEMM/MMA work. Roadmap now explicitly includes learner-written device wrappers for existing MMA/WGMMA and supporting instructions.
+- Plan: validate a small instruction-level tile and fragment layout before building tiled GEMM/attention; preserve forward/backward correctness and generated-code inspection requirements. No new kernel implementation or GPU execution.
+
+## Project 3 performance scope revised — 2026-10-22
+
+- User requested efficient forward/backward operators, online/optimized softmax, naive → shared → MMA → WGMMA GEMM, and direct MMA → WGMMA custom attention.
+- Updated Project 3 in `roadmap.md`; proposed interleaved CUDA C++, Triton (Gluon for explicit Hopper control), and TileLang implementations with common contracts and measured performance targets.
+- Hopper/H100 is the planned WGMMA target, not a newly verified environment. No new GPU activity; current three kernels remain source-reviewed only.
+- Next offline learning task: stable fused softmax and its numerical contract; existing-kernel GPU batch remains deferred at user request. Advanced optimization requires subsequent GPU validation/measurement. Changes local/uncommitted.
+
+## Row-sum host scaffold added — 2026-10-21
+
+- User delegated host scaffolding; assistant added a [37,130] fixture, checked allocations/transfers/launch/completion, NaN output sentinel, sequential CPU reference, comparison, cleanup, and exit status. Learner reduction logic unchanged.
+- CPU-only FP32 arithmetic model matches all 37 reference sums; every row total differs, and omitting columns 128/129 fails every row. No CUDA compilation or execution.
+- Affine, bias + ReLU, and row sum now have first correctness harnesses. Next planned milestone is the separate GPU compilation/validation batch when the user is ready. No remote session started; changes local/uncommitted.
+
+## Row-sum template fixed — 2026-10-21
+
+- On explicit request, assistant changed `template <block_size N>` to `template <int N>` in `row_sum.cu`; reduction logic unchanged.
+- Next: add host correctness scaffolding. Intended launch remains `row_sum<128>` with 128 threads/block; no compilation or GPU execution yet. Changes local/uncommitted.
+
+## Row-sum first implementation reviewed — 2026-10-21
+
+- Learner implemented private accumulation, shared staging, halving reduction, unconditional barriers, and thread-0 output correctly under a matching power-of-two block-size contract.
+- Learner introduced a template with invalid/undefined parameter type `block_size`; correction needed to `template <int N>`. Actual threads/block must equal N; first intended instantiation remains 128.
+- Next: learner fixes template declaration; then review and add host scaffolding. Static review only; no compilation/GPU run.
+
+## Row reduction lesson — 2026-10-21
+
+- Learner correctly assigned 130 columns across 128 threads, completed the 8-slot tree example, and explained why a barrier inside the participating-thread condition is invalid for this algorithm.
+- Added `row_sum.cu` signature/shared-array/TODO skeleton; reduction implementation remains learner work. First launch contract: 37 blocks, 128 threads each, one row per block.
+- Next: learner implements private accumulation, shared-memory reduction with unconditional block barriers, and thread-0 output. GPU batch remains deferred; no compile/run or independent implementation evidence yet.
+
+## Bias + ReLU harness delegated — 2026-10-21
+
+- User requested scaffolding; assistant added the host correctness harness around the learner's kernel: signed test data, allocation/transfers, output NaN sentinel, checked launch/execution, CPU reference, comparison, cleanup, and exit status.
+- CPU fixture arithmetic checks passed for 4810 elements, both sign-crossing directions, and zero sums; incorrect ReLU-before-bias order differs at 2316 elements. This did not compile or execute CUDA.
+- Next: row-sum reduction concepts and work assignment. GPU compilation/validation of both kernels remains deferred to the planned batch session; local uncommitted changes only.
+
+## Project 3 bias + ReLU source reviewed — 2026-10-21
+
+- Learner correctly derived flat bounds and modulo bias indexing. Initial kernel applied bias after ReLU and used an undeclared variable; corrected after explanation.
+- Saved `bias_relu.cu` now computes input plus column bias before ReLU, with guarded input/output accesses. Static review only; no compilation or execution.
+- Next: learner adds a host correctness harness for [37,130], with varied signed inputs and distinct column biases. GPU validation remains deferred to the requested batch session.
+
+## Project 3 offline kernel batch — 2026-10-21
+
+- User deferred GPU execution and requested writing the next small kernels first, followed by a separate GPU launch session.
+- Proposed bounded batch: existing affine, then 2D bias + ReLU, then a row-sum reduction. Continue TUTOR mode; learner implements kernels. Every kernel remains unvalidated until GPU compilation/testing.
+- Next: define contiguous [37,130] FP32 bias + ReLU and have learner derive flattened indexing and bias-column selection. Reduction cooperation/synchronization will be taught before implementation.
+
+## Project 3 affine source review complete — 2026-10-21
+
+- Final saved source includes required headers, guarded indexing, initialized input, checked CUDA allocations/transfers/frees, launch and execution checks, output comparison, cleanup, and explicit pass/fail exit status.
+- No blocking source-level issue found for the current N=1000 FP32 case. Review only: no compilation, GPU execution, sanitizer check, or timing performed.
+- Next: verify the GPU environment, compile, and run the first correctness test. Source and documentation remain local and uncommitted; no remote synchronization.
+
+## Project 3 host harness review — 2026-10-21
+
+- Learner added allocation, transfers, launch, and comparison. Through review, corrected declaration order, input initialization, premature host-array deletion, and unnecessary output upload.
+- Current case: N=1000, 256 threads/block, four blocks; comparison precedes host cleanup. Still needs explicit success/failure exit status and CUDA API/launch/execution error checks.
+- Next: add result status and error checks before first GPU validation. Static review only; no compile or run. Source/notes remain local and uncommitted.
+
+## Project 3 first kernel reviewed — 2026-10-21
+
+- Learner filled in `project_03_gpu_operator_library/kernels/cuda/affine.cu`: correct 1D index, `i < N` guard, and affine output. Source review only; no compilation or execution.
+- Index/guard supplied correctly; block-count expression needed correction from ceiling after integer division. Last-block calculation then answered correctly: 104 valid threads, 24 skip accesses.
+- Next: introduce host launch syntax and have learner derive grid size for the launcher. Allocation, GPU validation, numerical criteria, timing, and profiling remain pending. Changes local, uncommitted.
+
 ## Active focus: Project 3 — 2026-10-20
 
 - User requested moving to kernel writing, integrating profiling into each operator. Project 2 review remains paused at Q21; its numerical-acceptance and independent-transfer work remains open.
