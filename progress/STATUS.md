@@ -1,5 +1,29 @@
 # Current status
 
+## Git handoff — configurable softmax and 128K dims
+
+- User authorized committing and pushing the kernel, benchmark/profile tools, validation harness, notes and progress records.
+- Results, profiler reports and generated binaries remain ignored and must be downloaded separately. Earlier local/uncommitted entries describe historical checkpoints.
+- This entry prepares the authorized handoff; remote synchronization is verified after pushing. No new GPU runs, download verification or shutdown are part of this step.
+- Next: inspect the saved 4096×16384 and 4096×32768 profile pairs offline.
+
+## Softmax comparison extended through 128K dims — 2026-10-31
+
+- User requested **dims** labels and extension through 131072 dims. Added 16384/32768/65536/131072 at rows 37/256/4096, N = 128. Kernel arithmetic unchanged; new dispatch specializations and configurable CLI/output paths. New CSV/metadata fields use dims; legacy cols-based evidence remains readable.
+- All 36 initial FP64-reference checks and every post-batch check passed; 648 new direct/graph samples and 72 summary rows. Same 50 warmups, nine rounds × 500 calls, fixed tolerances and rotated order. Combined tables cover 30 shapes across the earlier run and this explicitly labeled extension.
+- Captured 24 new full paired Nsight reports (12 new shapes × ours/PyTorch), all independent pre/post checks passed. Memcheck passed three-row retained-kernel fixtures at all four new dims. These are bounded checks, not an exhaustive sanitizer/block-size sweep.
+- Compiler: 16384 dims uses 168 registers/thread with no spills. At 32768/65536/131072 dims, 255 registers/thread with spills. Register-buffer naming does not guarantee residency. PyTorch already beats retained online at 16384 dims in the 4096-row graph case, before the first observed spills; do not attribute the entire crossover to spills.
+- Tables: `project_03_gpu_operator_library/results/2026-10-31-softmax-128k/README.md`. Offline package: `project_03_gpu_operator_library/results/2026-10-31-offline-profiles-128k/README.md`. Preserved earlier results; regenerated source/metric exports, snapshots and verified checksums for the extension.
+- Next offline task: compare 4096×16384 and 4096×32768 resources, spill traffic and stalls. Code/docs local/uncommitted/unpushed; results ignored and require download. No shutdown or verified Mac transfer. Assisted results, no independent mastery claim.
+
+## Configurable retained-softmax block size and refreshed comparisons — 2026-10-31
+
+- Final user request supersedes the intermediate fixed-128 refactor: kernel API is `softmax_online_registers<N, dims>` (default dims 1024). Removed `N == 128`; require `32 <= N <= 1024`, `N % 32 == 0`, positive dims divisible by N, and exactly N launched threads. Renamed Cols to dims and updated all callers.
+- Benchmarks/profiles deliberately keep N = 128 for like-for-like comparison with the previous experiment. All 62 existing correctness runs and four sanitizers passed. Added 64 FP64-reference checks spanning every complete-warp block size (32 values of N, dims = N and 8*N, three rows); these and all four sanitizers also passed. Other shapes and large resource demands are not exhaustively covered.
+- Repeated the full 18-shape comparison against PyTorch and current online: 54 initial checks plus post-batch checks, 972 direct/graph batch samples, 108 summary rows. Recaptured 36 paired full Nsight reports and two occupancy reports from this final revision; earlier fixed-128 captures were replaced.
+- Rebuilt comparison pages, raw/details/SASS exports, source snapshots, validation logs and transfer manifest. Experiment folders retain their dated names under Project 3 results; contents identify this refresh. Checksums verified. Results remain ignored by Git and need separate download.
+- Next: inspect refreshed 4096×1024 versus 4096×2048 pairs offline. Current N = 128 timings are not a sweep over block sizes. Code/docs are local and uncommitted; no new push, download verification on Mac or shutdown. Assisted implementation/tests do not establish independent mastery.
+
 ## Git handoff and separate results download — 2026-10-27
 
 - User authorized committing and pushing the code, benchmark scripts, revision notes, progress records and small validation logs.

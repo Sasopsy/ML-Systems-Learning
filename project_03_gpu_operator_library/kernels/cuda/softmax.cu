@@ -249,14 +249,15 @@ __global__ void softmax_online(const float* x, float* y, int cols) {
     }
 }
 
-// Register-buffered online experiment: FP32 contiguous [rows, Cols].
-// Launch exactly rows blocks of 128 threads; Cols is a positive multiple of 128.
+// Register-buffered online experiment: FP32 contiguous [rows, dims].
+// Launch exactly rows blocks of N threads; dims is a positive multiple of N.
 // Default specialization preserves the original 1024-column experiment.
-template <int N, int Cols = 1024>
+template <int N, int dims = 1024>
 __global__ void softmax_online_registers(const float* x, float* y) {
     static_assert(N >= 32 && N <= 1024 && N % 32 == 0,
                   "Use complete warps and at most 1024 threads per block");
-    constexpr int num_warps = N / 32;
+    constexpr int threads_per_block = N;
+    constexpr int num_warps = threads_per_block / 32;
     __shared__ OnlineState warp_partials[num_warps];
 
     const int row = blockIdx.x;
@@ -265,17 +266,16 @@ __global__ void softmax_online_registers(const float* x, float* y) {
     const int warp = t / 32;
     OnlineState state{-INFINITY, 0.0f};
 
-    static_assert(N == 128, "This experiment uses 128 threads per row");
-    static_assert(Cols > 0 && Cols % N == 0, "Width must be a positive multiple of 128");
-    constexpr int cols = Cols;
-    constexpr int values_per_thread = cols / N;
+    static_assert(dims > 0 && dims % threads_per_block == 0, "dims must be a positive multiple of N");
+    constexpr int cols = dims;
+    constexpr int values_per_thread = cols / threads_per_block;
     float values[values_per_thread];
 
     // Load each assigned input once into a fixed-size private buffer.
     // Unrolled constant indexing lets the compiler allocate values to registers.
     #pragma unroll
     for (int j = 0; j < values_per_thread; ++j) {
-        values[j] = x[row * cols + t + j * N];
+        values[j] = x[row * cols + t + j * threads_per_block];
     }
 
     // Same specialized online recurrence and input order as softmax_online.
@@ -318,7 +318,7 @@ __global__ void softmax_online_registers(const float* x, float* y) {
     state = warp_partials[0];
     #pragma unroll
     for (int j = 0; j < values_per_thread; ++j) {
-        y[row * cols + t + j * N] = expf(values[j] - state.m) / state.s;
+        y[row * cols + t + j * threads_per_block] = expf(values[j] - state.m) / state.s;
     }
 }
 
@@ -376,7 +376,7 @@ int main() {
             } else if (variant == 2) {
                 softmax_online<threads_per_block><<<test.rows, threads_per_block>>>(x_gpu, y_gpu, test.cols);
             } else {
-                softmax_online_registers<threads_per_block><<<test.rows, threads_per_block>>>(x_gpu, y_gpu);
+                softmax_online_registers<threads_per_block, 1024><<<test.rows, threads_per_block>>>(x_gpu, y_gpu);
             }
             check_cuda(cudaGetLastError(), "launch softmax variant");
             check_cuda(cudaDeviceSynchronize(), "execute softmax variant");
