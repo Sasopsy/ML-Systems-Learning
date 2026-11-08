@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
         if(variant=="baseline") softmax<128><<<rows,128>>>(dx,dy,cols);
         else if(variant=="warp") softmax_warp<128><<<rows,128>>>(dx,dy,cols);
         else if(variant=="online") softmax_online<128><<<rows,128>>>(dx,dy,cols);
-        else softmax_online_registers<128><<<rows,128>>>(dx,dy);
+        else softmax_online_registers<128, 1024><<<rows,128>>>(dx,dy);
     };
     for(int i=0;i<50;++i) launch();
     ck(cudaGetLastError()); ck(cudaDeviceSynchronize());

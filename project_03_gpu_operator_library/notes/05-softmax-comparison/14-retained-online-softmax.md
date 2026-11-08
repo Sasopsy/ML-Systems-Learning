@@ -162,10 +162,11 @@ comparison also retains the exact-width versus capacity/runtime-width distinctio
   `softmax_online_registers`, `merge_online`, `OnlineState`.
 - [Recorded host bridge](../../results/2026-10-31-offline-profiles-128k/source/softmax_sweep_bridge.cu):
   `launch_registers`, exact-width switch and 128-thread launch.
-- [Local learning source](../../kernels/cuda/softmax.cu) uses `Cols` and additionally
-  asserts `N==128`; the later recorded source uses `dims` and permits other
-  whole-warp block sizes. Its benchmark bridge still launches 128 threads.
-  This explanation follows the recorded 128-thread path; no source was replaced.
+- [Local learning source](../../kernels/cuda/softmax.cu), synchronized with the GPU
+  commit on 2026-11-08, now uses `softmax_online_registers<N, dims>` and permits
+  other valid whole-warp block sizes. Before that merge, the local copy used
+  `Cols` and asserted `N==128`. The recorded benchmark bridge launches 128
+  threads; this explanation follows that measured path.
 - All 30 saved retained-online profiles show block `(128,1,1)`, grid `(nrows,1,1)`
   and matching exact-width template arguments. Examples:
   [37×1024](../../results/2026-10-27-offline-profiles/37x1024/online_registers_raw.csv),

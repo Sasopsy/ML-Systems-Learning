@@ -51,3 +51,12 @@
   "local/uncommitted" statements describe their original sessions.
 - Next: synthesize the five-case blog narrative. Raw profile/source downloads
   remain outside Git; no GPU run or kernel implementation in this follow-up.
+- Commit preparation: all 206 local documentation links/anchors resolved;
+  roadmap numbering and GEMM resume passed an independent read-only audit.
+  Python AST parsing passed for the plot script. Removed generated SVG trailing
+  whitespace and verified parsed elements/attributes were unchanged.
+- Saved local checkpoint `117a1e2`; fetching found GPU commit `1abac7b` ahead of
+  the previous base. Merged incoming code/tools without local kernel edits.
+  Resolved the two progress-record insertion conflicts by retaining both
+  histories and refreshed note 14's current-source reference. Push follows
+  final merge checks; the Git remote records the completed synchronization.

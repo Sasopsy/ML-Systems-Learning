@@ -47,7 +47,7 @@ static void bench(const char* op, int rows, int cols) {
                     [=]{softmax_online<128><<<rows,128>>>(dx,dy,cols);}};
         names = {"baseline","warp","online"};
         if (cols == 1024) {
-            launches.push_back([=]{softmax_online_registers<128><<<rows,128>>>(dx,dy);});
+            launches.push_back([=]{softmax_online_registers<128, 1024><<<rows,128>>>(dx,dy);});
             names.push_back("online_registers");
         }
     } else if (reduction) {
