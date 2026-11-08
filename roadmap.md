@@ -47,8 +47,11 @@ The roadmap is project-first. Courses and papers support the projects rather tha
   language/compiler/kernel specialization follows concrete project needs.
 * Complete one architecture-transfer project first; other architecture ports,
   advanced serving, and the full platform are specialization branches.
-* Existing project IDs remain stable for progress records. Project **4C** adds
-  quantization; the recommended order below specifies dependencies and branches.
+* Project 4 adds DSA foundations after GPU operators. On 2026-10-29, former
+  Projects 4A/4B/4C became 5A/5B/5C and former Projects 5–17 became 6–18.
+  Projects 1–3 are unchanged. Dated history retains its original numbering;
+  see the [migration record](progress/sessions/2026-10-29-project-04-dsa-roadmap.md).
+  The recommended order below specifies dependencies and branches.
 
 ---
 
@@ -201,7 +204,7 @@ Create bad workloads—CPU preprocessing bottlenecks, unnecessary synchronizatio
 * Use Amdahl's law and rough compute/bandwidth bounds to predict useful targets.
 * Account for live tensor memory, allocator-reserved memory, temporary workspace,
   and peaks; do not equate total device memory use with live activations.
-* Revisit these checks in Project 4C before accepting lower-precision execution.
+* Revisit these checks in Project 5C before accepting lower-precision execution.
 
 **Exit:** Given an unfamiliar workload, you can identify where time and memory go and design an experiment to test competing explanations.
 
@@ -372,6 +375,76 @@ universal peak performance is not required.
 
 ---
 
+## Project 4: Data Structures and Algorithms for ML Systems
+
+**Starting point:** no prior DSA knowledge. Use **C++ from the beginning**, teaching
+language prerequisites alongside each concept. Run exercises locally on the Mac;
+no GPU is required. This project follows Project 3 and precedes PyTorch custom ops.
+
+**Goal:** independently choose, implement, test, and explain the data structures
+and algorithms used in ML systems.
+
+### Foundations and implementation sequence
+
+| Stage | Concepts and learner implementations | ML systems connection |
+| --- | --- | --- |
+| 1. C++ and algorithms | Functions, structs, references/pointers, object lifetime, ownership, RAII; tracing, invariants, time/space complexity, Big-O, average/worst-case and amortized costs | Storage ownership, allocation, batch-processing costs |
+| 2. Arrays and strings | Contiguous storage, indexing, dynamic arrays and resizing, linear search, prefix sums, two pointers, sliding windows | Tensor layouts, sequence lengths, packed batches, rolling statistics |
+| 3. Linked structures | Singly/doubly linked lists, stacks, queues, deques, circular buffers | Work queues and bounded producer/consumer buffers |
+| 4. Searching, sorting, recursion | Call stacks, binary search boundaries, insertion sort, merge sort, quicksort, divide and conquer | Length-based batching and ordered lookup |
+| 5. Hashing | Maps/sets, hash functions, collisions, chaining, load factors, rehashing, expected versus worst-case cost | Token counting, deduplication, metadata lookup; build an LRU cache from a map and linked list |
+| 6. Trees and heaps | Traversals, binary search trees, why balancing matters, binary heaps, priority queues, tries | Top-k selection, priority scheduling, token-prefix lookup |
+| 7. Graphs | Adjacency lists/matrices, BFS/DFS, cycle detection, topological sorting, DAGs, shortest paths and Dijkstra's nonnegative-weight requirement | Computation dependencies and ready-operation scheduling |
+| 8. Algorithm design | Brute-force baselines, backtracking, greedy choices and counterexamples, memoization, dynamic programming | Small resource-selection problems and sequence alignment/edit distance |
+| 9. Systems capstone | Deterministic single-threaded DAG execution simulator, combining structures and preserving invariants | Compare FIFO and priority scheduling on identical graphs and synthetic costs |
+
+Teach logarithms and summations as needed. Compare **locality and allocation
+costs** as well as Big-O: equal asymptotic complexity does not imply equal runtime.
+Teach ownership before dynamically allocated structures. Implement core structures
+for understanding, then compare with `std::vector`, `std::deque`,
+`std::unordered_map`, `std::map`, and standard heap algorithms.
+
+### Capstone contract
+
+- Operations form a DAG with fixed, nonnegative synthetic execution costs.
+- Maintain predecessor counts; enqueue an operation only when all dependencies
+  complete. Compare FIFO with a priority queue using descending operation cost,
+  breaking ties by stable operation ID. Enqueue simultaneous arrivals by ID.
+- Simulate one operation at a time, advancing logical time by its cost. Reject
+  cyclic graphs; every operation must execute exactly once after its predecessors.
+- Compare execution order and per-operation completion times on the same inputs.
+  With one serial executor and no modeled overhead, total completion time is the
+  sum of costs under either policy; do not infer a makespan speedup from ordering.
+- Keep this a dependency/scheduling model, not a GPU-runtime performance claim.
+  Reuse the concepts later in Projects 5B and 10–11.
+
+### Learning loop and validation
+
+- Follow **explanation → worked example → learner implementation → review →
+  unfamiliar transfer**. Assistant supplies requested scaffolding and test support;
+  learner writes learning-target algorithms.
+- Use **C++17**, compiler warnings, and relevant address/undefined-behavior
+  sanitizers. No new toolchain installation is required during roadmap planning.
+- Test empty/singleton inputs, duplicates, boundary indices, missing keys,
+  resizing, and invalid graph dependencies where applicable.
+- Compare against standard-library behavior or small brute-force references.
+  Check structural invariants, not merely final outputs.
+- Measure operation counts and increasing input sizes before interpreting elapsed
+  time. Separate implementation correctness from performance and understanding.
+
+**Exit:** independently explain invariants and complexity, justify a structure for
+an unfamiliar ML systems problem, implement a modification, and diagnose a bug.
+Passing tests or completing assisted code alone does not establish mastery.
+
+**Optional extensions:** balanced-tree implementation, advanced graph algorithms,
+lock-free structures, and GPU-parallel DSA when a later workload needs them.
+
+**Records:** [Project 4 progress](progress/projects/04-dsa-for-ml-systems.md).
+Create `project_04_dsa_for_ml_systems/` with exercises, tests, and sectioned revision
+notes when lessons begin. Keep future syllabus here and covered lessons in notes.
+
+---
+
 # Phase 4 — PyTorch Systems Internals
 
 Understand this stack:
@@ -400,7 +473,7 @@ Generated Triton/C++/CUDA
 CUDA runtime
 ```
 
-## Project 4A: Build a Proper PyTorch Custom Operator
+## Project 5A: Build a Proper PyTorch Custom Operator
 
 Take one of your kernels and integrate it fully.
 
@@ -433,7 +506,7 @@ Investigate whether your custom op helps the whole compiled graph or becomes an 
 
 # Phase 5 — torch.compile
 
-## Project 4B: Build a Torch Compile Laboratory
+## Project 5B: Build a Torch Compile Laboratory
 
 Do not treat:
 
@@ -524,10 +597,10 @@ when that denominator is positive.
 
 # Phase 5B — Quantization and Low-Precision Systems
 
-## Project 4C: Build a Quantization Laboratory
+## Project 5C: Build a Quantization Laboratory
 
 **Prerequisites:** Project 2 measurement/numerical reasoning and basic Project 3
-kernels/Project 4A integration. Compiler comparisons reuse Project 4B. Use a
+kernels/Project 5A integration. Compiler comparisons reuse Project 5B. Use a
 small pretrained model; completing LLM pretraining is not a prerequisite.
 
 **Goal:** understand the major practical quantization families, implement the
@@ -565,7 +638,7 @@ and [vLLM support matrix](https://docs.vllm.ai/en/latest/features/quantization/)
 | [AWQ](https://arxiv.org/abs/2306.00978) | Activation-informed weight scaling to protect important channels | **Core:** compare against GPTQ and RTN on the same decoder |
 | [SmoothQuant](https://arxiv.org/abs/2211.10438) | Move activation quantization difficulty into weights through equivalent scaling | **Core:** test W8A8 and calibration sensitivity |
 | [LLM.int8()](https://arxiv.org/abs/2208.07339) | Mixed-precision handling of activation outliers | Required conceptual comparison with SmoothQuant; optional separate benchmark |
-| [NF4 / QLoRA](https://arxiv.org/abs/2305.14314) | Nonuniform weight representation, double quantization, adapters over a frozen quantized base | Survey here; one bounded fine-tuning experiment in Project 11. QLoRA is a fine-tuning method, not synonymous with QAT |
+| [NF4 / QLoRA](https://arxiv.org/abs/2305.14314) | Nonuniform weight representation, double quantization, adapters over a frozen quantized base | Survey here; one bounded fine-tuning experiment in Project 12. QLoRA is a fine-tuning method, not synonymous with QAT |
 | [AutoRound](https://github.com/intel/auto-round) and [HQQ](https://github.com/dropbox/hqq) | Optimized rounding versus half-quadratic quantization without calibration data | Survey both; optional experiment with either |
 | [OmniQuant](https://arxiv.org/abs/2308.13137) | Learnable clipping and equivalent transformations during calibration | Optional algorithm extension |
 | [QuaRot](https://arxiv.org/abs/2404.00456) and [SpinQuant](https://arxiv.org/abs/2405.16406) | Rotations to manage outliers; fixed/random versus learned rotations | Survey both; optional comparison of rotation cost and quality |
@@ -574,7 +647,7 @@ and [vLLM support matrix](https://docs.vllm.ai/en/latest/features/quantization/)
 | [llama.cpp K/IQ schemes](https://github.com/ggml-org/llama.cpp/wiki/Tensor-Encoding-Schemes) | Block encodings and importance-aware quantization; GGUF is the container | Survey; optional CPU/Apple Silicon deployment experiment with [importance calibration](https://github.com/ggml-org/llama.cpp/blob/master/tools/imatrix/README.md) |
 | [QAT](https://docs.pytorch.org/ao/stable/workflows/qat.html) | Fake quantization, straight-through gradient estimation, conversion to executable quantized operators | **Core:** small-model PTQ versus QAT quality comparison |
 | [BitNet](https://github.com/microsoft/BitNet) | Models designed/trained for very low-bit weights | Optional training specialization; do not assume arbitrary pretrained models can be cast to ternary weights |
-| [KIVI](https://arxiv.org/abs/2402.02750), runtime FP8 KV, TurboQuant | KV-cache-specific representation, scaling, and attention integration | Survey here; implementation belongs after the basic Project 10 KV runtime, then the capstone |
+| [KIVI](https://arxiv.org/abs/2402.02750), runtime FP8 KV, TurboQuant | KV-cache-specific representation, scaling, and attention integration | Survey here; implementation belongs after the basic Project 11 KV runtime, then the capstone |
 
 Algorithms, data formats, kernel backends, and checkpoint containers are distinct
 choices. Record all four for an experiment. A framework exposing a configuration
@@ -621,7 +694,7 @@ training; KV compression; new low-bit methods prompted by deployment needs.
 
 # Phase 6 — CUDA Graphs
 
-## Project 5: Build a CUDA Graph Runtime
+## Project 6: Build a CUDA Graph Runtime
 
 Keep this conceptually separate from compilation:
 
@@ -708,7 +781,7 @@ Run this benchmark matrix:
 
 # Phase 7 — Data and Training Infrastructure
 
-## Project 6: High-Throughput Data + Training Pipeline
+## Project 7: High-Throughput Data + Training Pipeline
 
 Build pipelines for:
 
@@ -774,7 +847,7 @@ memory/time tradeoff, and recover training without silently resetting state.
 
 # Phase 8 — LLM Pretraining
 
-## Project 7: End-to-End Language Model Training
+## Project 8: End-to-End Language Model Training
 
 Use Stanford CS336 heavily.
 
@@ -825,7 +898,7 @@ Run controlled scaling experiments and compare quality against:
 
 # Phase 9 — Distributed Training
 
-## Project 8: Build a Distributed Training Laboratory
+## Project 9: Build a Distributed Training Laboratory
 
 Use both a CNN/ViT and your language model.
 
@@ -883,9 +956,9 @@ Test rank failure and recovery.
 
 ## Connected Runtime Track — Scheduling, Memory, and GPU Execution
 
-Build a **small inference runtime** across Projects 9 and 10. Keep their existing
-IDs and reuse the Project 2 measurement harness, Project 3 kernels, Project 4B
-compiler experience, and Project 5 CUDA Graph machinery.
+Build a **small inference runtime** across Projects 10 and 11. Reuse the Project 2
+measurement harness, Project 3 kernels, Project 4 data structures and scheduling
+foundations, Project 5B compiler experience, and Project 6 CUDA Graph machinery.
 
 **Goal:** turn incoming requests into correct GPU work, account for their state
 and memory, and explain scheduling and execution costs.
@@ -901,23 +974,23 @@ using the installed versions and matching source/documentation.
 
 ### Five milestones
 
-1. **Basic model executor — Project 9.** Start with one small model and PyTorch
+1. **Basic model executor — Project 10.** Start with one small model and PyTorch
    operations. Implement reusable input/output buffers, shape validation, explicit
    completion tracking, and safe buffer reuse. Verify repeated calls with changing
    inputs against a reference; diagnose a deliberate premature-buffer-reuse bug.
-2. **Execution backends — Project 9.** Run a supported workload through eager
+2. **Execution backends — Project 10.** Run a supported workload through eager
    PyTorch, CUDA Graph replay, and TensorRT. Separate engine building/capture,
    loading, warmup, and repeated execution. Explain backend-specific state,
    supported shapes, and fallback behavior. Retain the compiler comparisons below.
-3. **Request scheduler — bridge from Project 9 to 10.** Use an in-process request
+3. **Request scheduler — bridge from Project 10 to 11.** Use an in-process request
    generator with controlled arrivals. Implement a queue, batching, admission and
    memory limits, cancellation, and cleanup. Compare immediate execution with
    waiting to form larger batches; measure both queueing and execution time.
-4. **Decoder runtime — Project 10 V1–V4.** Extend to one small pretrained decoder:
+4. **Decoder runtime — Project 11 V1–V4.** Extend to one small pretrained decoder:
    prefill, incremental decode, per-request KV state, variable-length batches,
    continuous batching, then block-based KV allocation and reclamation. Verify
    output/state correctness as requests join, finish, or cancel.
-5. **Production-runtime trace and comparison — Project 10.** Follow one request
+5. **Production-runtime trace and comparison — Project 11.** Follow one request
    through a pinned vLLM version: admission → scheduling → cache allocation →
    model execution → output → cleanup. Map those components to the implementation
    above and run a bounded matched-workload comparison. TensorRT-LLM comparison
@@ -935,7 +1008,7 @@ using the installed versions and matching source/documentation.
 * Keep memory bounded; reclaim finished/cancelled request state without leaks,
   premature reuse, or corruption of other requests.
 * Defer multi-GPU execution, network serving, and advanced generation policies
-  until measurements justify them. Project 16 covers the broader service.
+  until measurements justify them. Project 17 covers the broader service.
 
 **Worked workload to investigate:** A has a long prompt, B is decoding, C arrives,
 and B is cancelled while GPU work is in flight. Predict which requests run next,
@@ -960,10 +1033,10 @@ one correctness failure and one performance regression, then test the explanatio
 References: [TensorRT runtime capabilities](https://docs.nvidia.com/deeplearning/tensorrt/latest/inference-library/capabilities.html),
 [vLLM architecture](https://docs.vllm.ai/en/latest/design/arch_overview/).
 
-## Project 9: TensorRT Deployment Laboratory
+## Project 10: TensorRT Deployment Laboratory
 
 Owns milestones 1–2 of the [connected runtime track](#connected-runtime-track--scheduling-memory-and-gpu-execution);
-milestone 3 bridges into Project 10.
+milestone 3 bridges into Project 11.
 
 Learn TensorRT as a **general DL inference system**, not only TensorRT-LLM.
 
@@ -1007,7 +1080,7 @@ Study:
 * supported FP8 paths;
 * INT8 where appropriate.
 
-Reuse the quantization recipes and acceptance criteria from **Project 4C**.
+Reuse the quantization recipes and acceptance criteria from **Project 5C**.
 Compare the actual supported export/runtime paths rather than treating a precision
 flag as proof that every operator executes in that precision.
 
@@ -1025,7 +1098,7 @@ Integrate one of your own GPU kernels.
 
 # Phase 11 — LLM Inference
 
-## Project 10: Build an LLM Runtime
+## Project 11: Build an LLM Runtime
 
 Continue the [connected runtime track](#connected-runtime-track--scheduling-memory-and-gpu-execution):
 extend the executor/scheduler through milestones 4–5. Reuse its buffers,
@@ -1102,12 +1175,12 @@ Measure separately:
 
 # Phase 12 — LLM Post-Training
 
-## Project 11: SFT + Preference Training + Rollouts
+## Project 12: SFT + Preference Training + Rollouts
 
 Use a suitably sized pretrained model.
 
 **First pass:** bounded SFT and preference-training runs with reproducible data,
-evaluation, and checkpoint recovery. Revisit Project 4C with one small NF4/QLoRA
+evaluation, and checkpoint recovery. Revisit Project 5C with one small NF4/QLoRA
 fine-tuning experiment. Full rollout infrastructure is a later specialization.
 
 Implement:
@@ -1152,9 +1225,9 @@ recover the repeated rollout/reward/update process, including model provenance.
 
 # Phase 13 — Architecture Transfer: SSMs
 
-## Project 12: Replace the Transformer with an SSM
+## Project 13: Replace the Transformer with an SSM
 
-**Architecture-transfer option:** choose this or Project 13 first. Complete the
+**Architecture-transfer option:** choose this or Project 14 first. Complete the
 other later if it serves your goals; neither is a prerequisite for serving work.
 
 Use Mamba/Mamba-2 as a reference.
@@ -1195,9 +1268,9 @@ Ask:
 
 # Phase 14 — Architecture Transfer: Diffusion
 
-## Project 13: Build a Diffusion / Flow-Matching System
+## Project 14: Build a Diffusion / Flow-Matching System
 
-**Architecture-transfer option:** choose this or Project 12 first. Start with
+**Architecture-transfer option:** choose this or Project 13 first. Start with
 one small denoiser; a second architecture and all deployment backends are extensions.
 
 Implement a small model yourself.
@@ -1238,7 +1311,7 @@ Keep systems optimizations separate from algorithmic changes such as reducing sa
 
 # Phase 15 — Architecture Transfer: World Models
 
-## Project 14: Build an Action-Conditioned World Model
+## Project 15: Build an Action-Conditioned World Model
 
 **Optional specialization:** revisit after one architecture-transfer project;
 it is not required before retrieval, serving, or the platform milestone.
@@ -1271,7 +1344,7 @@ Eventually use the world model for a small planning/control problem.
 
 # Phase 16 — Recommendation and Embedding Systems
 
-## Project 15: Retrieval + Ranking
+## Project 16: Retrieval + Ranking
 
 **Breadth option:** retain for sparse-access and embedding-system experience;
 it can follow the core training/serving work independently of world models.
@@ -1309,7 +1382,7 @@ This exposes systems problems very different from dense transformer execution.
 
 # Phase 17 — Multi-Model Serving
 
-## Project 16: Build a General Inference Service
+## Project 17: Build a General Inference Service
 
 Serve:
 
@@ -1353,7 +1426,7 @@ Test overload, worker failure, client disconnects, slow models, and malformed in
 
 # Phase 18 — ML Platform
 
-## Project 17: Build an ML Lifecycle Platform
+## Project 18: Build an ML Lifecycle Platform
 
 **First pass:** one containerized train → evaluate → deploy → rollback path,
 with versioned artifacts, durable metadata, and a recovery test. Support one
@@ -1424,7 +1497,7 @@ they can use the broader multi-workload platform without manual intervention.
 
 Your TurboQuant project becomes a strong cross-layer capstone:
 
-Prerequisites: Project 4C quantization foundations and a working Project 10 KV
+Prerequisites: Project 5C quantization foundations and a working Project 11 KV
 runtime. Treat this as a later specialization; it does not replace general
 quantization coverage. Begin with one representation/runtime integration before
 adding connectors or distributed serving.
@@ -1593,23 +1666,24 @@ That last question is especially important.
 1. Mini DL framework
 2. Performance/profiling laboratory
 3. Practical CUDA C++ + Triton + TileLang operators (Project 3)
-4. PyTorch custom ops (Project 4A)
-5. torch.compile internals (Project 4B)
-6. Quantization foundations, survey, and core experiments (Project 4C)
-7. CUDA Graphs (Project 5)
-8. Data pipeline + training-memory optimization (Project 6)
-9. LLM pretraining (Project 7)
-10. Distributed training (Project 8)
-11. Runtime track milestones 1–3: executor, backends, scheduler (Project 9 → 10)
-12. Runtime track milestones 4–5: LLM V1–V4 and vLLM trace/comparison (Project 10; V5 optional)
-13. Bounded post-training + QLoRA (Project 11; rollout platform optional)
-14. One architecture transfer: SSM or diffusion (Project 12 or 13)
-15. General inference service and cost/latency evaluation (Project 16)
-16. One reproducible lifecycle path (Project 17)
+4. Data structures and algorithms in C++ (Project 4)
+5. PyTorch custom ops (Project 5A)
+6. torch.compile internals (Project 5B)
+7. Quantization foundations, survey, and core experiments (Project 5C)
+8. CUDA Graphs (Project 6)
+9. Data pipeline + training-memory optimization (Project 7)
+10. LLM pretraining (Project 8)
+11. Distributed training (Project 9)
+12. Runtime track milestones 1–3: executor, backends, scheduler (Project 10 → 11)
+13. Runtime track milestones 4–5: LLM V1–V4 and vLLM trace/comparison (Project 11; V5 optional)
+14. Bounded post-training + QLoRA (Project 12; rollout platform optional)
+15. One architecture transfer: SSM or diffusion (Project 13 or 14)
+16. General inference service and cost/latency evaluation (Project 17)
+17. One reproducible lifecycle path (Project 18)
 
 Optional branches, when relevant:
-- Additional architecture transfer and world model (Projects 12–14)
-- Retrieval/embedding systems (Project 15)
+- Additional architecture transfer and world model (Projects 13–15)
+- Retrieval/embedding systems (Project 16)
 - Advanced serving, full rollout system, general ML platform
 - Quantization algorithm extensions and KV experiments
 - TurboQuant capstone

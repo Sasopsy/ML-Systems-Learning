@@ -27,3 +27,10 @@
 - Open questions: model, installed backend versions, and exact execution environment to choose when the track begins.
 - Next learning task: resume unanswered Project 2 Q21; runtime implementation remains future work.
 - Changes remain local and uncommitted; no commit, push, or remote synchronization in this update.
+
+## Numbering follow-up — 2026-10-29
+
+- This dated entry uses the original Projects 9–10 numbering. They are now 10–11.
+- The original progress-record path above is historical; its current location is
+  [the runtime track record](../projects/10-11-inference-runtime.md).
+- See the [numbering migration](2026-10-29-project-04-dsa-roadmap.md).

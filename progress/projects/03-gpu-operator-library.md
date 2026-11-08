@@ -1,5 +1,144 @@
 # Project 3: GPU Operator Library
 
+## Softmax comparison checkpoint — 2026-11-08
+
+- Saved the retained-online redundancy discussion in note 14: Warp also retains
+  inputs and reuses its exponentials; our online recurrence adds rescaling and
+  recomputes exponentials for output. Combined reduction is still a tradeoff.
+- Proposed a same-mapping, 128-thread retained conventional-softmax control;
+  no implementation or measurement. Existing wins do not isolate the recurrence.
+- User authorized commit/push of accumulated work. Next: synthesize the five
+  selected blog cases. GEMM resume preserved; understanding not reassessed.
+
+## Wide-row softmax crossover analyzed — 2026-11-08
+
+- Added note18 for4096×8192/16384: ours retains64→128 values/thread, registers80→168 and resident-block limit6→3. PyTorch switches Reg→General with32 registers, two1024-thread blocks/SM and vector4 memory operations. No spills at16384.
+- General executes3× input load sectors but only~2.4% more DRAM reads than ours; L1/L2 hits absorb rereading. Vector accesses yield3/4 as many load instructions and1/4 stores. Our instruction advantage shrinks36.9→13.8% while issue falls48.52→32.72%; General issues46.44% at16384.
+- Read four profiles and source/SASS with independent resource and memory audits. Saved exact metrics/units and benchmark-versus-profile timing distinction. No new GPU run, kernel changes, commit or push.
+- Next: discuss this crossover, then synthesize the five selected cases into the blog narrative. Independent understanding not assessed; GEMM resume preserved.
+
+## Row-count softmax crossover analyzed — 2026-11-08
+
+- Added note17: the same Reg/retained Online specializations reverse winner as rows grow37→4096. Resident-row ceilings2 versus9 let ours gain inter-row latency hiding; issue16.66→58.57% while retaining ~30% fewer warp instructions/row. Reg still has higher occupancy/readiness/issue at the large shape.
+- Read four raw/detail captures and sources/SASS with independent scheduler and memory audits. Larger input64MiB exceeds reported50MiB L2; read hits collapse and both stream similar DRAM traffic. Ours sustains2.67TB/s versus2.23TB/s, an outcome rather than an isolated cause. No spills; equal global sectors.
+- Next: discuss this explanation, then4096×8192 versus4096×16384. Benchmark and profiler timings remain separate; no new GPU run, kernel edits, commit or push. Independent understanding not assessed; GEMM resume preserved.
+
+## First softmax profile crossover analyzed — 2026-11-06
+
+- Follow-up audit rechecked raw metrics and static SASS sites; expanded note16 with explicit algorithm-stage comparisons and equal global-load instruction counts redistributed over different numbers of warps. Kept per-SM placement as bounds and static instruction sites distinct from dynamic counts.
+- Added note16 for37×2048/37×4096: profiles support work distribution/per-thread work at2048 and stronger within-row parallelism/latency hiding at4096. Torch changes10→37 blocks and1→32 warps per row; ours stays37 blocks/four warps per row.
+- At2048 ours wins despite more instructions and lower active-cycle issue%; at4096 Torch wins despite more instructions, with issue59.72% versus16.66% and eligible2.10 versus0.17. Same input/store sectors within each shape, no spills, no DRAM saturation evidence.
+- Read four raw/detail/SASS exports and source; retained benchmark medians separately from profiler durations. Findings are supported explanations, not isolated causal percentages. User's same-H100/environment/repeated-run clarification accepted; no rerun prerequisite.
+- Next: discuss this explanation, then compare37×4096 with4096×4096. No GPU run or kernel changes; understanding not independently assessed. Changes local/uncommitted.
+
+## Softmax blog case shortlist — 2026-11-06
+
+- Proposed five retained-Online/PyTorch cases: 37×2048, 37×4096, 4096×4096, 4096×8192, 4096×16384. They connect width/family changes and a fixed-width row-count reversal, covering all three PyTorch families within the width16384 scope.
+- Added note15 with working title, matched graph medians, direct cross-check, case questions and report links. Recomputed20 selected medians from180 raw batch samples; winner agrees across modes and sample ranges are separated within each saved run.
+- Next: inspect the paired reports for37×2048 and37×4096 after stating hypotheses. No profiler-counter analysis or new GPU run during selection. Cross-run8192→16384 and graph-versus-eager timing scope remain explicit. Changes local/uncommitted; GEMM resume preserved.
+
+## Retained online softmax algorithm — 2026-11-05
+
+- Added note14 in the requested compact LaTeX/legend format: retained inputs, explicit conditional online updates, warp/block pair merges, empty-pair handling and output reuse.
+- Read the recorded source/bridge and local learning source; verified all30 saved retained-online captures use block128, grid equal to rows and exact-width templates. Preserved the distinction between recorded `dims` and local `Cols` variants.
+- Next: discuss retained Online, then compare algorithms with profiles for the plotted shapes. Explanation assisted; independent understanding not assessed. No new GPU run, kernel edit, commit or push; GEMM resume preserved.
+
+## PyTorch general softmax algorithm — 2026-11-04
+
+- Added note13: compact LaTeX algorithm/legend, explicit local max/sum, three vectorized input passes and the shared block-reduction helper from note12. Distinguished vector width4 from Reg's retained-slot count.
+- Verified all12 extended PyTorch captures use General template4, block1024, grid equal to rows. Inspected source alignment/prefix/tail/output branches; algorithm scopes the aligned FP32 main path. No new GPU measurements or causal performance claim.
+- Next: discuss General, then connect the three PyTorch algorithms to per-shape profiles. Independent understanding not assessed; changes local/uncommitted. GEMM resume point preserved.
+
+## PyTorch register softmax algorithm — 2026-11-04
+
+- Added note12 in the requested compact LaTeX/legend format: explicit local max/sum, retained logits, block-reduction scratch/barriers and output epilogue.
+- Verified all six recorded Reg captures: 1024 threads/block, one block/row, template slot count4/8 for width4096/8192. Inspected local source and pinned upstream block-reduction helper; no new GPU run or causal performance conclusion.
+- Next: discuss Reg's block-wide reduction and retained-input behavior, then the General kernel. Explanation assisted; independent understanding not assessed. Changes local/uncommitted; GEMM resume point preserved.
+
+## Explicit local softmax reductions — 2026-11-04
+
+- Added and then condensed capacity/log2, interleaving/coalescing and local-to-warp reduction explanations to three short bullets with examples, per user feedback. Independent understanding not reassessed.
+- Expanded note11 with local maximum and local sum initialization/loops before each warp reduction; added `lmax`/`lsum` to the legend and renumbered the algorithm.
+- User identified that the compact notation hid the local reduction; acknowledged the explanation. Independent transfer remains unassessed.
+- Documentation only; checked step numbering, LaTeX brace balance, local links and whitespace. Next: continue the warp-softmax walkthrough before other kernel families. Changes local/uncommitted.
+
+## Paper-style warp softmax algorithm — 2026-11-03
+
+- Latest format correction: compact LaTeX algorithm with short mnemonic names, a legend, per-thread vector notation and one inline reduction helper. Replaced the crowded long-name version; mathematical work unchanged, independent row work regrouped for readability.
+- User explicitly requested a single continuous algorithm box like the FlashAttention papers. Note11 now includes host dispatch, parameters, private storage, all device stages and both XOR reductions in that one box; explanatory notes follow below. Private buffer lifetime is logits → exponentials → output.
+- Kept measured-width instantiations, capacity padding, mode/type variations and pinned sources. Recorded this presentation preference in learning instructions.
+- CPU-model sanity checks against stable softmax passed for seven cases, including width17, width900, two-row batching and partial blocks. Local note links and `git diff --check` passed. These checks do not validate CUDA compilation, races or GPU performance.
+- Next: discuss this algorithm before advancing to the Reg/General kernels. No mastery assessment, GPU run, commit or push; changes remain local. GEMM resume point remains saved.
+
+## CUDA explanation depth adjusted — 2026-11-03
+
+- Follow-up: the user also rejected the stripped-down version. Note11 now gives kernel-level reasoning that connects mapping, private storage, compile-time choices and each computation stage, without re-teaching CUDA basics.
+- User clarified they know basic CUDA and found the expanded walkthrough excessive. Condensed note11 to kernel-specific mapping, computation and template choices; retained source references and relevant variations. Recorded the preference in learning instructions.
+- Next remains discussion of this kernel, then other families/profiles. No kernel edits, measurements or mastery assessment; local documentation changes only.
+
+## Warp softmax explanation restructured — 2026-11-03
+
+- User found the separate template glossary and algorithm explanation confusing. Rewrote note11 as one [37,1024] input moving through launch, per-lane storage, maximum, exponentials/sum, and output; introduce parameter names when their purpose appears.
+- Preserved six-parameter coverage, width900 padding, width128 batching, dtype/mode variations and pinned references. Recorded preference for concrete integrated explanations in the learning instructions.
+- Documentation only; no new numerical/performance claims or mastery assessment. Next: discuss the revised walkthrough before advancing to other kernels. Changes local/uncommitted.
+
+## Warp softmax template parameters — 2026-11-02
+
+- Expanded note11 with all six type/value template parameters, accumulator-versus-storage precision, capacity bucket dispatch, derived private-array dimensions, compile-time mode flags and runtime arguments.
+- Added the width900/capacity1024 worked example, clarified semantic masking versus bounds guards, and separated hardware warp size from subwarp grouping. FP32 unmasked benchmark scope retained; no new kernel implementation or measurements.
+- Checked illustrative padding/grid arithmetic and note links. Next: discuss this mapping before later kernel families and profiling hypotheses. Understanding remains unassessed; changes local/uncommitted.
+
+## PyTorch warp softmax algorithm — 2026-11-02
+
+- Added blog note11 with pinned upstream/bundled source references, stable-softmax algorithm, width1024 lane mapping, private input-to-exponential reuse, XOR all-reductions and width128 two-row batching.
+- Checked the bundled forward/helper/dispatch source and pinned upstream raw source. Described runtime width versus compile-time capacity and source-level differences from retained Online. No CUDA/source implementation edits or new GPU measurements.
+- Next: learner discussion of this algorithm, then Reg/General walkthroughs and profile-based hypotheses. Source explanation is assisted; independent understanding not assessed. Changes local/uncommitted.
+
+## Linear softmax plots — 2026-11-02
+
+- At user request, regenerated both retained and non-retained plot sets with linear x/y axes and zero-based runtime. Row-specific y ranges25/40/400µs match across variants; small-width markers stay at their numeric positions, with overlapping value labels omitted below2048.
+- Updated note10 and the plot script. Data/timing boundaries unchanged; no new GPU measurements. Next: algorithm walkthrough and profile interpretation.
+
+## Retained Online comparison plots — 2026-11-02
+
+- Added the requested retained-versus-PyTorch plots for rows37/256/4096 through width16384, using graph medians and matching log axes. Note10 now contains both plot sets; script selects the variant explicitly. Six new PNG/SVG files generated and visually checked; no new GPU run.
+- Next remains the algorithm walkthrough followed by profile interpretation. Changes local/uncommitted.
+
+## Softmax runtime plots — 2026-11-02
+
+- Created note10 and three PNG/SVG plots for rows37/256/4096, width128–16384: PyTorch versus non-retained Online, using graph-replay medians. Common log axes, point labels, two-run provenance and timing scope are visible.
+- Added a reproducible Matplotlib plotting script; validated42 input measurements, visually checked all three plots, and verified outputs/links. No new GPU run or kernel edits.
+- Next: explain the algorithms behind the plotted families before attributing their performance. Saved tables still include retained online and direct mode. Changes local/uncommitted.
+
+## Softmax blog comparison tables — 2026-11-02
+
+- User requested a blog-oriented notes subsection, starting with the full kernel/shape/speedup inventory. Created `notes/05-softmax-comparison/` and note09 with all30 shapes × three variants, separate graph/direct tables, actual PyTorch names, and bold custom medians below PyTorch.
+- Ratios use same-run/mode PyTorch median divided by custom median. Recomputed all180 source medians from1620 raw samples; checked30 recorded kernel pairs and all60 rendered table rows/120 ratios/highlights. Graph wins: online7/30, retained9/30; direct wins11/30 each. These are observed medians, not significance claims.
+- Notes distinguish eager dispatch under graph replay from direct Python/ctypes submission, preserve two-run provenance, and keep exact-width specialization and unprofiled-online limitations explicit. No algorithmic cause established yet.
+- Next: walk through the algorithms of PyTorch Warp/Reg/General and our Online/Retained variants before interpreting per-shape profile differences. No GPU execution or publication; local/uncommitted.
+
+## Large-width softmax results checked — 2026-11-02
+
+- Inspected the downloaded 2026-10-31 extension: rows37/256/4096 × dims16384/32768/65536/131072, FP32, N128. Timing includes PyTorch, conditional online, and retained online; profiles include only PyTorch and retained online.
+- Verified all178 manifest files (334818377 bytes), including24 reports; zero missing/size/hash errors. Recomputed all72 medians from648 samples; all24 capture logs contain PASS and exit0. Four memchecks passed at three rows, one per new width; no broader sanitizer claim.
+- PyTorch uses `cunn_SoftMaxForward<4,...>` in all12 new shapes. Retained kernel still specializes exact dims; the proposed runtime-width capacity experiment has not been performed in this package.
+- Retained variant loses all12 shapes in both timing modes. Static spills begin at32768 dims (255 registers/thread), supported by measured local spilling requests. At4096 rows, non-retained online has lower observed medians than PyTorch at32768/65536/131072; it has no paired profiles here. No sole-cause performance claim.
+- Bundled source differs from the local tracked source (generic N and larger-width dispatch); reviewed the snapshot without replacing code or pulling Git. No GPU run, commit or push.
+- Active next step: explain the three PyTorch kernel families now represented, then compare algorithms and profiling evidence. GEMM indexing remains saved for later resumption. [Verification session](../sessions/2026-11-02-project-03-large-softmax-results.md).
+
+## Naive GEMM foundations — 2026-10-28
+
+- User selected GEMM as next lesson. First contract: contiguous row-major A[37,130], B[130,65], C[37,65], FP32 inputs/accumulation/output; alpha1/beta0, no transpose or fused epilogue.
+- Mapping: one output/thread, 16×16-thread blocks with x across columns and y across rows. Learner to derive grid, guard and flat indexing before implementation.
+- Note 08/section added. No code, tests, or timing; subsequent low-precision MMA/WGMMA contract preserved. Softmax follow-ups remain open.
+
+## Mac results available and verified — 2026-10-28
+
+- Pulled origin/main by fast-forward to b664fcb. Separately downloaded ignored results were already present and preserved.
+- Full-sweep package verification passed for all 227 manifest files, including 36 `.ncu-rep` reports. Inspected recorded 62-run correctness and four sanitizer summaries; no new execution or broader sanitizer claim.
+- Read current experiment history, sweep methodology and 4096×1024/2048 pair tables. Next: learner interprets the width-dependent crossover using saved reports, separating unprofiled timing from replay diagnostics.
+- Verification/progress updates local and uncommitted. No GPU contact or shutdown action.
+
 ## Git handoff and separate results download — 2026-10-27
 
 - User authorized committing and pushing the code, benchmark scripts, revision notes, progress records and small validation logs.

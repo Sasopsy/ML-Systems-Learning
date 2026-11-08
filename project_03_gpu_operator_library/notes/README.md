@@ -5,6 +5,8 @@
 - [Elementwise kernels](01-elementwise-kernels/README.md): thread indexing and boundary handling.
 - [Reductions](02-reductions/README.md): row sums, stable/online softmax, warp reductions, and synchronization.
 - [Validation and measurement](03-validation-and-measurement/README.md): what correctness checks and sanitizers establish.
+- [GEMM](04-gemm/README.md): matrix layouts and one-output-per-thread baseline.
+- [Softmax comparison — blog working notes](05-softmax-comparison/README.md): kernel inventory, per-shape speedups, and measurement boundaries.
 - Add concise lesson notes in descriptive section folders with section indexes as topics are covered. Keep review Q&A separate.
 - [Project plan and progress](../../progress/projects/03-gpu-operator-library.md).
 - [Project 2 profiling notes](../../project_02_performance_laboratory/notes/README.md).

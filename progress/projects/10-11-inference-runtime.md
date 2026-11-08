@@ -1,6 +1,16 @@
-# Projects 9–10: Connected Inference Runtime Track
+# Projects 10–11: Connected Inference Runtime Track
 
-## Status — planned, 2026-10-20
+## Numbering and current status — 2026-10-29
+
+- Former Projects 9–10 are now **10–11**, following insertion of Project 4 DSA.
+- Scope remains TensorRT deployment and the connected LLM runtime. Implementation
+  is planned; independent understanding remains not assessed.
+- Reuse Project 4's queues, heaps, maps, ownership, and DAG scheduling foundations.
+- Active learning remains Project 3 GEMM; see [current status](../STATUS.md).
+- The dated entry below preserves its original IDs and learning context.
+  [Migration record](../sessions/2026-10-29-project-04-dsa-roadmap.md).
+
+## Status — planned, 2026-10-20 (historical numbering)
 
 - User approved the proposal; canonical scope is the [runtime track in the roadmap](../../roadmap.md#connected-runtime-track--scheduling-memory-and-gpu-execution).
 - Milestones: basic executor → execution backends → request scheduler → decoder/KV runtime → vLLM source trace and bounded comparison.

@@ -18,3 +18,10 @@ Track two separate dimensions:
 For performance experiments, record the workload, measurement boundary, prediction,
 controls, environment, repetitions, correctness checks, observations, and uncertainty.
 Store small summaries here; full traces and checkpoints belong in external storage.
+
+## Project numbering
+
+Project 4 DSA was inserted on 2026-10-29. Former 4A/4B/4C became 5A/5B/5C;
+former 5–17 became 6–18. Dated history keeps its original numbers. Use the
+[current roadmap](../roadmap.md) and [migration record](sessions/2026-10-29-project-04-dsa-roadmap.md)
+when resolving older references.
